@@ -11,29 +11,36 @@
 
   <script>
     // =========================================================================
-    // BẢNG CẤU HÌNH CỦA LONG (SAU NÀY CÓ ẢNH / VIDEO CHỈ CẦN ĐIỀN VÀO ĐÂY)
+    // BẢNG CẤU HÌNH CỦA LONG (ĐIỀN TÊN FILE NHẠC / ẢNH / VIDEO KHI CẦN)
     // =========================================================================
     const CONFIG = {
       recipientName: "Thy",
       senderName: "Long",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
-      // 1. Video chính Long tự quay chúc mừng sinh nhật ở Màn 4
-      // Khi quay xong, up lên cùng thư mục GitHub và điền tên file (VD: "chuc_mung_thy.mp4")
-      // Nếu để trống "", web sẽ tự hiện một tấm thiệp chữ ấm áp để bạn test trước
+      // 1. CẤU HÌNH 3 BẢN NHẠC CHO 3 PHẦN
+      // Mặc định để trống "" web sẽ tự chơi 3 bản Piano/Giao hưởng tích hợp sẵn (không bao giờ lỗi link):
+      // - track1: Happy Birthday To You (Piano) từ lúc vỡ màn hình -> thổi nến ước
+      // - track2: Giao hưởng huyền bí lúc quét quả cầu pha lê
+      // - track3: Bản tình ca Piano lãng mạn ở bầu trời pháo hoa cuối
+      // Nếu sau này Long có file .mp3 riêng thì chỉ cần điền tên file (VD: "bai_hat.mp3") vào từng mục!
+      musicTracks: {
+        track1_hpbd: "",
+        track2_mystery: "",
+        track3_romantic: ""
+      },
+
+      // 2. VIDEO CHÚC MỪNG SINH NHẬT CỦA LONG (VD: "video_chuc_mung.mp4")
       mainBirthdayVideo: "",
 
-      // 2. Danh sách ảnh & video kỷ niệm bay lơ lửng trên bầu trời pháo hoa (Màn 4)
-      // Khi nào sưu tầm đủ ảnh/video, điền thêm theo mẫu bên dưới:
-      // { type: "image", src: "ten_anh.jpg", caption: "Dòng chú thích ngắn ✨" },
-      // { type: "video", src: "ten_video.mp4", caption: "Khoảnh khắc đáng nhớ 🎬" },
+      // 3. DANH SÁCH ẢNH & VIDEO KỶ NIỆM BAY LƠ LỬNG DẠNG POLAROID (MÀN 4)
+      // Mẫu: { type: "image", src: "anh_1.jpg", caption: "Kỷ niệm đáng nhớ ✨" },
       floatingMemories: [
-        // Ví dụ mẫu (bỏ dấu // ở đầu dòng khi muốn kích hoạt):
-        // { type: "image", src: "anh_1.jpg", caption: "Ngày đầu tiên gặp gỡ ✨" },
-        // { type: "image", src: "anh_2.jpg", caption: "Nụ cười tỏa nắng nhất 🌷" },
+        // { type: "image", src: "anh_1.jpg", caption: "Nụ cười tỏa nắng nhất 🌷" },
+        // { type: "video", src: "clip_1.mp4", caption: "Khoảnh khắc vui vẻ 🎬" },
       ],
 
-      // Nội dung thiệp dự phòng (hiển thị nếu Long chưa kịp chèn video quay chúc mừng)
+      // Nội dung thiệp chữ hiển thị nếu Long chưa chèn video quay chúc mừng
       fallbackLetterText: "Chúc mừng sinh nhật Thy! Bước sang tuổi mới, chúc cô gái của Long luôn rạng rỡ, bình an, mọi điều ước hôm nay đều thành hiện thực và luôn giữ nụ cười tươi trên môi. Cảm ơn Thy vì đã xuất hiện và mang đến thật nhiều niềm vui. Hẹn gặp lại Thy vào một ngày gần nhất nhé!"
     };
   </script>
@@ -44,9 +51,7 @@
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
-    input, textarea {
-      user-select: text;
-    }
+    input, textarea { user-select: text; }
     body {
       margin: 0;
       padding: 0;
@@ -55,105 +60,231 @@
       background-color: #f3f4f6;
       color: #1f2937;
       overflow-x: hidden;
-      transition: background-color 0.8s ease;
+      transition: background 1s ease;
     }
-    body.dark-party {
-      background-color: #070410;
+    body.bling-universe {
+      background: radial-gradient(circle at 50% 25%, #1c0b2e 0%, #090312 65%, #030108 100%);
       color: #ffffff;
     }
     .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
     .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
     .font-script-love { font-family: 'Pacifico', cursive; }
 
-    /* Hiệu ứng Glitch nhiễu sóng (Twist 1 & Twist 3) */
+    /* Hiệu ứng Glitch & Vỡ màn hình khảo sát */
     @keyframes glitchShake {
       0% { transform: translate(0); filter: hue-rotate(0deg); }
-      20% { transform: translate(-8px, 4px) skewX(6deg); filter: hue-rotate(90deg) contrast(1.8); }
-      40% { transform: translate(8px, -4px) skewX(-6deg); filter: hue-rotate(180deg) invert(0.15); }
-      60% { transform: translate(-6px, -3px) scale(1.02); filter: hue-rotate(270deg); }
-      80% { transform: translate(6px, 3px) skewX(3deg); }
+      20% { transform: translate(-10px, 5px) skewX(8deg); filter: hue-rotate(90deg) contrast(1.8); }
+      40% { transform: translate(10px, -5px) skewX(-8deg); filter: hue-rotate(180deg); }
+      60% { transform: translate(-7px, -4px) scale(1.03); filter: hue-rotate(270deg); }
+      80% { transform: translate(7px, 4px) skewX(4deg); }
       100% { transform: translate(0); filter: none; }
     }
-    .glitch-active {
-      animation: glitchShake 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
+    .glitch-active { animation: glitchShake 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 
     @keyframes shatterDrop {
       0% { opacity: 1; transform: scale(1) rotate(0deg); }
-      40% { opacity: 0.9; transform: scale(1.04) rotate(-2deg); }
-      100% { opacity: 0; transform: translateY(120px) scale(0.82) rotate(8deg); filter: blur(6px); }
+      40% { opacity: 0.9; transform: scale(1.05) rotate(-2deg); }
+      100% { opacity: 0; transform: translateY(150px) scale(0.75) rotate(10deg); filter: blur(8px); }
     }
-    .shatter-out {
-      animation: shatterDrop 0.75s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
-    }
+    .shatter-out { animation: shatterDrop 0.75s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
+      from { opacity: 0; transform: translateY(22px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-up {
-      animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
+    .animate-fade-up { animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-    /* Ngọn nến lung linh & hiệu ứng bùng cháy */
-    @keyframes flameFlicker {
-      0%, 100% { transform: translateX(-50%) scale(1) rotate(-2deg); }
-      50% { transform: translateX(-50%) scale(1.08, 0.94) rotate(2deg); }
+    /* ===================================================================== */
+    /* TẠO HÌNH BÁNH KEM 3D CHÂN THẬT (REALISTIC LAYERED CAKE & CANDLE)        */
+    /* ===================================================================== */
+    .realistic-cake-stage { perspective: 900px; }
+    .cake-3d-body {
+      position: relative;
+      width: 220px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .candle-flame {
-      animation: flameFlicker 0.9s infinite alternate ease-in-out;
+    .cake-plate {
+      width: 250px;
+      height: 18px;
+      margin: -6px auto 0;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, #ffffff 0%, #d8dee9 65%, #94a3b8 100%);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 182, 193, 0.3);
+    }
+    .cake-tier-bottom {
+      position: relative;
+      width: 200px;
+      height: 68px;
+      margin: 0 auto;
+      border-radius: 100px / 22px;
+      background: linear-gradient(90deg, #9d174d 0%, #f43f5e 22%, #fda4af 50%, #e11d48 80%, #881337 100%);
+      box-shadow: inset 0 -10px 18px rgba(76, 5, 25, 0.6), 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .cake-tier-bottom::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 26px;
+      border-radius: 100px / 22px;
+      background: radial-gradient(ellipse at 50% 40%, #fff1f2 0%, #fecdd3 70%, #fda4af 100%);
+    }
+    .cake-tier-top {
+      position: relative;
+      width: 146px;
+      height: 56px;
+      margin: 0 auto -16px;
+      z-index: 5;
+      border-radius: 73px / 18px;
+      background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 28%, #fffbeb 52%, #f1f5f9 82%, #94a3b8 100%);
+      box-shadow: inset 0 -8px 14px rgba(15, 23, 42, 0.25), 0 8px 16px rgba(0, 0, 0, 0.45);
+    }
+    .cake-tier-top::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 22px;
+      border-radius: 73px / 18px;
+      background: radial-gradient(ellipse at 50% 45%, #ffffff 0%, #ffe4e6 85%, #fecdd3 100%);
+      box-shadow: inset 0 2px 6px rgba(244, 63, 94, 0.25);
+    }
+    .frosting-drips {
+      position: absolute;
+      top: 12px; left: 4px; right: 4px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .drip {
+      width: 14px;
+      background: linear-gradient(180deg, #ffe4e6 0%, #fb7185 100%);
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 5px rgba(136, 19, 55, 0.35);
+    }
+    .strawberry-3d {
+      position: absolute;
+      top: -4px;
+      width: 16px;
+      height: 18px;
+      background: radial-gradient(circle at 35% 30%, #ff8fa3 0%, #e11d48 45%, #881337 100%);
+      border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      z-index: 8;
+    }
+    .strawberry-3d::after {
+      content: "";
+      position: absolute;
+      top: -3px; left: 3px;
+      width: 10px; height: 5px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+    .candle-3d {
+      position: relative;
+      width: 12px;
+      height: 46px;
+      margin: 0 auto -10px;
+      z-index: 10;
+      border-radius: 6px / 3px;
+      background: repeating-linear-gradient(-35deg, #ffffff, #ffffff 5px, #fb7185 5px, #fb7185 10px);
+      box-shadow: inset -3px 0 5px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.4);
+    }
+    @keyframes realFlame {
+      0%, 100% { transform: translateX(-50%) scale(1, 1) rotate(-2deg); }
+      33% { transform: translateX(-50%) scale(1.06, 0.96) rotate(1.5deg); }
+      66% { transform: translateX(-50%) scale(0.95, 1.05) rotate(-1deg); }
+    }
+    .flame-3d {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 30px;
+      border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+      background: radial-gradient(ellipse at 50% 75%, #ffffff 0%, #fef08a 35%, #f97316 75%, rgba(234,88,12,0) 100%);
+      box-shadow: 0 0 25px #fbbf24, 0 0 55px #f97316, 0 0 90px rgba(251, 146, 60, 0.7);
+      animation: realFlame 0.75s infinite ease-in-out;
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 15;
     }
-    .candle-flame.super-flame {
-      transform: translateX(-50%) scale(1.85, 2.1) !important;
-      filter: drop-shadow(0 0 22px #ff9e00) drop-shadow(0 0 40px #ff3d00);
+    .flame-3d.super-flame {
+      transform: translateX(-50%) scale(1.9, 2.2) !important;
+      box-shadow: 0 0 40px #fde047, 0 0 85px #ea580c;
+    }
+    @keyframes smokeRise {
+      0% { opacity: 0.85; transform: translate(-50%, 0) scale(0.6); }
+      100% { opacity: 0; transform: translate(-35%, -55px) scale(2.2); }
+    }
+    .smoke-puff {
+      position: absolute;
+      top: -20px; left: 50%;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+      animation: smokeRise 1.6s ease-out forwards;
+      pointer-events: none;
     }
 
-    /* Sóng âm ghi âm */
-    @keyframes waveBar {
-      0%, 100% { height: 8px; }
-      50% { height: 28px; }
+    @keyframes spinDisk {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .wave-bar {
-      animation: waveBar 0.7s infinite ease-in-out;
+    .music-spinning { animation: spinDisk 6s linear infinite; }
+
+    .bling-text {
+      background: linear-gradient(90deg, #fff 0%, #fbcfe8 30%, #f472b6 50%, #fef08a 70%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 3.5s linear infinite;
+    }
+    @keyframes shineText {
+      to { background-position: 200% center; }
     }
 
-    /* Kỷ niệm lơ lửng trên bầu trời đêm */
-    @keyframes floatMemory {
+    @keyframes floatPolaroid {
       0%, 100% { transform: translateY(0px) rotate(var(--rot, -2deg)); }
-      50% { transform: translateY(-12px) rotate(calc(var(--rot, -2deg) * -1)); }
+      50% { transform: translateY(-10px) rotate(calc(var(--rot, -2deg) * -1)); }
     }
-    .memory-card {
-      animation: floatMemory var(--dur, 5s) ease-in-out infinite;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 182, 193, 0.3);
-      box-shadow: 0 12px 32px rgba(255, 77, 148, 0.22);
+    .polaroid-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.88));
+      padding: 8px 8px 14px 8px;
+      border-radius: 12px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(244, 114, 182, 0.35);
+      animation: floatPolaroid var(--dur, 5s) ease-in-out infinite;
     }
 
-    /* Glassmorphism Dark Card */
-    .glass-dark {
-      background: rgba(20, 12, 36, 0.68);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 133, 179, 0.25);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(255, 105, 180, 0.08);
+    @keyframes waveBar {
+      0%, 100% { height: 6px; }
+      50% { height: 24px; }
     }
+    .wave-bar { animation: waveBar 0.65s infinite ease-in-out; }
   </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative">
 
-  <!-- CANVAS HIỆU ỨNG HẠT 3D & PHÁO HOA TOÀN MÀN HÌNH -->
+  <!-- AUDIO PLAYER DỰ PHÒNG NẾU LONG CHÈN FILE MP3 -->
+  <audio id="custom-mp3-player" loop preload="auto"></audio>
+
+  <!-- NÚT ĐIỀU KHIỂN NHẠC GIAO HƯỞNG NỔI (HIỆN SAU TWIST 1) -->
+  <button id="music-toggle-btn" onclick="toggleSymphonyMusic()" class="hidden fixed top-4 right-4 z-50 items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/35 text-xs text-pink-100 shadow-[0_0_20px_rgba(244,114,182,0.4)]">
+    <span id="music-disk" class="inline-block text-base music-spinning">🎹</span>
+    <span id="music-label" class="font-semibold">HPBD Piano</span>
+  </button>
+
+  <!-- CANVAS BỤI TIÊN BLING BLING + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- CONTAINER CHÍNH -->
-  <main id="stage-container" class="relative z-10 w-full max-w-md px-4 py-6 flex flex-col items-center justify-center min-h-screen">
+  <main id="stage-container" class="relative z-10 w-full max-w-md px-5 py-6 flex flex-col items-center justify-center min-h-screen">
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1: TWIST 1 — PHIẾU KHẢO SÁT NGHIÊM TÚC GIẢ                        -->
+    <!-- MÀN 1: TWIST 1 — PHIẾU KHẢO SÁT GIẢ ĐÁNH LẠC HƯỚNG                    -->
     <!-- ===================================================================== -->
-    <section id="stage-1" class="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-6 transition-all">
+    <section id="stage-1" class="w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6 transition-all">
       <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
         <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold rounded uppercase tracking-wider">
           Biểu mẫu đánh giá #2026
@@ -189,203 +320,189 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1.5: BÙNG NỔ CHỮ HẠT 3D SAU KHI VỠ PHIẾU KHẢO SÁT                 -->
+    <!-- MÀN 1.5: KHÔNG GIAN ÁNH SÁNG 3D + HAPPY BIRTHDAY PIANO                -->
     <!-- ===================================================================== -->
-    <section id="stage-reveal" class="hidden w-full text-center space-y-5 animate-fade-up">
-      <div class="inline-block px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-300 text-xs font-bold tracking-widest uppercase">
-        ⚡ HỆ THỐNG ĐÃ BỊ HACK BỞI LONG
+    <section id="stage-reveal" class="hidden w-full text-center space-y-6 animate-fade-up">
+      <div class="inline-block px-4 py-1.5 rounded-full bg-pink-500/15 border border-pink-400/40 text-pink-200 text-xs font-bold tracking-widest uppercase shadow-[0_0_25px_rgba(244,114,182,0.4)]">
+        ✨ Bất ngờ chưa Thy ơi!
       </div>
-      <div class="pt-36 pb-4">
-        <p class="text-sm sm:text-base text-pink-100/90 leading-relaxed max-w-xs mx-auto">
-          Bị lừa rồi nha! Hôm nay là ngày đặc biệt của <span class="text-pink-400 font-bold">Thy</span>, không có phiếu khảo sát khô khan nào hết!
+
+      <div class="pt-40 pb-2">
+        <p class="text-base text-pink-100/95 leading-relaxed max-w-xs mx-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          Không có phiếu khảo sát khô khan nào hết! Hôm nay cả bầu trời ánh sáng và giai điệu này là dành riêng cho <span class="font-bold bling-text text-lg">Thy</span>.
         </p>
       </div>
-      <button type="button" onclick="goToStage2()" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold text-sm shadow-lg shadow-pink-500/30 active:scale-95 transition-transform">
-        Bước vào bữa tiệc sinh nhật ✨
+
+      <button type="button" onclick="goToStage2()" class="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 text-white font-extrabold text-sm shadow-[0_0_35px_rgba(244,114,182,0.65)] active:scale-95 transition-transform">
+        Thắp nến & Ước nguyện ✨
       </button>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2: GHI ÂM ĐIỀU ƯỚC & TWIST 2 — NGỌN NẾN CỨNG ĐẦU                  -->
+    <!-- MÀN 2: BÁNH KEM 3D CHÂN THẬT & NGỌN NẾN CỨNG ĐẦU                      -->
     <!-- ===================================================================== -->
-    <section id="stage-2" class="hidden w-full glass-dark rounded-3xl p-6 text-center space-y-5 animate-fade-up">
+    <section id="stage-2" class="hidden w-full text-center space-y-6 animate-fade-up">
       <div>
-        <span class="text-[11px] font-mono-tech text-pink-300/80 uppercase tracking-widest">Chặng 01 • Nghi thức ước nguyện</span>
-        <h2 class="font-serif-luxury text-3xl font-bold text-white mt-1">Thì thầm điều ước của Thy</h2>
+        <span class="text-[11px] font-mono-tech text-pink-300/80 uppercase tracking-[0.25em]">Make A Birthday Wish</span>
+        <h2 class="font-serif-luxury text-4xl font-bold bling-text mt-1">Thì thầm điều ước của Thy</h2>
       </div>
 
-      <!-- BÁNH KEM & NGỌN NẾN -->
-      <div class="relative h-44 flex items-end justify-center pt-8">
-        <div id="cake-wrapper" class="relative transition-transform duration-500 ease-out">
-          <!-- Ngọn lửa -->
-          <div id="candle-flame" onclick="handleCandleTap()" class="candle-flame cursor-pointer absolute -top-11 left-1/2 -translate-x-1/2 w-6 h-9 rounded-full bg-gradient-to-t from-orange-500 via-yellow-300 to-white shadow-[0_0_20px_#ffae00] z-20 flex items-center justify-center">
-            <div class="w-2 h-4 bg-white rounded-full opacity-90"></div>
+      <!-- CHIẾC BÁNH KEM 3D CHÂN THẬT -->
+      <div class="realistic-cake-stage pt-12 pb-2">
+        <div id="cake-wrapper" onclick="handleCandleTap()" class="cake-3d-body cursor-pointer">
+          <div id="candle-stick" class="candle-3d">
+            <div id="candle-flame" class="flame-3d"></div>
           </div>
-          <!-- Thân nến -->
-          <div onclick="handleCandleTap()" class="cursor-pointer w-3.5 h-12 mx-auto bg-gradient-to-b from-pink-200 to-pink-400 rounded-t-sm border-x border-pink-100/50 relative">
-            <div class="w-full h-2 bg-rose-500/40 mt-2"></div>
-            <div class="w-full h-2 bg-rose-500/40 mt-2"></div>
-          </div>
-          <!-- Tầng bánh kem -->
-          <div onclick="handleCandleTap()" class="cursor-pointer w-40 h-16 bg-gradient-to-b from-rose-300 to-pink-500 rounded-t-2xl relative shadow-lg border-t-4 border-white">
-            <div class="flex justify-around -mt-1">
-              <span class="w-5 h-4 bg-white rounded-b-full"></span>
-              <span class="w-6 h-5 bg-white rounded-b-full"></span>
-              <span class="w-5 h-3 bg-white rounded-b-full"></span>
-              <span class="w-6 h-5 bg-white rounded-b-full"></span>
-              <span class="w-5 h-4 bg-white rounded-b-full"></span>
+
+          <div class="cake-tier-top">
+            <div class="strawberry-3d" style="left: 22px;"></div>
+            <div class="strawberry-3d" style="left: 65px; top: -6px;"></div>
+            <div class="strawberry-3d" style="right: 22px;"></div>
+            <div class="frosting-drips">
+              <span class="drip" style="height: 16px;"></span>
+              <span class="drip" style="height: 24px;"></span>
+              <span class="drip" style="height: 14px;"></span>
+              <span class="drip" style="height: 22px;"></span>
+              <span class="drip" style="height: 18px;"></span>
+              <span class="drip" style="height: 25px;"></span>
+              <span class="drip" style="height: 15px;"></span>
             </div>
-            <div class="text-[11px] font-script-love text-white/95 mt-2">Happy Birthday Thy</div>
           </div>
-          <!-- Đĩa bánh -->
-          <div class="w-48 h-3 bg-white/80 rounded-full mx-auto shadow-md"></div>
+
+          <div class="cake-tier-bottom flex items-center justify-center">
+            <span class="font-script-love text-white/95 text-sm pt-4 drop-shadow-[0_2px_4px_rgba(136,19,55,0.8)]">
+              Happy Birthday Thy
+            </span>
+          </div>
+
+          <div class="cake-plate"></div>
         </div>
       </div>
 
-      <!-- BONG BÓNG TRÊU CHỌC KHI THỔI NẾN -->
-      <div id="candle-toast" class="min-h-[44px] flex items-center justify-center px-3 py-2 rounded-2xl bg-white/10 border border-pink-400/20 text-xs text-pink-200 font-medium">
-        Bước 1: Ghi lại điều ước bên dưới, sau đó chạm vào ngọn nến để thổi nhé!
+      <div id="candle-toast" class="px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/25 text-xs text-pink-100 shadow-[0_0_20px_rgba(244,114,182,0.2)]">
+        Ghi điều ước bên dưới rồi chạm vào ngọn nến để thổi nhé! 🕯️
       </div>
 
-      <!-- KHU VỰC GHI ÂM ĐIỀU ƯỚC -->
-      <div class="bg-black/35 rounded-2xl p-4 border border-white/10 space-y-3">
-        <div class="flex items-center justify-center gap-3">
-          <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-500/40 active:scale-95 transition-all">
-            <span id="record-icon" class="text-lg">🎙️</span>
+      <!-- THANH GHI ÂM & NHẬP ĐIỀU ƯỚC -->
+      <div class="space-y-3 max-w-sm mx-auto">
+        <div class="flex items-center justify-center gap-3 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+          <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_18px_rgba(244,63,94,0.7)] active:scale-95 transition-all shrink-0">
+            <span id="record-icon" class="text-base">🎙️</span>
           </button>
-          <div class="text-left">
-            <div id="record-status" class="text-xs font-bold text-white">Nhấn mic để ghi âm điều ước</div>
-            <div id="record-sub" class="text-[11px] text-gray-400">Giọng nói của Thy sẽ được giữ bí mật tới cuối</div>
+          <div class="text-left flex-1 min-w-0">
+            <div id="record-status" class="text-xs font-bold text-white truncate">Nhấn mic để thu âm điều ước</div>
+            <div id="record-sub" class="text-[10px] text-pink-200/75 truncate">Hoặc gõ chữ nhanh vào ô bên dưới</div>
+          </div>
+          <div id="audio-wave" class="hidden items-center gap-1 pr-1">
+            <span class="wave-bar w-1 bg-pink-400 rounded-full" style="animation-delay: 0s"></span>
+            <span class="wave-bar w-1 bg-amber-300 rounded-full" style="animation-delay: 0.15s"></span>
+            <span class="wave-bar w-1 bg-pink-300 rounded-full" style="animation-delay: 0.3s"></span>
           </div>
         </div>
 
-        <!-- Hiệu ứng sóng âm khi đang ghi -->
-        <div id="audio-wave" class="hidden items-center justify-center gap-1 h-8">
-          <span class="wave-bar w-1 bg-pink-400 rounded-full" style="animation-delay: 0s"></span>
-          <span class="wave-bar w-1 bg-rose-400 rounded-full" style="animation-delay: 0.15s"></span>
-          <span class="wave-bar w-1 bg-pink-300 rounded-full" style="animation-delay: 0.3s"></span>
-          <span class="wave-bar w-1 bg-rose-500 rounded-full" style="animation-delay: 0.1s"></span>
-          <span class="wave-bar w-1 bg-pink-400 rounded-full" style="animation-delay: 0.25s"></span>
-        </div>
+        <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-full"></audio>
 
-        <!-- Trình nghe lại sau khi ghi -->
-        <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-lg"></audio>
-
-        <!-- Ô nhập dự phòng (nếu dùng trình duyệt Messenger chặn mic) -->
-        <input type="text" id="wish-text-input" placeholder="Hoặc gõ nhanh điều ước nếu Thy đang ở chỗ ồn..." class="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/15 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-pink-400" />
+        <input type="text" id="wish-text-input" placeholder="Nhập điều ước bí mật của Thy tại đây..." class="w-full px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs text-white text-center placeholder-pink-200/50 focus:outline-none focus:border-pink-400" />
       </div>
 
-      <button type="button" onclick="handleCandleTap()" class="w-full py-3 rounded-2xl bg-white/15 hover:bg-white/25 border border-pink-300/30 text-xs font-bold text-pink-200 transition-all">
-        🌬️ Chạm vào đây hoặc ngọn nến để thổi nến
+      <button type="button" onclick="handleCandleTap()" class="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-pink-300/30 text-xs font-bold text-pink-200 shadow-[0_0_20px_rgba(244,114,182,0.25)] transition-all">
+        🌬️ Thổi nến ngay
       </button>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 3: TWIST 3 — QUÉT SINH TRẮC HỌC & LỖI NGÂN SÁCH VIP               -->
+    <!-- MÀN 3: QUẢ CẦU PHA LÊ (CHUYỂN GIAO HƯỞNG HUYỀN BÍ) & TWIST 3          -->
     <!-- ===================================================================== -->
-    <section id="stage-3" class="hidden w-full glass-dark rounded-3xl p-6 text-center space-y-6 animate-fade-up">
+    <section id="stage-3" class="hidden w-full text-center space-y-7 animate-fade-up">
       <div>
-        <span class="text-[11px] font-mono-tech text-cyan-300 uppercase tracking-widest">Chặng 02 • Bảo mật sinh trắc học</span>
-        <h2 class="font-serif-luxury text-3xl font-bold text-white mt-1">Mở khóa hộp quà đặc biệt</h2>
-        <p class="text-xs text-gray-300 mt-1">Chạm và giữ ngón tay 2 giây để xác nhận danh tính chủ nhân bữa tiệc</p>
+        <span class="text-[11px] font-mono-tech text-amber-300 uppercase tracking-[0.25em]">Exclusive Gift Vault</span>
+        <h2 class="font-serif-luxury text-4xl font-bold bling-text mt-1">Mở khóa món quà đặc biệt</h2>
+        <p class="text-xs text-pink-100/80 mt-1.5">Chạm và giữ ngón tay 2 giây vào quả cầu ánh sáng</p>
       </div>
 
-      <!-- VÒNG TRÒN QUÉT GIỮ 2 GIÂY -->
-      <div id="scanner-box" class="relative w-32 h-32 mx-auto flex items-center justify-center cursor-pointer touch-none"
+      <div id="scanner-box" class="relative w-36 h-36 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-gradient-to-tr from-pink-500/20 via-purple-500/20 to-amber-300/20 backdrop-blur-md shadow-[0_0_50px_rgba(244,114,182,0.45),inset_0_0_25px_rgba(255,255,255,0.25)]"
            onmousedown="startScan()" onmouseup="stopScan()" onmouseleave="stopScan()"
            ontouchstart="startScan(event)" ontouchend="stopScan()">
         <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="5" />
-          <circle id="scan-ring" cx="50" cy="50" r="44" fill="none" stroke="#ff4d94" stroke-width="5"
-                  stroke-dasharray="276.46" stroke-dashoffset="276.46" stroke-linecap="round" />
+          <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="4" />
+          <circle id="scan-ring" cx="50" cy="50" r="45" fill="none" stroke="#f472b6" stroke-width="4"
+                  stroke-dasharray="282.74" stroke-dashoffset="282.74" stroke-linecap="round" />
         </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span class="text-3xl">🎁</span>
-          <span id="scan-percent" class="text-[11px] font-mono-tech text-pink-300 mt-1">GIỮ 2S</span>
+          <span class="text-4xl drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">🔮</span>
+          <span id="scan-percent" class="text-[11px] font-mono-tech text-amber-200 font-bold mt-1.5 tracking-wider">GIỮ 2S</span>
         </div>
       </div>
 
-      <!-- BẢNG LỖI 404 GIẢ (TWIST 3) -->
-      <div id="fake-error-box" class="hidden rounded-2xl bg-red-950/85 border border-red-500/60 p-4 text-left space-y-3 animate-fade-up">
-        <div class="flex items-center gap-2 text-red-400 font-mono-tech text-xs font-bold">
-          <span>⚠️ SYSTEM ERROR 404: INSUFFICIENT_FUNDS</span>
+      <div id="fake-error-box" class="hidden max-w-sm mx-auto rounded-2xl bg-red-950/80 backdrop-blur-md border border-red-400/60 p-4 text-left space-y-3 shadow-[0_0_35px_rgba(239,68,68,0.45)] animate-fade-up">
+        <div class="flex items-center gap-2 text-red-300 font-mono-tech text-xs font-bold">
+          <span>⚠️ ERROR 404: INSUFFICIENT_FUNDS</span>
         </div>
         <p class="text-xs text-red-100 leading-relaxed">
           Rất tiếc! Số dư ví hiện tại của <span class="font-bold text-white">Long</span> không đủ để tải gói quà sinh nhật VIP này. Vui lòng thử lại sau!
         </p>
-        <button type="button" onclick="resolveBudgetTwist()" class="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white text-xs font-extrabold shadow-lg active:scale-95 transition-transform">
-          💳 Nạp thêm tình cảm & Thử mở lại
+        <button type="button" onclick="resolveBudgetTwist()" class="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-400 text-white text-xs font-extrabold shadow-lg active:scale-95 transition-transform">
+          💖 Nạp thêm tình cảm & Mở quà ngay
         </button>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 4: BẦU TRỜI PHÁO HOA KỶ NIỆM + VIDEO CHÚC MỪNG + HẸN GẶP LẠI      -->
+    <!-- MÀN 4: BẦU TRỜI PHÁO HOA (CHUYỂN GIAO HƯỞNG LÃNG MẠN) + POLAROID      -->
     <!-- ===================================================================== -->
-    <section id="stage-4" class="hidden w-full space-y-5 pb-10 animate-fade-up">
-      <!-- TIÊU ĐỀ TRÊN BẦU TRỜI SAO -->
-      <div class="text-center space-y-1 pt-2">
-        <div class="inline-block px-3.5 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-200 text-[11px] font-bold">
+    <section id="stage-4" class="hidden w-full space-y-6 pb-12 animate-fade-up">
+      <div class="text-center space-y-1.5 pt-2">
+        <div class="inline-block px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[11px] font-bold shadow-[0_0_20px_rgba(251,191,36,0.3)]">
           ✨ Đùa thôi! Quà cho Thy luôn ở chế độ VIP trọn đời
         </div>
-        <h2 class="font-script-love text-3xl text-pink-300 drop-shadow-[0_0_12px_rgba(255,105,180,0.8)] pt-1">
+        <h2 class="font-script-love text-4xl bling-text drop-shadow-[0_0_20px_rgba(244,114,182,0.85)] pt-1">
           Happy Birthday, Thy!
         </h2>
       </div>
 
-      <!-- KHU VỰC KỶ NIỆM LƠ LỬNG TRÊN BẦU TRỜI PHÁO HOA -->
-      <div id="floating-sky-area" class="w-full py-2">
-        <div id="memories-grid" class="grid grid-cols-2 gap-3">
-          <!-- JS sẽ tự động render ảnh/video từ CONFIG hoặc các thẻ kỷ niệm phát sáng -->
-        </div>
-      </div>
+      <div id="memories-grid" class="grid grid-cols-2 gap-3.5 px-1"></div>
 
-      <!-- KHUNG VIDEO CHÚC MỪNG SINH NHẬT CỦA LONG (HOẶC THIỆP CHỮ) -->
-      <div class="glass-dark rounded-3xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
-          <span class="text-xs font-bold text-pink-300">🎬 Lời nhắn đặc biệt từ Long</span>
-          <span class="text-[11px] text-gray-400 font-mono-tech">For Thy</span>
+      <div class="space-y-4 pt-2">
+        <div class="text-center">
+          <span class="text-xs font-bold text-pink-200 tracking-wider uppercase">🎬 Lời nhắn đặc biệt từ Long</span>
         </div>
 
-        <div id="main-message-container" class="w-full">
-          <!-- JS tự chèn Video nếu Long đã điền CONFIG.mainBirthdayVideo, hoặc hiện thiệp chữ -->
-        </div>
+        <div id="main-message-container" class="w-full"></div>
 
-        <!-- LỜI CHÚC CHỐT & HẸN GẶP LẠI -->
-        <div class="pt-2 border-t border-white/10 text-center space-y-3">
-          <p class="text-xs text-pink-100/90 italic leading-relaxed">
+        <div class="text-center space-y-3.5 pt-2">
+          <p class="text-xs sm:text-sm text-pink-100/95 italic leading-relaxed px-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             “Chúc mừng sinh nhật Thy thêm một lần nữa. Hẹn gặp lại Thy vào một ngày gần nhất để cùng hiện thực hóa điều ước hôm nay nhé!”
           </p>
 
-          <input type="text" id="reply-note-input" placeholder="Thy có muốn nhắn lại gì cho Long không nè? (Tùy chọn)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/15 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-pink-400" />
+          <input type="text" id="reply-note-input" placeholder="Thy có muốn nhắn lại gì cho Long không nè? (Tùy chọn)" class="w-full px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/25 text-xs text-white text-center placeholder-pink-200/60 focus:outline-none focus:border-pink-400" />
 
-          <button type="button" id="final-goodbye-btn" onclick="triggerFinalGoodbye()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-bold text-sm shadow-[0_10px_30px_rgba(244,63,94,0.45)] active:scale-95 transition-all">
+          <button type="button" id="final-goodbye-btn" onclick="triggerFinalGoodbye()" class="w-full py-4 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 text-white font-extrabold text-sm shadow-[0_0_35px_rgba(244,63,94,0.7)] active:scale-95 transition-all">
             💖 Goodbye for now, my love.
           </button>
-          <p id="send-status-text" class="text-[11px] text-pink-200/80 min-h-[16px]"></p>
+          <p id="send-status-text" class="text-[11px] text-amber-200 min-h-[16px]"></p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- MODAL PHÓNG TO KỶ NIỆM KHI CHẠM VÀO -->
-  <div id="memory-modal" onclick="closeMemoryModal()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div onclick="event.stopPropagation()" class="max-w-sm w-full glass-dark rounded-3xl p-4 text-center space-y-3 animate-fade-up">
-      <div id="modal-media-box" class="w-full rounded-2xl overflow-hidden bg-black/50"></div>
-      <p id="modal-caption" class="text-xs text-pink-200 font-medium"></p>
-      <button type="button" onclick="closeMemoryModal()" class="px-5 py-2 rounded-full bg-white/15 text-xs font-bold text-white">Đóng lại</button>
+  <!-- MODAL XEM PHÓNG TO KỶ NIỆM -->
+  <div id="memory-modal" onclick="closeMemoryModal()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+    <div onclick="event.stopPropagation()" class="max-w-sm w-full polaroid-card text-center space-y-3 animate-fade-up">
+      <div id="modal-media-box" class="w-full rounded-lg overflow-hidden bg-black"></div>
+      <p id="modal-caption" class="text-xs text-gray-800 font-bold"></p>
+      <button type="button" onclick="closeMemoryModal()" class="px-5 py-1.5 rounded-full bg-pink-500 text-xs font-bold text-white">Đóng lại</button>
     </div>
   </div>
 
-  <!-- MÀN HÌNH KẾT THÚC SAU KHI BẤM GOODBYE FOR NOW, MY LOVE -->
-  <div id="ending-overlay" class="fixed inset-0 z-40 hidden flex-col items-center justify-center p-6 text-center bg-black/55 backdrop-blur-sm pointer-events-none">
+  <!-- MÀN HÌNH KẾT THÚC ĐIỆN ẢNH -->
+  <div id="ending-overlay" class="fixed inset-0 z-40 hidden flex-col items-center justify-center p-6 text-center bg-black/50 backdrop-blur-sm pointer-events-none">
     <div class="max-w-sm space-y-4 animate-fade-up pointer-events-auto">
-      <div class="text-5xl animate-bounce">💖</div>
-      <h2 class="font-script-love text-4xl text-pink-300 drop-shadow-[0_0_16px_rgba(255,105,180,0.9)]">
+      <div class="text-6xl animate-bounce drop-shadow-[0_0_25px_rgba(244,114,182,0.9)]">💖</div>
+      <h2 class="font-script-love text-4xl bling-text drop-shadow-[0_0_20px_rgba(255,105,180,0.95)]">
         Goodbye for now, my love.
       </h2>
-      <p class="text-sm text-white/90 leading-relaxed">
+      <p class="text-sm text-white/95 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
         Điều ước và lời nhắn của Thy đã được gửi tới Long rồi. Hẹn sớm gặp lại Thy nhé! ✨
       </p>
     </div>
@@ -393,7 +510,207 @@
 
   <script>
     // =========================================================================
-    // 1. HỆ THỐNG CANVAS: HẠT CHỮ 3D + SAO BĂNG + PHÁO HOA VẬT LÝ & TRÁI TIM
+    // 1. BỘ TỔNG HỢP NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG (WEB AUDIO + MP3 FALLBACK)
+    // =========================================================================
+    class SymphonyEngine {
+      constructor() {
+        this.ctx = null;
+        this.timer = null;
+        this.isMuted = false;
+        this.currentScene = 0;
+        this.step = 0;
+        this.mp3Player = document.getElementById("custom-mp3-player");
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+        }
+        if (this.ctx.state === "suspended") {
+          this.ctx.resume();
+        }
+      }
+
+      // Chơi một nốt Piano ấm áp có độ ngân tự nhiên
+      playPianoNote(freq, duration = 0.8, volume = 0.14, type = "triangle") {
+        if (this.isMuted || !this.ctx || !freq) return;
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const overtone = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+
+        // Họa âm nhẹ giúp tiếng đàn giống đàn Piano cơ / Hộp nhạc hơn
+        overtone.type = "sine";
+        overtone.frequency.setValueAtTime(freq * 2, now);
+
+        const overtoneGain = this.ctx.createGain();
+        overtoneGain.gain.setValueAtTime(volume * 0.25, now);
+        overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.6);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(volume, now + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        overtone.connect(overtoneGain);
+        overtoneGain.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        overtone.start(now);
+        osc.stop(now + duration + 0.05);
+        overtone.stop(now + duration + 0.05);
+      }
+
+      stopLoop() {
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
+        this.mp3Player.pause();
+      }
+
+      setScene(sceneNum) {
+        this.init();
+        this.stopLoop();
+        this.currentScene = sceneNum;
+        this.step = 0;
+
+        const label = document.getElementById("music-label");
+        const btn = document.getElementById("music-toggle-btn");
+        btn.classList.remove("hidden");
+        btn.classList.add("flex");
+
+        // Kiểm tra xem Long có điền file MP3 riêng cho chặng này không
+        let customUrl = "";
+        if (sceneNum === 1) customUrl = CONFIG.musicTracks.track1_hpbd;
+        if (sceneNum === 2) customUrl = CONFIG.musicTracks.track2_mystery;
+        if (sceneNum === 3) customUrl = CONFIG.musicTracks.track3_romantic;
+
+        if (customUrl && customUrl.trim() !== "") {
+          this.mp3Player.src = customUrl;
+          this.mp3Player.volume = 0.65;
+          if (!this.isMuted) this.mp3Player.play().catch(() => {});
+          if (label) label.textContent = sceneNum === 1 ? "HPBD Piano" : (sceneNum === 2 ? "Giao hưởng Bí ẩn" : "Tình ca Pháo hoa");
+          return;
+        }
+
+        // Nếu không dùng file MP3 ngoài -> Chơi nhạc Piano / Giao hưởng tích hợp
+        if (sceneNum === 1) {
+          if (label && !this.isMuted) label.textContent = "HPBD Piano";
+          this.runHpbdPiano();
+        } else if (sceneNum === 2) {
+          if (label && !this.isMuted) label.textContent = "Giao hưởng Bí ẩn";
+          this.runMysterySymphony();
+        } else if (sceneNum === 3) {
+          if (label && !this.isMuted) label.textContent = "Tình ca Pháo hoa";
+          this.runRomanticSymphony();
+        }
+      }
+
+      // CHẶNG 1: HAPPY BIRTHDAY TO YOU (PIANO + HỢP ÂM TRẦM ẤM ÁP)
+      runHpbdPiano() {
+        // Bảng tần số nốt nhạc chuẩn (Hz)
+        const N = {
+          C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00,
+          A4: 440.00, Bb4: 466.16, C5: 523.25, F3: 174.61, C3: 130.81, Bb3: 233.08
+        };
+        // Giai điệu đầy đủ 4 câu "Happy Birthday To You" (Giọng F trưởng ấm áp)
+        const melody = [
+          // Hap-py Birth-day to you
+          { f: N.C4, b: N.F3, d: 380 }, { f: N.C4, d: 220 }, { f: N.D4, d: 600 }, { f: N.C4, d: 600 }, { f: N.F4, b: N.C3, d: 600 }, { f: N.E4, d: 1100 },
+          // Hap-py Birth-day to you
+          { f: N.C4, b: N.C3, d: 380 }, { f: N.C4, d: 220 }, { f: N.D4, d: 600 }, { f: N.C4, d: 600 }, { f: N.G4, b: N.F3, d: 600 }, { f: N.F4, d: 1100 },
+          // Hap-py Birth-day dear Thy
+          { f: N.C4, b: N.F3, d: 380 }, { f: N.C4, d: 220 }, { f: N.C5, d: 600 }, { f: N.A4, d: 600 }, { f: N.F4, b: N.Bb3, d: 600 }, { f: N.E4, d: 600 }, { f: N.D4, d: 1100 },
+          // Hap-py Birth-day to you
+          { f: N.Bb4, b: N.Bb3, d: 380 }, { f: N.Bb4, d: 220 }, { f: N.A4, b: N.F3, d: 600 }, { f: N.F4, d: 600 }, { f: N.G4, b: N.C3, d: 600 }, { f: N.F4, b: N.F3, d: 1500 }
+        ];
+
+        const playNext = () => {
+          if (this.currentScene !== 1) return;
+          const note = melody[this.step % melody.length];
+          this.playPianoNote(note.f, (note.d / 1000) * 1.4, 0.15, "triangle");
+          if (note.b) {
+            this.playPianoNote(note.b, 1.8, 0.09, "sine"); // Nốt trầm tay trái
+          }
+          this.step++;
+          this.timer = setTimeout(playNext, note.d);
+        };
+        playNext();
+      }
+
+      // CHẶNG 2: GIAO HƯỞNG HUYỀN BÍ & LẤP LÁNH (MỞ KHÓA QUẢ CẦU PHA LÊ)
+      runMysterySymphony() {
+        const arp = [329.63, 392.00, 493.88, 659.25, 739.99, 659.25, 493.88, 392.00,
+                     293.66, 369.99, 440.00, 587.33, 659.25, 587.33, 440.00, 369.99];
+        const playNext = () => {
+          if (this.currentScene !== 2) return;
+          const freq = arp[this.step % arp.length];
+          this.playPianoNote(freq, 1.3, 0.11, "sine");
+          if (this.step % 8 === 0) {
+            this.playPianoNote(freq / 2, 2.6, 0.08, "triangle");
+          }
+          this.step++;
+          this.timer = setTimeout(playNext, 340);
+        };
+        playNext();
+      }
+
+      // CHẶNG 3: BẢN GIAO HƯỞNG LÃNG MẠN & SÂU LẮNG (BẦU TRỜI PHÁO HOA CUỐI)
+      runRomanticSymphony() {
+        // Tiến trình hợp âm Cmaj7 -> Am7 -> Fmaj7 -> G6 cực kỳ ngọt ngào
+        const chords = [
+          [261.63, 329.63, 392.00, 493.88, 523.25], // Cmaj7
+          [220.00, 261.63, 329.63, 392.00, 440.00], // Am7
+          [174.61, 220.00, 261.63, 329.63, 349.23], // Fmaj7
+          [196.00, 246.94, 293.66, 329.63, 392.00]  // G6
+        ];
+        const playNext = () => {
+          if (this.currentScene !== 3) return;
+          const chordIdx = Math.floor(this.step / 6) % chords.length;
+          const noteIdx = this.step % 5;
+          const chord = chords[chordIdx];
+
+          if (this.step % 6 === 0) {
+            // Đánh nốt trầm nền giao hưởng
+            this.playPianoNote(chord[0] / 2, 2.8, 0.11, "sine");
+          }
+          this.playPianoNote(chord[noteIdx], 1.6, 0.12, "triangle");
+          this.step++;
+          this.timer = setTimeout(playNext, 420);
+        };
+        playNext();
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        const disk = document.getElementById("music-disk");
+        const label = document.getElementById("music-label");
+        if (this.isMuted) {
+          this.mp3Player.pause();
+          disk.classList.remove("music-spinning");
+          label.textContent = "Đã tắt nhạc";
+        } else {
+          if (this.mp3Player.src) this.mp3Player.play().catch(() => {});
+          disk.classList.add("music-spinning");
+          label.textContent = this.currentScene === 1 ? "HPBD Piano" : (this.currentScene === 2 ? "Giao hưởng Bí ẩn" : "Tình ca Pháo hoa");
+        }
+      }
+    }
+
+    const symphony = new SymphonyEngine();
+    function toggleSymphonyMusic() {
+      symphony.toggleMute();
+    }
+
+    // =========================================================================
+    // 2. CANVAS BLING BLING: BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA
     // =========================================================================
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
@@ -405,17 +722,39 @@
       H = canvas.height = window.innerHeight;
     });
 
-    let fxMode = "none"; // "none" | "text3d" | "fireworks" | "heart_finale"
+    let fxMode = "none";
     let textParticles = [];
     let fireworks = [];
     let sparks = [];
-    let stars = Array.from({ length: 90 }, () => ({
+    let touchGlitters = [];
+    let shootingStars = [];
+
+    let stars = Array.from({ length: 120 }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      r: Math.random() * 1.6 + 0.3,
+      r: Math.random() * 1.8 + 0.3,
       alpha: Math.random(),
-      speed: Math.random() * 0.02 + 0.005
+      speed: Math.random() * 0.025 + 0.006,
+      hue: Math.random() > 0.7 ? 45 : 330
     }));
+
+    function spawnTouchGlitter(x, y) {
+      if (fxMode === "none") return;
+      for (let i = 0; i < 6; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 2.2 + 0.5;
+        touchGlitters.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.5,
+          size: Math.random() * 3 + 1,
+          alpha: 1,
+          color: Math.random() > 0.5 ? "#fde047" : "#f472b6"
+        });
+      }
+    }
+    window.addEventListener("pointermove", e => spawnTouchGlitter(e.clientX, e.clientY));
+    window.addEventListener("pointerdown", e => spawnTouchGlitter(e.clientX, e.clientY));
 
     function create3DTextParticles(text) {
       textParticles = [];
@@ -436,13 +775,14 @@
         for (let x = 0; x < W; x += step) {
           const idx = (y * W + x) * 4;
           if (data[idx + 3] > 150) {
+            const palette = ["#f472b6", "#fde047", "#ffffff", "#fb7185"];
             textParticles.push({
               x: Math.random() * W,
               y: Math.random() * H,
               tx: x,
               ty: y + H * 0.14,
-              color: Math.random() > 0.35 ? "#ff69b4" : "#ffd1dc",
-              size: Math.random() * 2 + 1.2
+              color: palette[Math.floor(Math.random() * palette.length)],
+              size: Math.random() * 2.2 + 1.1
             });
           }
         }
@@ -451,32 +791,31 @@
 
     function launchFirework(isHeart = false) {
       const startX = Math.random() * W * 0.8 + W * 0.1;
-      const targetY = Math.random() * H * 0.38 + H * 0.12;
+      const targetY = Math.random() * H * 0.36 + H * 0.1;
       const hue = isHeart ? 335 : Math.floor(Math.random() * 360);
       fireworks.push({
         x: startX,
         y: H,
-        tx: startX + (Math.random() - 0.5) * 60,
         ty: targetY,
-        vy: - (Math.random() * 4 + 7.5),
+        vy: -(Math.random() * 4 + 7.8),
         hue,
         isHeart
       });
     }
 
     function explodeFirework(fw) {
-      const count = fw.isHeart ? 75 : 55;
+      const count = fw.isHeart ? 85 : 65;
       for (let i = 0; i < count; i++) {
         let vx, vy;
         if (fw.isHeart) {
           const t = (Math.PI * 2 * i) / count;
           const hx = 16 * Math.pow(Math.sin(t), 3);
           const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-          vx = hx * 0.22;
-          vy = hy * 0.22;
+          vx = hx * 0.23;
+          vy = hy * 0.23;
         } else {
           const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 4.5 + 1.2;
+          const speed = Math.random() * 5 + 1.2;
           vx = Math.cos(angle) * speed;
           vy = Math.sin(angle) * speed;
         }
@@ -486,8 +825,8 @@
           vx,
           vy,
           alpha: 1,
-          decay: Math.random() * 0.015 + 0.012,
-          color: fw.isHeart ? (i % 2 === 0 ? "#ff4d94" : "#ffb3d1") : `hsl(${fw.hue}, 95%, 68%)`
+          decay: Math.random() * 0.015 + 0.011,
+          color: fw.isHeart ? (i % 3 === 0 ? "#fde047" : "#ff4d94") : `hsl(${fw.hue}, 95%, 70%)`
         });
       }
     }
@@ -499,20 +838,47 @@
         return;
       }
 
-      ctx.fillStyle = "rgba(7, 4, 16, 0.24)";
+      ctx.fillStyle = "rgba(6, 2, 14, 0.22)";
       ctx.fillRect(0, 0, W, H);
 
-      // Vẽ sao lấp lánh nền trời
       stars.forEach(s => {
         s.alpha += s.speed;
         if (s.alpha > 1 || s.alpha < 0.1) s.speed *= -1;
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(s.alpha)})`;
+        ctx.fillStyle = `hsla(${s.hue}, 100%, 88%, ${Math.abs(s.alpha)})`;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      // Vẽ hạt chữ 3D hội tụ
+      if (Math.random() < 0.018) {
+        shootingStars.push({
+          x: Math.random() * W,
+          y: Math.random() * H * 0.4,
+          vx: -(Math.random() * 7 + 6),
+          vy: Math.random() * 4 + 3,
+          life: 1
+        });
+      }
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const ss = shootingStars[i];
+        ss.x += ss.vx;
+        ss.y += ss.vy;
+        ss.life -= 0.03;
+        if (ss.life <= 0) {
+          shootingStars.splice(i, 1);
+        } else {
+          const grad = ctx.createLinearGradient(ss.x, ss.y, ss.x - ss.vx * 5, ss.y - ss.vy * 5);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${ss.life})`);
+          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(ss.x, ss.y);
+          ctx.lineTo(ss.x - ss.vx * 5, ss.y - ss.vy * 5);
+          ctx.stroke();
+        }
+      }
+
       if (fxMode === "text3d") {
         textParticles.forEach(p => {
           p.x += (p.tx - p.x) * 0.08;
@@ -524,18 +890,17 @@
         });
       }
 
-      // Bắn pháo hoa tự động
-      if ((fxMode === "fireworks" || fxMode === "heart_finale") && Math.random() < (fxMode === "heart_finale" ? 0.09 : 0.045)) {
-        launchFirework(fxMode === "heart_finale" ? Math.random() > 0.3 : false);
+      if ((fxMode === "fireworks" || fxMode === "heart_finale") && Math.random() < (fxMode === "heart_finale" ? 0.095 : 0.05)) {
+        launchFirework(fxMode === "heart_finale" ? Math.random() > 0.25 : false);
       }
 
       for (let i = fireworks.length - 1; i >= 0; i--) {
         const fw = fireworks[i];
         fw.y += fw.vy;
         fw.vy += 0.12;
-        ctx.fillStyle = "#fff";
+        ctx.fillStyle = "#fef08a";
         ctx.beginPath();
-        ctx.arc(fw.x, fw.y, 2.2, 0, Math.PI * 2);
+        ctx.arc(fw.x, fw.y, 2.4, 0, Math.PI * 2);
         ctx.fill();
         if (fw.vy >= 0 || fw.y <= fw.ty) {
           explodeFirework(fw);
@@ -547,7 +912,7 @@
         const sp = sparks[i];
         sp.x += sp.vx;
         sp.y += sp.vy;
-        sp.vy += 0.045;
+        sp.vy += 0.042;
         sp.alpha -= sp.decay;
         if (sp.alpha <= 0) {
           sparks.splice(i, 1);
@@ -555,7 +920,24 @@
           ctx.globalAlpha = sp.alpha;
           ctx.fillStyle = sp.color;
           ctx.beginPath();
-          ctx.arc(sp.x, sp.y, 2.1, 0, Math.PI * 2);
+          ctx.arc(sp.x, sp.y, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      for (let i = touchGlitters.length - 1; i >= 0; i--) {
+        const g = touchGlitters[i];
+        g.x += g.vx;
+        g.y += g.vy;
+        g.alpha -= 0.035;
+        if (g.alpha <= 0) {
+          touchGlitters.splice(i, 1);
+        } else {
+          ctx.globalAlpha = g.alpha;
+          ctx.fillStyle = g.color;
+          ctx.beginPath();
+          ctx.arc(g.x, g.y, g.size, 0, Math.PI * 2);
           ctx.fill();
           ctx.globalAlpha = 1;
         }
@@ -564,64 +946,75 @@
     animateCanvas();
 
     // =========================================================================
-    // 2. LOGIC ĐIỀU HƯỚNG 3 CÚ TWIST
+    // 3. ĐIỀU HƯỚNG 3 CÚ TWIST & CHUYỂN NHẠC GIAO HƯỞNG THEO TỪNG PHẦN
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
       document.getElementById(showId).classList.remove("hidden");
     }
 
-    // TWIST 1: Vỡ vụn phiếu khảo sát
+    // TWIST 1 -> Phát ngay "Happy Birthday To You" Piano
     function triggerTwist1() {
+      symphony.setScene(1); // Bật HPBD Piano ngay lập tức
       const s1 = document.getElementById("stage-1");
       s1.classList.add("glitch-active");
-      setTimeout(() => {
-        s1.classList.add("shatter-out");
-      }, 450);
+      setTimeout(() => s1.classList.add("shatter-out"), 450);
 
       setTimeout(() => {
-        document.body.classList.add("dark-party");
-        document.title = `Happy Birthday ${CONFIG.recipientName} 🎂`;
+        document.body.classList.add("bling-universe");
+        document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
         fxMode = "text3d";
         create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
         switchStage("stage-1", "stage-reveal");
       }, 1050);
     }
 
+    // Vẫn giữ nguyên HPBD Piano xuyên suốt lúc thắp nến & ước nguyện
     function goToStage2() {
       fxMode = "fireworks";
       switchStage("stage-reveal", "stage-2");
     }
 
-    // TWIST 2: Ngọn nến cứng đầu 3 lần chạm
+    // TWIST 2: Thổi nến -> Chuyển sang Màn 3 (Giao hưởng Huyền bí)
     let candleTaps = 0;
     function handleCandleTap() {
       candleTaps++;
       const flame = document.getElementById("candle-flame");
       const cake = document.getElementById("cake-wrapper");
+      const candleStick = document.getElementById("candle-stick");
       const toast = document.getElementById("candle-toast");
 
       if (candleTaps === 1) {
         flame.classList.add("super-flame");
-        toast.innerHTML = "😜 Ủa thổi gì nhẹ hều vậy Thy ơi, lửa cháy to hơn rồi kìa! Thổi mạnh thêm cái nữa nào!";
+        toast.innerHTML = "😜 Ủa thổi nhẹ hều vậy Thy ơi, lửa cháy bùng lên rồi kìa! Thổi mạnh cái nữa nào!";
       } else if (candleTaps === 2) {
         flame.classList.remove("super-flame");
-        cake.style.transform = "translateX(36px) rotate(4deg)";
-        setTimeout(() => { cake.style.transform = "translateX(-28px) rotate(-3deg)"; }, 260);
+        cake.style.transform = "translateX(38px) rotateY(15deg)";
+        setTimeout(() => { cake.style.transform = "translateX(-30px) rotateY(-15deg)"; }, 260);
         toast.innerHTML = "🤭 Suýt trúng! Hứa năm nay lúc nào cũng phải cười thật tươi đi rồi nến mới chịu tắt nè!";
       } else {
-        cake.style.transform = "translateX(0) rotate(0deg)";
+        cake.style.transform = "translateX(0) rotateY(0deg)";
         flame.style.opacity = "0";
         flame.style.transform = "translateX(-50%) scale(0)";
-        toast.innerHTML = "✨ Tuyệt vời! Điều ước đã được gửi lên bầu trời sao... Đang mở hộp quà!";
-        for (let i = 0; i < 6; i++) setTimeout(() => launchFirework(true), i * 180);
+
+        for (let s = 0; s < 3; s++) {
+          setTimeout(() => {
+            const smoke = document.createElement("div");
+            smoke.className = "smoke-puff";
+            candleStick.appendChild(smoke);
+          }, s * 220);
+        }
+
+        toast.innerHTML = "✨ Điều ước đã bay lên bầu trời sao... Đang mở hộp quà bí mật!";
+        for (let i = 0; i < 7; i++) setTimeout(() => launchFirework(true), i * 160);
         setTimeout(() => {
+          symphony.setScene(2); // Chuyển sang bản giao hưởng huyền bí ở Màn 3
           switchStage("stage-2", "stage-3");
-        }, 1400);
+        }, 1500);
       }
     }
 
-    // GHI ÂM GIỌNG NÓI ĐIỀU ƯỚC
+    // Ghi âm giọng nói (Tạm dừng nhạc nền khi đang thu âm để tránh lẫn tiếng)
     let mediaRecorder = null;
     let audioChunks = [];
     let isRecording = false;
@@ -638,27 +1031,28 @@
       if (!isRecording) {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          if (!symphony.isMuted) symphony.toggleMute(); // Tạm tắt nhạc khi ghi âm
           mediaRecorder = new MediaRecorder(stream);
           audioChunks = [];
           mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
           mediaRecorder.onstop = () => {
             recordedAudioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            const url = URL.createObjectURL(recordedAudioBlob);
-            preview.src = url;
+            preview.src = URL.createObjectURL(recordedAudioBlob);
             preview.classList.remove("hidden");
             stream.getTracks().forEach(t => t.stop());
+            if (symphony.isMuted) symphony.toggleMute(); // Bật lại nhạc sau khi ghi xong
           };
           mediaRecorder.start();
           isRecording = true;
           icon.textContent = "⏹️";
           btn.classList.add("animate-pulse");
-          status.textContent = "Đang thu âm điều ước của Thy...";
-          sub.textContent = "Nói xong Thy bấm nút vuông để dừng nhé";
+          status.textContent = "Đang thu âm điều ước...";
+          sub.textContent = "Nói xong Thy bấm nút vuông để dừng";
           wave.classList.remove("hidden");
           wave.classList.add("flex");
         } catch (err) {
           status.textContent = "Trình duyệt đang chặn Micro rồi!";
-          sub.textContent = "Thy gõ điều ước vào ô bên dưới giúp Long nha 👇";
+          sub.textContent = "Thy gõ điều ước vào ô bên dưới nha 👇";
         }
       } else {
         mediaRecorder.stop();
@@ -666,13 +1060,13 @@
         icon.textContent = "🎙️";
         btn.classList.remove("animate-pulse");
         status.textContent = "✅ Đã lưu đoạn ghi âm điều ước!";
-        sub.textContent = "Thy có thể nghe lại hoặc chạm nến để thổi";
+        sub.textContent = "Chạm vào ngọn nến để thổi nhé";
         wave.classList.add("hidden");
         wave.classList.remove("flex");
       }
     }
 
-    // TWIST 3: Quét vòng tròn 2 giây -> Báo lỗi ngân sách -> Bùng nổ pháo hoa
+    // TWIST 3: Quả cầu pha lê quét 2 giây
     let scanTimer = null;
     let scanProgress = 0;
     let twist3Triggered = false;
@@ -682,7 +1076,7 @@
       if (twist3Triggered) return;
       const ring = document.getElementById("scan-ring");
       const pct = document.getElementById("scan-percent");
-      const circumference = 276.46;
+      const circumference = 282.74;
 
       scanTimer = setInterval(() => {
         scanProgress += 4;
@@ -703,18 +1097,20 @@
       if (twist3Triggered) return;
       clearInterval(scanTimer);
       scanProgress = 0;
-      document.getElementById("scan-ring").style.strokeDashoffset = 276.46;
+      document.getElementById("scan-ring").style.strokeDashoffset = 282.74;
       document.getElementById("scan-percent").textContent = "GIỮ 2S";
     }
 
+    // Mở khóa thành công -> Chuyển sang Bản giao hưởng Lãng mạn ở Màn 4
     function resolveBudgetTwist() {
-      for (let i = 0; i < 8; i++) setTimeout(() => launchFirework(true), i * 150);
+      symphony.setScene(3);
+      for (let i = 0; i < 10; i++) setTimeout(() => launchFirework(true), i * 140);
       renderStage4Content();
       switchStage("stage-3", "stage-4");
     }
 
     // =========================================================================
-    // 3. RENDER MÀN 4: KỶ NIỆM LƠ LỬNG & VIDEO CHÚC MỪNG CỦA LONG
+    // 4. RENDER MÀN 4: KHUNG POLAROID CHÂN THẬT & VIDEO CHÚC MỪNG
     // =========================================================================
     function renderStage4Content() {
       const grid = document.getElementById("memories-grid");
@@ -722,29 +1118,28 @@
 
       if (CONFIG.floatingMemories && CONFIG.floatingMemories.length > 0) {
         CONFIG.floatingMemories.forEach((item, idx) => {
-          const rot = idx % 2 === 0 ? "-2deg" : "2deg";
+          const rot = idx % 2 === 0 ? "-2.5deg" : "2.5deg";
           const dur = `${4.5 + (idx % 3)}s`;
           const card = document.createElement("div");
-          card.className = "memory-card rounded-2xl p-2 cursor-pointer transition-transform hover:scale-105";
+          card.className = "polaroid-card cursor-pointer transition-transform hover:scale-105";
           card.style.setProperty("--rot", rot);
           card.style.setProperty("--dur", dur);
           card.onclick = () => openMemoryModal(item);
 
           if (item.type === "video") {
             card.innerHTML = `
-              <video src="${item.src}" muted autoplay loop playsinline class="w-full h-32 object-cover rounded-xl"></video>
-              <p class="text-[11px] text-pink-200 mt-1.5 truncate font-medium">${item.caption || "Kỷ niệm 🎬"}</p>
+              <video src="${item.src}" muted autoplay loop playsinline class="w-full h-32 object-cover rounded-lg bg-black"></video>
+              <p class="text-[11px] text-gray-800 mt-2 truncate font-bold text-center">${item.caption || "Kỷ niệm 🎬"}</p>
             `;
           } else {
             card.innerHTML = `
-              <img src="${item.src}" alt="Kỷ niệm" class="w-full h-32 object-cover rounded-xl" />
-              <p class="text-[11px] text-pink-200 mt-1.5 truncate font-medium">${item.caption || "Khoảnh khắc ✨"}</p>
+              <img src="${item.src}" alt="Kỷ niệm" class="w-full h-32 object-cover rounded-lg" />
+              <p class="text-[11px] text-gray-800 mt-2 truncate font-bold text-center">${item.caption || "Khoảnh khắc ✨"}</p>
             `;
           }
           grid.appendChild(card);
         });
       } else {
-        // Khi Long chưa nạp ảnh/video, hiện 4 thẻ kỷ niệm sao băng phát sáng để không bị trống
         const placeholders = [
           { icon: "✨", title: "Tuổi mới rực rỡ", desc: "Luôn tỏa sáng theo cách riêng của Thy" },
           { icon: "🌷", title: "Bình an & Vui vẻ", desc: "Mọi muộn phiền đều ở lại phía sau" },
@@ -752,29 +1147,34 @@
           { icon: "🎂", title: "Happy Birthday", desc: "Chúc mừng ngày đặc biệt nhất năm" }
         ];
         placeholders.forEach((p, idx) => {
-          const rot = idx % 2 === 0 ? "-1.5deg" : "1.5deg";
+          const rot = idx % 2 === 0 ? "-2deg" : "2deg";
           const card = document.createElement("div");
-          card.className = "memory-card rounded-2xl p-3.5 text-center space-y-1";
+          card.className = "rounded-2xl p-3.5 text-center space-y-1 bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]";
+          card.style.animation = `floatPolaroid ${4 + idx * 0.5}s ease-in-out infinite`;
           card.style.setProperty("--rot", rot);
-          card.style.setProperty("--dur", `${4 + idx * 0.6}s`);
           card.innerHTML = `
             <div class="text-2xl">${p.icon}</div>
-            <div class="text-xs font-bold text-pink-200">${p.title}</div>
-            <div class="text-[10px] text-gray-300 leading-snug">${p.desc}</div>
+            <div class="text-xs font-bold text-amber-200">${p.title}</div>
+            <div class="text-[10px] text-pink-100/80 leading-snug">${p.desc}</div>
           `;
           grid.appendChild(card);
         });
       }
 
-      // Render Video chính của Long hoặc Thiệp chữ dự phòng
       const msgBox = document.getElementById("main-message-container");
       if (CONFIG.mainBirthdayVideo && CONFIG.mainBirthdayVideo.trim() !== "") {
         msgBox.innerHTML = `
-          <video src="${CONFIG.mainBirthdayVideo}" controls playsinline class="w-full rounded-2xl shadow-lg border border-pink-400/30 bg-black max-h-80"></video>
+          <div class="p-2 rounded-2xl bg-white/10 backdrop-blur-md border border-pink-300/40 shadow-[0_0_35px_rgba(244,114,182,0.35)]">
+            <video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls playsinline class="w-full rounded-xl bg-black max-h-80"></video>
+          </div>
         `;
+        // Tự động tạm tắt nhạc nền khi Thy bấm xem Video của Long
+        const vid = document.getElementById("main-greeting-video");
+        vid.addEventListener("play", () => { if (!symphony.isMuted) symphony.toggleMute(); });
+        vid.addEventListener("ended", () => { if (symphony.isMuted) symphony.toggleMute(); });
       } else {
         msgBox.innerHTML = `
-          <div class="p-4 rounded-2xl bg-white/5 border border-pink-300/20 text-xs sm:text-sm text-pink-50 leading-relaxed font-normal text-left">
+          <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-pink-300/30 text-xs sm:text-sm text-pink-50 leading-relaxed text-left shadow-[0_0_30px_rgba(244,114,182,0.2)]">
             ${CONFIG.fallbackLetterText}
           </div>
         `;
@@ -803,7 +1203,7 @@
     }
 
     // =========================================================================
-    // 4. NÚT KẾT THÚC "GOODBYE FOR NOW, MY LOVE." & GỬI KẾT QUẢ VỀ GMAIL
+    // 5. NÚT KẾT THÚC "GOODBYE FOR NOW, MY LOVE."
     // =========================================================================
     async function triggerFinalGoodbye() {
       const btn = document.getElementById("final-goodbye-btn");
@@ -814,13 +1214,13 @@
       btn.disabled = true;
       btn.textContent = "⏳ Đang gửi điều ước tới Long...";
       fxMode = "heart_finale";
-      for (let i = 0; i < 10; i++) setTimeout(() => launchFirework(true), i * 160);
+      for (let i = 0; i < 12; i++) setTimeout(() => launchFirework(true), i * 150);
 
       const summaryLines = [
         `🎂 THÔNG BÁO SINH NHẬT TỪ WEB CỦA THY`,
         `----------------------------------------`,
         `• Trạng thái: Thy đã bấm xác nhận "Goodbye for now, my love." 💖`,
-        `• Ghi âm giọng nói: ${recordedAudioBlob ? "Thy đã thu âm điều ước trên trình duyệt (Lưu ý: trình duyệt tĩnh chỉ lưu cục bộ trên máy Thy nếu chưa gắn Cloudinary)." : "Không có file ghi âm"}`,
+        `• Ghi âm giọng nói: ${recordedAudioBlob ? "Thy đã thu âm điều ước trên trình duyệt." : "Không có file ghi âm"}`,
         `• Điều ước nhập tay: ${textWish || "(Không nhập chữ)"}`,
         `• Lời nhắn hẹn gặp lại của Thy: ${replyNote || "(Thy bấm nút xác nhận hẹn gặp lại!)"}`
       ];
@@ -849,4 +1249,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
