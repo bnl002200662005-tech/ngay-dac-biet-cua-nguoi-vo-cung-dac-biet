@@ -15,7 +15,12 @@
     // =========================================================================
     const CONFIG = {
       recipientName: "Thy",
+      fullRecipientName: "Quý Thy",
       senderName: "Long",
+      birthDateText: "20.11.2010",
+      ageText: "SWEET 16",
+      zodiacText: "♏ SCORPIO",
+      elementText: "TÙNG BÁCH MỘC",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
       // 1. NHẠC NỀN 3 CHẶNG (Để trống "" sẽ tự chơi 3 bản Piano/Giao hưởng tích hợp cực mượt)
@@ -29,14 +34,14 @@
       mainBirthdayVideo: "",
 
       // 3. DANH SÁCH ẢNH & VIDEO BAY LƠ LỬNG TRÊN BẦU TRỜI KỶ NIỆM
-      // Mẫu: { type: "image", src: "anh1.jpg", caption: "Khoảnh khắc đáng nhớ ✨" },
-      //      { type: "video", src: "clip1.mp4", caption: "Video kỷ niệm 🎬" },
+      // Mẫu: { type: "image", src: "anh_1.jpg", caption: "Khoảnh khắc đáng nhớ ✨" },
+      //      { type: "video", src: "clip_1.mp4", caption: "Video kỷ niệm 🎬" },
       floatingMemories: [
-        // { type: "image", src: "anh_1.jpg", caption: "Nụ cười tỏa nắng nhất 🌷" },
+        // { type: "image", src: "anh_1.jpg", caption: "Nụ cười tỏa nắng tuổi 16 🌷" },
       ],
 
-      // Nội dung thiệp hiển thị nếu Long chưa chèn video quay lời chúc
-      fallbackLetterText: "Gửi Thy, một ngày đặc biệt nữa lại đến. Cảm ơn Thy vì đã luôn xuất hiện thật rạng rỡ và mang đến những nguồn năng lượng tích cực nhất. Chúc Thy tuổi mới luôn xinh đẹp, tự tin, mọi dự định đều thành công rực rỡ và luôn hạnh phúc trên con đường mình chọn!"
+      // Thiệp thay thế nếu Long chưa chèn file video quay lời chúc
+      fallbackGreetingCardText: "Gửi Quý Thy, hôm nay là cột mốc tuổi 16 thật rực rỡ. Cảm ơn Thy vì đã luôn mang đến những nguồn năng lượng trong trẻo và tuyệt vời nhất. Chúc Thy tuổi mới luôn bình an, tự tin, rạng ngời và chạm tới mọi ước mơ đẹp nhất của mình!"
     };
   </script>
 
@@ -55,45 +60,65 @@
       background-color: #f3f4f6;
       color: #1f2937;
       overflow-x: hidden;
-      transition: background 1s ease;
+      transition: background 1.1s ease;
     }
     body.bling-universe {
-      background: radial-gradient(circle at 50% 20%, #240b36 0%, #0b0314 60%, #030108 100%);
+      background: radial-gradient(circle at 50% 18%, #260c3a 0%, #0d0418 58%, #030108 100%);
       color: #ffffff;
     }
     .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
     .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
     .font-script-love { font-family: 'Pacifico', cursive; }
 
-    /* Hiệu ứng Glitch & Vỡ màn hình */
-    @keyframes glitchShake {
-      0% { transform: translate(0); filter: hue-rotate(0deg); }
-      20% { transform: translate(-12px, 6px) skewX(9deg); filter: hue-rotate(90deg) contrast(2); }
-      40% { transform: translate(12px, -6px) skewX(-9deg); filter: hue-rotate(180deg); }
-      60% { transform: translate(-8px, -4px) scale(1.04); filter: hue-rotate(270deg); }
-      80% { transform: translate(8px, 4px) skewX(5deg); }
-      100% { transform: translate(0); filter: none; }
+    /* ===================================================================== */
+    /* HIỆU ỨNG NỨT TOÁC & GIẬT LAG 4 GIÂY KÍCH THÍCH TÒ MÒ                  */
+    /* ===================================================================== */
+    .crack-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 30;
+      opacity: 0;
+      transition: opacity 0.15s ease;
     }
-    .glitch-active { animation: glitchShake 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+    .crack-overlay.show-cracks { opacity: 1; }
+
+    @keyframes intenseGlitch4s {
+      0%, 100% { transform: translate(0, 0) skewX(0deg); filter: none; }
+      6% { transform: translate(-11px, 4px) skewX(7deg); filter: hue-rotate(90deg) contrast(1.8); }
+      12% { transform: translate(11px, -5px) skewX(-7deg); filter: invert(0.15); }
+      18% { transform: translate(-6px, -3px) scale(1.02); filter: hue-rotate(180deg); }
+      24% { transform: translate(0, 0); filter: none; }
+      38% { transform: translate(14px, 6px) skewX(-10deg); filter: hue-rotate(260deg) contrast(2.2); }
+      43% { transform: translate(-14px, -6px) skewX(10deg); filter: invert(0.85); }
+      48% { transform: translate(5px, 2px); filter: none; }
+      65% { transform: translate(-12px, 5px) skewY(3deg); filter: hue-rotate(120deg) brightness(1.4); }
+      72% { transform: translate(12px, -4px) skewY(-3deg); filter: contrast(2.4); }
+      85% { transform: translate(-8px, 6px) scale(1.04) skewX(8deg); filter: invert(0.3) hue-rotate(300deg); }
+      94% { transform: translate(9px, -6px) scale(0.98) skewX(-8deg); }
+    }
+    .glitch-4s-active {
+      animation: intenseGlitch4s 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
 
     @keyframes shatterDrop {
       0% { opacity: 1; transform: scale(1) rotate(0deg); }
-      40% { opacity: 0.9; transform: scale(1.05) rotate(-2deg); }
-      100% { opacity: 0; transform: translateY(160px) scale(0.72) rotate(12deg); filter: blur(8px); }
+      35% { opacity: 0.95; transform: scale(1.06) rotate(-2deg); }
+      100% { opacity: 0; transform: translateY(180px) scale(0.68) rotate(14deg); filter: blur(10px); }
     }
-    .shatter-out { animation: shatterDrop 0.75s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
+    .shatter-out { animation: shatterDrop 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-up { animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
     /* Nút chữ nổi 3D */
     .btn-3d-pop {
-      background: linear-gradient(135deg, #ff4d94 0%, #f43f5e 50%, #f59e0b 100%);
-      box-shadow: 0 6px 0 #9f1239, 0 14px 28px rgba(244, 63, 94, 0.65), inset 0 2px 3px rgba(255,255,255,0.6);
-      text-shadow: 0 2px 4px rgba(136, 19, 55, 0.7);
+      background: linear-gradient(135deg, #ff4d94 0%, #f43f5e 48%, #f59e0b 100%);
+      box-shadow: 0 6px 0 #9f1239, 0 15px 30px rgba(244, 63, 94, 0.7), inset 0 2px 3px rgba(255,255,255,0.65);
+      text-shadow: 0 2px 4px rgba(136, 19, 55, 0.75);
       transition: all 0.15s ease;
     }
     .btn-3d-pop:active {
@@ -101,8 +126,18 @@
       box-shadow: 0 2px 0 #9f1239, 0 6px 15px rgba(244, 63, 94, 0.5);
     }
 
+    /* Chữ phát sáng Bling Bling */
+    .bling-text {
+      background: linear-gradient(90deg, #fff 0%, #fbcfe8 28%, #f472b6 50%, #fde047 72%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 3.4s linear infinite;
+    }
+    @keyframes shineText { to { background-position: 200% center; } }
+
     /* ===================================================================== */
-    /* BÁNH KEM 3D CAO CẤP & NGỌN LỬA CHẢY LẢ LƠI                            */
+    /* BÁNH KEM 3D CAO CẤP & NGỌN LỬA LẢ LƠI                                 */
     /* ===================================================================== */
     .realistic-cake-stage { perspective: 1000px; }
     .cake-3d-body {
@@ -112,7 +147,6 @@
       transform-style: preserve-3d;
       transition: transform 0.4s ease;
     }
-    /* Lần thổi 2: Bánh lắc lư di chuyển sang 2 bên liên tục */
     @keyframes cakeDodgeLoop {
       0% { transform: translateX(0px) rotateY(0deg) rotateZ(0deg); }
       25% { transform: translateX(52px) rotateY(18deg) rotateZ(5deg); }
@@ -120,9 +154,7 @@
       75% { transform: translateX(-52px) rotateY(-18deg) rotateZ(-5deg); }
       100% { transform: translateX(0px) rotateY(0deg) rotateZ(0deg); }
     }
-    .cake-dodging {
-      animation: cakeDodgeLoop 1.15s infinite ease-in-out;
-    }
+    .cake-dodging { animation: cakeDodgeLoop 1.15s infinite ease-in-out; }
 
     .cake-plate {
       width: 265px;
@@ -150,7 +182,6 @@
       border-radius: 108px / 24px;
       background: radial-gradient(ellipse at 50% 45%, #fff1f2 0%, #fecdd3 70%, #fda4af 100%);
     }
-    /* Viền ngọc trai vàng quanh chân bánh */
     .pearl-border {
       position: absolute;
       bottom: 4px; left: 10px; right: 10px;
@@ -164,7 +195,6 @@
       background: radial-gradient(circle at 30% 30%, #ffffff, #fde047 65%, #b45309 100%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
-
     .cake-tier-top {
       position: relative;
       width: 158px;
@@ -226,51 +256,29 @@
       background: repeating-linear-gradient(-35deg, #ffffff, #ffffff 5px, #f43f5e 5px, #f43f5e 10px);
       box-shadow: inset -3px 0 6px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.45);
     }
-
-    /* Ngọn lửa chảy lả lơi, uốn lượn mềm mại */
     @keyframes flameSwayLanguid {
-      0% {
-        transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg);
-        border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%;
-      }
-      25% {
-        transform: translateX(-48%) scale(1.04, 0.96) skewX(3deg) rotate(4deg);
-        border-radius: 45% 55% 50% 50% / 60% 70% 30% 40%;
-      }
-      50% {
-        transform: translateX(-52%) scale(0.96, 1.06) skewX(-5deg) rotate(-6deg);
-        border-radius: 52% 48% 48% 52% / 68% 62% 38% 32%;
-      }
-      75% {
-        transform: translateX(-49%) scale(1.05, 0.95) skewX(4deg) rotate(5deg);
-        border-radius: 46% 54% 52% 48% / 62% 68% 32% 38%;
-      }
-      100% {
-        transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg);
-        border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%;
-      }
+      0% { transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg); border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%; }
+      25% { transform: translateX(-48%) scale(1.04, 0.96) skewX(3deg) rotate(4deg); border-radius: 45% 55% 50% 50% / 60% 70% 30% 40%; }
+      50% { transform: translateX(-52%) scale(0.96, 1.06) skewX(-5deg) rotate(-6deg); border-radius: 52% 48% 48% 52% / 68% 62% 38% 32%; }
+      75% { transform: translateX(-49%) scale(1.05, 0.95) skewX(4deg) rotate(5deg); border-radius: 46% 54% 52% 48% / 62% 68% 32% 38%; }
+      100% { transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg); border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%; }
     }
     .flame-3d {
       position: absolute;
-      top: -38px;
-      left: 50%;
+      top: -38px; left: 50%;
       transform-origin: bottom center;
-      width: 20px;
-      height: 34px;
+      width: 20px; height: 34px;
       background: radial-gradient(ellipse at 50% 78%, #ffffff 0%, #fef08a 35%, #fb923c 72%, rgba(234,88,12,0) 100%);
       box-shadow: 0 0 28px #fde047, 0 0 60px #f97316, 0 0 95px rgba(251, 146, 60, 0.8);
       animation: flameSwayLanguid 1.6s infinite ease-in-out;
       transition: width 0.35s, height 0.35s, box-shadow 0.35s, opacity 0.3s;
       z-index: 15;
     }
-    /* Thổi lần 1: Ngọn lửa cháy bùng sáng to hơn hẳn */
     .flame-3d.super-flame {
       top: -62px;
-      width: 34px;
-      height: 58px;
+      width: 34px; height: 58px;
       box-shadow: 0 0 45px #ffffff, 0 0 85px #fde047, 0 0 130px #ea580c;
     }
-
     @keyframes smokeRise {
       0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.6); }
       100% { opacity: 0; transform: translate(-30%, -65px) scale(2.4); }
@@ -285,11 +293,17 @@
       pointer-events: none;
     }
 
+    @keyframes waveBar {
+      0%, 100% { height: 6px; }
+      50% { height: 22px; }
+    }
+    .wave-bar { animation: waveBar 0.6s infinite ease-in-out; }
+
     /* ===================================================================== */
-    /* QUÉT VÂN TAY SINH TRẮC HỌC & LỖI NHẤP NHÁY ĐIỆN ẢNH                   */
+    /* BÁO ĐỘNG ĐỎ NHẤP NHÁY INH ỎI & QUÉT VÂN TAY                           */
     /* ===================================================================== */
     @keyframes laserSweep {
-      0%, 100% { top: 12%; opacity: 0.4; }
+      0%, 100% { top: 12%; opacity: 0.45; }
       50% { top: 84%; opacity: 1; }
     }
     .fingerprint-laser {
@@ -298,40 +312,31 @@
       height: 3px;
       background: linear-gradient(90deg, transparent, #38bdf8, #ffffff, #38bdf8, transparent);
       box-shadow: 0 0 15px #38bdf8, 0 0 25px #0284c7;
-      animation: laserSweep 1.4s infinite ease-in-out;
+      animation: laserSweep 1.3s infinite ease-in-out;
+    }
+    .fingerprint-laser.gold-laser {
+      background: linear-gradient(90deg, transparent, #fbbf24, #ffffff, #fbbf24, transparent);
+      box-shadow: 0 0 15px #fbbf24, 0 0 25px #d97706;
     }
 
-    /* Báo lỗi đỏ nhấp nháy liên tục như phim hành động */
-    @keyframes cinemaAlertStrobe {
-      0%, 100% {
-        background-color: rgba(127, 29, 29, 0.92);
-        border-color: #ef4444;
-        box-shadow: 0 0 35px rgba(239, 68, 68, 0.75);
-      }
-      50% {
-        background-color: rgba(45, 10, 10, 0.95);
-        border-color: #fca5a5;
-        box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
-      }
+    @keyframes redScreenStrobe {
+      0%, 100% { box-shadow: inset 0 0 55px rgba(239, 68, 68, 0.85); }
+      50% { box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.1); }
     }
-    .cinema-error-flash {
-      animation: cinemaAlertStrobe 0.55s infinite ease-in-out;
+    .screen-red-alert {
+      animation: redScreenStrobe 0.45s infinite ease-in-out;
     }
 
-    /* Chữ phát sáng Bling Bling */
-    .bling-text {
-      background: linear-gradient(90deg, #fff 0%, #fbcfe8 30%, #f472b6 50%, #fef08a 70%, #fff 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shineText 3.5s linear infinite;
+    @keyframes exclamationPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 18px #ef4444); opacity: 1; }
+      50% { transform: scale(1.22); filter: drop-shadow(0 0 35px #fca5a5); opacity: 0.45; }
     }
-    @keyframes shineText { to { background-position: 200% center; } }
+    .alert-bang-flash { animation: exclamationPulse 0.42s infinite ease-in-out; }
 
-    /* Thẻ kỷ niệm lơ lửng trên bầu trời đêm */
+    /* Thẻ kỷ niệm bay lơ lửng bố cục chòm sao */
     @keyframes floatSky {
       0%, 100% { transform: translateY(0px) rotate(var(--rot, -2deg)); }
-      50% { transform: translateY(-12px) rotate(calc(var(--rot, -2deg) * -1)); }
+      50% { transform: translateY(-11px) rotate(calc(var(--rot, -2deg) * -1)); }
     }
     .sky-memory-card {
       background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.88));
@@ -340,12 +345,6 @@
       box-shadow: 0 18px 36px rgba(0, 0, 0, 0.8), 0 0 22px rgba(244, 114, 182, 0.4);
       animation: floatSky var(--dur, 5s) ease-in-out infinite;
     }
-
-    @keyframes spinDisk {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .music-spinning { animation: spinDisk 6s linear infinite; }
 
     @keyframes arrowBounceDown {
       0%, 100% { transform: translateY(0); opacity: 0.75; }
@@ -356,25 +355,30 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative">
 
+  <!-- VIỀN BÁO ĐỘNG ĐỎ TOÀN MÀN HÌNH (CHỈ BẬT KHI LỖI MÀN 4) -->
+  <div id="global-red-alarm-frame" class="hidden fixed inset-0 pointer-events-none z-40 screen-red-alert"></div>
+
   <!-- AUDIO PLAYER DỰ PHÒNG NẾU CHÈN MP3 -->
   <audio id="custom-mp3-player" loop preload="auto"></audio>
 
-  <!-- NÚT ĐIỀU KHIỂN NHẠC NỔI -->
-  <button id="music-toggle-btn" onclick="toggleSymphonyMusic()" class="hidden fixed top-4 right-4 z-50 items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/35 text-xs text-pink-100 shadow-[0_0_20px_rgba(244,114,182,0.4)]">
-    <span id="music-disk" class="inline-block text-base music-spinning">🎹</span>
-    <span id="music-label" class="font-semibold">HPBD Piano</span>
-  </button>
-
-  <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
+  <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA + CHÒM SAO -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- CONTAINER CHÍNH -->
   <main id="stage-container" class="relative z-10 w-full max-w-md px-5 py-6 flex flex-col items-center justify-center min-h-screen">
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ ĐÁNH LẠC HƯỚNG                              -->
+    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ ĐƠN SƠ ĐÁNH LẠC HƯỚNG                       -->
     <!-- ===================================================================== -->
-    <section id="stage-1" class="w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6 transition-all">
+    <section id="stage-1" class="relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6 overflow-hidden">
+      <!-- LỚP VẾT NỨT KÍNH (HIỆN KHI BẤM VÀO) -->
+      <svg id="glass-crack-svg" class="crack-overlay w-full h-full" viewBox="0 0 300 400" preserveAspectRatio="none">
+        <path d="M150 180 L90 40 M150 180 L240 20 M150 180 L285 160 M150 180 L230 370 M150 180 L40 350 M150 180 L10 190 M90 40 L45 10 M90 40 L125 5 M240 20 L275 80 M230 370 L170 395 M40 350 L15 280 M115 110 L185 125 L205 230 L110 245 Z"
+              stroke="#1f2937" stroke-width="2.2" fill="none" opacity="0.85" />
+        <path d="M152 182 L92 42 M152 182 L242 22 M152 182 L232 372 M152 182 L42 352"
+              stroke="#9ca3af" stroke-width="1" fill="none" opacity="0.9" />
+      </svg>
+
       <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
         <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold rounded uppercase tracking-wider">
           Biểu mẫu đánh giá #2026
@@ -410,34 +414,74 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1.5: SAU VỠ VỤN — CÂU DẪN CỦA LONG & CHỮ NỔI NHẬP TIỆC THÔI NÀO  -->
+    <!-- MÀN 2: SAU VỠ VỤN — HUY HIỆU TUỔI 16 + CÂU DẪN NHỊP NHÀNG + CHỮ NỔI   -->
     <!-- ===================================================================== -->
-    <section id="stage-reveal" class="hidden w-full text-center space-y-6 animate-fade-up">
-      <div class="pt-36">
-        <div class="p-5 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_40px_rgba(244,114,182,0.35)]">
-          <p class="text-sm sm:text-base text-pink-50 leading-relaxed font-medium">
-            “Bị lừa rồi nha 😜! Hôm nay là một ngày vô cùng đặc biệt của <span class="font-bold text-amber-300">Thy</span> mò. Sao mà có vụ kiểm tra khảo sát nào ở đấy. Không biết ai kia đã sẵn sàng đón nhận vô vàn điều bất ngờ của bữa tiệc linh đình phía sau đây chưa à?”
-          </p>
+    <section id="stage-reveal" class="hidden w-full space-y-5 animate-fade-up">
+      <!-- HUY HIỆU CÁ NHÂN HÓA 20/11/2010 • SWEET 16 • SCORPIO • TÙNG BÁCH MỘC -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+        <span class="px-2.5 py-1 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-mono-tech font-bold">
+          🎂 20.11.2010 • SWEET 16
+        </span>
+        <span class="px-2.5 py-1 rounded-full bg-pink-500/15 border border-pink-300/40 text-pink-200 text-[10px] font-mono-tech font-bold">
+          ♏ SCORPIO • TÙNG BÁCH MỘC
+        </span>
+      </div>
+
+      <!-- KHOẢNG KHÔNG CHO CHỮ HẠT 3D "Happy Birthday Thy" -->
+      <div class="h-24"></div>
+
+      <!-- CÂU DẪN THÒ THỤT SO LE ĐAN XEN ICON SINH ĐỘNG -->
+      <div class="p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.35)] space-y-2.5 text-xs sm:text-sm">
+        <div class="text-left pl-1 text-amber-300 font-extrabold">
+          😜 Bị lừa rồi nha!
+        </div>
+        <div class="text-right pr-1 text-pink-100">
+          Hôm nay là ngày vô cùng đặc biệt của <span class="font-bold text-amber-200">Thy</span> mò ✨
+        </div>
+        <div class="text-left pl-2 text-pink-100/90">
+          📋 Sao mà có vụ kiểm tra khảo sát nào ở đấy!
+        </div>
+        <div class="text-center pt-1 text-white font-semibold">
+          🎉 Không biết ai kia đã sẵn sàng đón nhận vô vàn điều bất ngờ của bữa tiệc linh đình phía sau đây chưa à? 🥂
         </div>
       </div>
 
-      <button type="button" onclick="goToStage2()" class="btn-3d-pop px-9 py-4 rounded-full text-white font-extrabold text-base tracking-wide uppercase">
-        🎉 Nhập tiệc thôi nào!
-      </button>
+      <!-- LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO (TRANG 2) -->
+      <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-pink-500/15 to-purple-500/15 border border-amber-200/30 text-center space-y-1">
+        <div class="text-amber-300 text-xs">🕊️ ✨</div>
+        <p class="font-serif-luxury italic text-sm sm:text-base text-amber-100 leading-snug">
+          “Nguyện xin Chúa luôn ban muôn hồng ân, bình an và niềm vui trọn vẹn xuống trên người con gái trước mặt Ngài đây bước trong tuổi 16 rực rỡ này.”
+        </p>
+      </div>
+
+      <div class="text-center pt-1">
+        <button type="button" onclick="goToStage2()" class="btn-3d-pop px-9 py-4 rounded-full text-white font-extrabold text-base tracking-wide uppercase">
+          🎉 Nhập tiệc thôi nào!
+        </button>
+      </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2: BÁNH KEM 3D LẢ LƠI & CẢM BIẾN THỔI NẾN QUA LOA/MIC/MÀN HÌNH    -->
+    <!-- MÀN 3: BÁNH KEM 3D + GHI ÂM ĐIỀU ƯỚC -> CHẠM KÍCH HOẠT -> THỔI MIC    -->
     <!-- ===================================================================== -->
-    <section id="stage-2" class="hidden w-full text-center space-y-5 animate-fade-up">
+    <section id="stage-2" class="hidden w-full text-center space-y-4 animate-fade-up">
       <div>
-        <span class="text-[11px] font-mono-tech text-pink-300/80 uppercase tracking-[0.25em]">Make A Birthday Wish</span>
-        <h2 class="font-serif-luxury text-4xl font-bold bling-text mt-1">Thì thầm điều ước của Thy</h2>
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-amber-300/30 text-[10px] font-mono-tech text-amber-200 mb-1">
+          <span>🕊️ SWEET 16 BLESSING</span>
+          <span>•</span>
+          <span>20.11.2010</span>
+        </div>
+        <h2 class="font-serif-luxury text-4xl font-bold bling-text">Thì thầm điều ước của Thy</h2>
       </div>
 
+      <!-- LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO THỨ 2 (KHÁC NỘI DUNG TRANG 2) -->
+      <p class="font-serif-luxury italic text-sm text-amber-100/95 px-3 leading-snug">
+        “Xin Chúa luôn gìn giữ, nâng đỡ từng bước chân và soi sáng mọi ước mơ đẹp nhất của Quý Thy trong tuổi mới bình an.” 🕊️
+      </p>
+
       <!-- CHIẾC BÁNH KEM 3D CAO CẤP & NGỌN LỬA LẢ LƠI -->
-      <div class="realistic-cake-stage pt-14 pb-2">
-        <div id="cake-wrapper" onclick="registerBlowAction()" class="cake-3d-body cursor-pointer">
+      <div class="realistic-cake-stage pt-12 pb-1">
+        <div id="cake-wrapper" class="cake-3d-body">
           <div id="candle-stick" class="candle-3d">
             <div id="candle-flame" class="flame-3d"></div>
           </div>
@@ -473,52 +517,57 @@
         </div>
       </div>
 
-      <!-- THÔNG BÁO TRẠNG THÁI THỔI NẾN -->
-      <div id="candle-toast" class="px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 text-xs text-pink-100 shadow-[0_0_20px_rgba(244,114,182,0.25)]">
-        Ghi lại điều ước bên dưới trước khi thổi nến nhé! ✨
+      <!-- BỘ GHI ÂM ĐIỀU ƯỚC (CHỈ GHI ÂM, KHÔNG NHẬP TAY) -->
+      <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2.5">
+        <div class="flex items-center justify-center gap-3 px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]">
+          <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.8)] active:scale-95 transition-all shrink-0">
+            <span id="record-icon" class="text-lg">🎙️</span>
+          </button>
+          <div class="text-left flex-1 min-w-0">
+            <div id="record-status" class="text-xs font-bold text-white truncate">Nhấn mic để ghi âm điều ước tuổi 16</div>
+            <div id="record-sub" class="text-[10px] text-pink-200/80 truncate">Thì thầm xong bấm nút dừng nhé ✨</div>
+          </div>
+          <div id="audio-wave" class="hidden items-center gap-1 pr-1">
+            <span class="wave-bar w-1 bg-pink-400 rounded-full" style="animation-delay: 0s"></span>
+            <span class="wave-bar w-1 bg-amber-300 rounded-full" style="animation-delay: 0.15s"></span>
+            <span class="wave-bar w-1 bg-pink-300 rounded-full" style="animation-delay: 0.3s"></span>
+          </div>
+        </div>
+        <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-full"></audio>
       </div>
 
-      <!-- Ô NHẬP ĐIỀU ƯỚC -->
-      <div class="max-w-sm mx-auto space-y-3">
-        <input type="text" id="wish-text-input" placeholder="Nhập điều ước tuổi mới của Thy vào đây..." class="w-full px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/25 text-xs text-white text-center placeholder-pink-200/60 focus:outline-none focus:border-pink-400" />
-
-        <!-- NÚT THỔI VÀO LOA HAY MIC HAY MÀN HÌNH ĐỂ THỔI NẾN -->
-        <button type="button" id="blow-sensor-btn" onclick="activateBlowSensorAndTap()" class="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-pink-500/80 via-rose-500/80 to-amber-500/80 border border-pink-200/40 text-xs font-extrabold text-white shadow-[0_0_25px_rgba(244,114,182,0.45)] active:scale-95 transition-all">
-          🌬️ Thổi vào loa hay mic hay màn hình để thổi nến
-        </button>
-
-        <!-- THANH ĐO LUỒNG GIÓ MICRO KHI THỔI -->
-        <div id="mic-wind-meter" class="hidden items-center justify-center gap-2 text-[11px] text-amber-200">
-          <span>🎙️ Cảm biến gió đang bật — Hãy thổi mạnh vào mic hoặc chạm màn hình!</span>
+      <!-- KHU VỰC CÂU LỆNH THỔI NẾN (ẨN HOÀN TOÀN CHO ĐẾN KHI GHI ÂM XONG) -->
+      <div id="blow-instruction-area" class="hidden max-w-sm mx-auto pt-1 animate-fade-up">
+        <div id="candle-toast" class="px-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
+          ✨ Điều ước đã được cất giữ! Giờ thì Thy hãy chạm nhẹ vào một điểm bất kỳ trên màn hình để chuẩn bị thổi nến nào...
         </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 3: QUÉT VÂN TAY SINH TRẮC HỌC + LỖI NHẤP NHÁY + THANH NẠP 100%    -->
+    <!-- MÀN 4: QUÉT VÂN TAY 2 LƯỢT + BÁO ĐỘNG ĐỎ INH ỎI + THẺ ĐEN VÔ HẠN      -->
     <!-- ===================================================================== -->
     <section id="stage-3" class="hidden w-full text-center space-y-6 animate-fade-up">
-      <div>
-        <span class="text-[11px] font-mono-tech text-cyan-300 uppercase tracking-[0.25em]">Biometric Security Vault</span>
-        <h2 class="font-serif-luxury text-4xl font-bold bling-text mt-1">Mở hộp quà đặc biệt</h2>
-        <p class="text-xs text-pink-100/85 mt-1.5">Đặt ngón tay và giữ 2 giây để quét vân tay chủ nhân</p>
+      <div class="space-y-1">
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-cyan-300/30 text-[10px] font-mono-tech text-cyan-200">
+          <span>♏ SCORPIO VAULT</span>
+          <span>•</span>
+          <span>20.11.2010</span>
+        </div>
+        <h2 id="vault-title" class="font-serif-luxury text-4xl font-bold bling-text">Mở hộp quà đặc biệt</h2>
+        <p id="vault-subtitle" class="text-xs text-pink-100/85">Đặt ngón tay và giữ 2 giây để quét vân tay xác thực</p>
       </div>
 
-      <!-- MÁY QUÉT VÂN TAY SINH TRẮC HỌC XỊN XÒ -->
-      <div id="scanner-box" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-slate-900/70 backdrop-blur-md border-2 border-cyan-400/50 shadow-[0_0_45px_rgba(56,189,248,0.45),inset_0_0_25px_rgba(56,189,248,0.25)] overflow-hidden"
-           onmousedown="startScan()" onmouseup="stopScan()" onmouseleave="stopScan()"
-           ontouchstart="startScan(event)" ontouchend="stopScan()">
-        <!-- Vòng tiến trình bao quanh -->
+      <!-- VÒNG QUÉT VÂN TAY LƯỢT 1 -->
+      <div id="scanner-box-1" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-slate-900/75 backdrop-blur-md border-2 border-cyan-400/55 shadow-[0_0_45px_rgba(56,189,248,0.45),inset_0_0_25px_rgba(56,189,248,0.25)] overflow-hidden"
+           onmousedown="startScan1()" onmouseup="stopScan1()" onmouseleave="stopScan1()"
+           ontouchstart="startScan1(event)" ontouchend="stopScan1()">
         <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(56,189,248,0.15)" stroke-width="3.5" />
-          <circle id="scan-ring" cx="50" cy="50" r="46" fill="none" stroke="#38bdf8" stroke-width="3.5"
+          <circle id="scan-ring-1" cx="50" cy="50" r="46" fill="none" stroke="#38bdf8" stroke-width="3.5"
                   stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" />
         </svg>
-
-        <!-- Tia laser quét dọc -->
         <div class="fingerprint-laser"></div>
-
-        <!-- Biểu tượng vân tay SVG sắc nét -->
         <div class="flex flex-col items-center justify-center pointer-events-none z-10">
           <svg class="w-16 h-16 text-cyan-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
@@ -531,99 +580,128 @@
             <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
             <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"/>
           </svg>
-          <span id="scan-percent" class="text-[11px] font-mono-tech text-cyan-200 font-extrabold mt-1 tracking-widest">GIỮ VÂN TAY</span>
+          <span id="scan-percent-1" class="text-[11px] font-mono-tech text-cyan-200 font-extrabold mt-1 tracking-widest">GIỮ VÂN TAY</span>
         </div>
       </div>
 
-      <!-- BẢNG BÁO LỖI NHẤP NHÁY LIÊN TỤC NHƯ TRÊN PHIM -->
-      <div id="fake-error-box" class="hidden max-w-sm mx-auto rounded-2xl border-2 p-4 text-left space-y-3.5 cinema-error-flash animate-fade-up">
-        <div class="flex items-center justify-between text-red-300 font-mono-tech text-xs font-extrabold tracking-wider">
-          <span>🚨 CRITICAL ERROR 404</span>
-          <span class="px-2 py-0.5 bg-red-600 text-white rounded text-[10px] animate-ping">ALERT</span>
+      <!-- BẢNG BÁO ĐỘNG ĐỎ INH ỎI VỚI DẤU CHẤM THAN KHỔNG LỒ -->
+      <div id="fake-error-box" class="hidden max-w-sm mx-auto rounded-3xl bg-red-950/90 border-2 border-red-500 p-5 text-center space-y-3 shadow-[0_0_45px_rgba(239,68,68,0.85)] animate-fade-up">
+        <div class="w-16 h-16 mx-auto rounded-full bg-red-600/30 border-2 border-red-400 flex items-center justify-center alert-bang-flash">
+          <span class="text-4xl font-extrabold text-red-400">!</span>
         </div>
-        <p class="text-xs text-red-50 leading-relaxed font-medium">
-          CẢNH BÁO HỆ THỐNG: Số dư ví hiện tại của <span class="font-extrabold text-amber-300 underline">Long</span> không đủ để tải gói quà sinh nhật VIP này!
+        <div class="text-red-300 font-mono-tech text-xs font-extrabold tracking-widest uppercase">
+          🚨 CRITICAL ALERT • ERROR 404
+        </div>
+        <p class="text-xs sm:text-sm text-red-50 leading-relaxed font-semibold">
+          CẢNH BÁO HỆ THỐNG: Số dư ví hiện tại của <span class="text-amber-300 underline font-extrabold">Long</span> không đủ để tải gói quà sinh nhật VIP này!
         </p>
+      </div>
 
-        <!-- NÚT NẠP & THANH TIẾN TRÌNH NẠP TÌNH CẢM 0% -> 100% -->
-        <div id="recharge-action-area">
-          <button type="button" id="recharge-btn" onclick="startLoveRecharge()" class="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 via-pink-500 to-amber-400 text-white text-xs font-extrabold shadow-lg active:scale-95 transition-transform">
-            ⚡ Nạp thêm tình cảm & Mở khóa ngay
-          </button>
+      <!-- CÂU LỆNH CẤP QUYỀN THẺ ĐEN VÔ HẠN & VÒNG QUÉT VÂN TAY LƯỢT 2 -->
+      <div id="black-card-override-box" class="hidden max-w-sm mx-auto space-y-5 animate-fade-up">
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-neutral-900 via-amber-950/60 to-neutral-900 border border-amber-400/60 shadow-[0_0_30px_rgba(251,191,36,0.35)]">
+          <p class="text-xs sm:text-sm text-amber-200 font-bold leading-relaxed">
+            💳✨ Xác nhận cấp quyền quẹt Thẻ Đen Vô Hạn 🖤 — Thy hãy quét lại vân tay để xác nhận nha! 👆🔐
+          </p>
         </div>
 
+        <!-- VÒNG QUÉT VÂN TAY LƯỢT 2 (PHIÊN BẢN GOLD VIP) -->
+        <div id="scanner-box-2" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-neutral-950/90 backdrop-blur-md border-2 border-amber-400/75 shadow-[0_0_45px_rgba(251,191,36,0.5),inset_0_0_25px_rgba(251,191,36,0.25)] overflow-hidden"
+             onmousedown="startScan2()" onmouseup="stopScan2()" onmouseleave="stopScan2()"
+             ontouchstart="startScan2(event)" ontouchend="stopScan2()">
+          <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(251,191,36,0.2)" stroke-width="3.5" />
+            <circle id="scan-ring-2" cx="50" cy="50" r="46" fill="none" stroke="#fbbf24" stroke-width="3.5"
+                    stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" />
+          </svg>
+          <div class="fingerprint-laser gold-laser"></div>
+          <div class="flex flex-col items-center justify-center pointer-events-none z-10">
+            <svg class="w-16 h-16 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
+              <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"/>
+              <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/>
+              <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/>
+              <path d="M8.65 22c.21-.66.45-1.32.57-2"/>
+              <path d="M14 13.12c0 2.38 0 6.38-1 8.88"/>
+              <path d="M2 16h.01"/>
+              <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
+              <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"/>
+            </svg>
+            <span id="scan-percent-2" class="text-[11px] font-mono-tech text-amber-200 font-extrabold mt-1 tracking-widest">XÁC NHẬN VIP</span>
+          </div>
+        </div>
+
+        <!-- THANH TIẾN TRÌNH NẠP TÌNH CẢM 0% -> 100% -->
         <div id="recharge-progress-box" class="hidden space-y-1.5 pt-1">
           <div class="flex justify-between text-[11px] font-mono-tech font-bold text-amber-300">
-            <span>ĐANG NẠP TÌNH CẢM VIP...</span>
+            <span>ĐANG KÍCH HOẠT THẺ ĐEN VÔ HẠN...</span>
             <span id="recharge-pct-text">0%</span>
           </div>
-          <div class="w-full h-3.5 bg-black/60 rounded-full overflow-hidden border border-pink-400/50 p-0.5">
-            <div id="recharge-bar-fill" class="h-full w-0 rounded-full bg-gradient-to-r from-pink-500 via-rose-400 to-amber-300 shadow-[0_0_15px_#fde047] transition-all duration-75"></div>
+          <div class="w-full h-3.5 bg-black/70 rounded-full overflow-hidden border border-amber-400/60 p-0.5">
+            <div id="recharge-bar-fill" class="h-full w-0 rounded-full bg-gradient-to-r from-amber-400 via-pink-500 to-rose-400 shadow-[0_0_15px_#fde047] transition-all duration-75"></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 4A: BẦU TRỜI KỶ NIỆM LỘNG LẪY (ẢNH/VIDEO BAY LƠ LỬNG PHÓNG TO)     -->
+    <!-- MÀN 5: BẦU TRỜI KỶ NIỆM LƠ LỬNG CHÒM SAO BỌ CẠP                       -->
     <!-- ===================================================================== -->
     <section id="stage-4-sky" class="hidden w-full space-y-6 pb-10 animate-fade-up">
-      <div class="text-center space-y-1.5 pt-2">
-        <div class="inline-block px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[11px] font-bold">
-          ✨ Đùa thôi! Quà cho Thy luôn ở chế độ VIP trọn đời
+      <div class="text-center space-y-1.5 pt-1">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[10px] font-mono-tech font-bold">
+          <span>♏ SCORPIO CONSTELLATION</span>
+          <span>•</span>
+          <span>20.11.2010</span>
         </div>
         <h2 class="font-script-love text-4xl bling-text drop-shadow-[0_0_20px_rgba(244,114,182,0.85)] pt-1">
           Bầu trời kỷ niệm của Thy
         </h2>
-        <p class="text-[11px] text-pink-200/80">Chạm vào từng khung ảnh hoặc video đang bay để xem rõ hơn nhé ✨</p>
+        <p class="text-[11px] text-pink-200/85">Chạm vào từng khung ảnh hoặc video đang bay để phóng to xem rõ nhé ✨</p>
       </div>
 
       <!-- LƯỚI KỶ NIỆM BAY LƠ LỬNG -->
-      <div id="memories-grid" class="grid grid-cols-2 gap-3.5 px-1"></div>
+      <div id="memories-grid" class="grid grid-cols-2 gap-4 px-1"></div>
 
-      <!-- ĐIỂM DẪN SANG PHẦN LỜI CHÚC VIDEO & TRANG CUỐI -->
+      <!-- ĐIỂM DẪN SANG TRANG VIDEO LỜI CHÚC & TRANG CUỐI -->
       <div class="pt-4 text-center">
-        <button type="button" onclick="goToFinalStage()" class="btn-3d-pop px-8 py-4 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
-          <span>Xem lời chúc đặc biệt từ Long</span>
-          <span>➡️</span>
+        <button type="button" onclick="openVideoIntroPrompt()" class="btn-3d-pop px-8 py-4 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
+          <span>Mở lời chúc đặc biệt từ Long</span>
+          <span>🎬</span>
         </button>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 4B: TRANG CUỐI — LỜI CHÚC VIDEO, CÂU KẾT, GHI CHÚ & MŨI TÊN       -->
+    <!-- MÀN 6: TRANG CUỐI — CÂU KẾT, KHUNG NHẮN NHỦ KÍNH MỜ & MŨI TÊN         -->
     <!-- ===================================================================== -->
     <section id="stage-4-final" class="hidden w-full space-y-6 pb-12 animate-fade-up">
       <div class="text-center space-y-1 pt-2">
-        <span class="text-[11px] font-mono-tech text-amber-300 uppercase tracking-[0.25em]">Special Birthday Message</span>
-        <h2 class="font-script-love text-3xl bling-text pt-1">Gửi cô gái tuyệt vời nhất</h2>
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-pink-300/30 text-[10px] font-mono-tech text-amber-200">
+          <span>SWEET 16</span>
+          <span>•</span>
+          <span>♏ SCORPIO</span>
+          <span>•</span>
+          <span>TÙNG BÁCH MỘC</span>
+        </div>
+        <h2 class="font-script-love text-3xl bling-text pt-1">Gửi Quý Thy tuổi 16</h2>
       </div>
 
-      <!-- KHUNG PHÁT VIDEO LỜI CHÚC CỦA LONG -->
-      <div id="main-message-container" class="w-full"></div>
-
-      <!-- CÂU KẾT CHÍNH XÁC TỪNG CHỮ CỦA LONG -->
-      <div class="p-5 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_30px_rgba(244,114,182,0.25)] text-center">
+      <!-- CÂU KẾT NGUYÊN VĂN CỦA LONG -->
+      <div class="p-5 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.3)] text-center">
         <p class="text-sm sm:text-base text-pink-50 leading-relaxed font-medium italic">
           “Một lần nữa, chúc em một ngày đặc biệt, một ngày sinh nhật tràn ngập niềm yêu thương và niềm vui. Hẹn gặp lại nhé người con gái xinh đẹp, giỏi giang, tỏa sáng nhất hôm nay.”
         </p>
       </div>
 
-      <!-- GHI CHÚ NHỎ: CÂU HỎI ẨN HIỆN TRONG Ô GHI CHÚ -->
-      <div class="space-y-3 text-center pt-1">
-        <button type="button" onclick="toggleSecretNoteBox()" class="px-4 py-1.5 rounded-full bg-white/10 border border-pink-300/30 text-xs text-pink-200 font-semibold hover:bg-white/20 transition-all">
-          💌 Ghi chú nhỏ dành cho Thy (Chạm để mở/ẩn)
-        </button>
-
-        <div id="secret-note-wrapper" class="transition-all duration-300">
-          <textarea id="reply-note-input" rows="2" placeholder="Thy có muốn nhắn nhủ gì với anh Long khum nè 😊..." class="w-full px-4 py-3 rounded-2xl bg-white/12 backdrop-blur-md border border-pink-300/35 text-xs text-white text-center placeholder-pink-200/80 focus:outline-none focus:border-amber-300"></textarea>
-        </div>
+      <!-- KHUNG NHẮN NHỦ KÍNH MỜ SANG TRỌNG (ĐÃ XÓA CHỮ GHI CHÚ & KHUNG TRẮNG) -->
+      <div class="pt-1">
+        <textarea id="reply-note-input" rows="2" placeholder="Thy có muốn nhắn nhủ gì với anh Long khum nè 😊" class="w-full px-4 py-3.5 rounded-2xl bg-purple-950/55 backdrop-blur-md border border-pink-300/40 text-xs sm:text-sm text-white text-center placeholder-pink-200/80 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] focus:outline-none focus:border-amber-300"></textarea>
       </div>
 
       <!-- MŨI TÊN CHỈ XUỐNG & NÚT GOODBYE FOR NOW, MY LOVE -->
       <div class="flex flex-col items-center space-y-3 pt-1">
         <div class="flex flex-col items-center text-amber-300 arrow-down-anim">
-          <span class="text-[10px] font-mono-tech uppercase tracking-widest text-pink-200/80 mb-1">Chạm vào đây nè</span>
           <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
           </svg>
@@ -639,13 +717,56 @@
   </main>
 
   <!-- ===================================================================== -->
-  <!-- MODAL PHÓNG TO ẢNH / VIDEO GIỮA MÀN HÌNH & LÀM MỜ XUNG QUANH          -->
+  <!-- POPUP 1: XÁC NHẬN KÍCH HOẠT THẺ ĐEN VÔ HẠN GIỮA MÀN HÌNH              -->
+  <!-- ===================================================================== -->
+  <div id="black-card-modal" onclick="closeBlackCardModal()" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/80 backdrop-blur-xl">
+    <div class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-neutral-900 via-zinc-900 to-black border-2 border-amber-400/80 p-6 text-center space-y-4 shadow-[0_0_60px_rgba(251,191,36,0.55)] animate-fade-up">
+      <div class="flex items-center justify-between text-[10px] font-mono-tech text-amber-300/80 tracking-widest">
+        <span>BLACK CARD VIP</span>
+        <span>UNLIMITED • 20.11.2010</span>
+      </div>
+      <div class="text-5xl">💳🖤</div>
+      <h3 class="font-serif-luxury text-2xl font-bold text-amber-300">
+        Xác nhận cấp quyền quẹt thẻ vô hạn được kích hoạt!
+      </h3>
+      <p class="text-xs sm:text-sm text-amber-100/90 leading-relaxed">
+        Đặc quyền VIP trọn đời dành riêng cho <span class="font-bold text-white">Quý Thy</span> đã sẵn sàng. Chạm nhẹ để bước vào bầu trời kỷ niệm nhé ✨
+      </p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- POPUP 2: PHÓNG TO ẢNH / VIDEO KỶ NIỆM GIỮA MÀN HÌNH LÀM MỜ XUNG QUANH -->
   <!-- ===================================================================== -->
   <div id="memory-modal" onclick="handleModalBackdropClick()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all">
-    <div id="modal-card-inner" class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up" style="animation: none;">
+    <div class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up" style="animation: none;">
       <div id="modal-media-box" class="w-full rounded-xl overflow-hidden bg-black"></div>
       <p id="modal-caption" class="text-xs text-gray-800 font-bold"></p>
       <p id="modal-hint" class="text-[10px] text-pink-600 font-semibold"></p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- POPUP 3: CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC & PHÁT VIDEO GIỮA MÀN HÌNH     -->
+  <!-- ===================================================================== -->
+  <div id="video-greeting-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/85 backdrop-blur-xl">
+    <!-- BƯỚC 1: CÂU DẪN MỜI CHẠM MỞ VIDEO -->
+    <div id="video-prompt-card" onclick="playGreetingVideoNow()" class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-purple-950/90 via-rose-950/90 to-slate-950/90 border border-amber-300/50 p-6 text-center space-y-4 shadow-[0_0_50px_rgba(244,114,182,0.5)] cursor-pointer animate-fade-up">
+      <div class="text-5xl animate-bounce">🎬✨</div>
+      <h3 class="font-serif-luxury text-3xl font-bold bling-text">
+        Một lời nhắn dành riêng cho Quý Thy
+      </h3>
+      <p class="text-xs sm:text-sm text-pink-100 leading-relaxed">
+        Anh Long đã chuẩn bị một đoạn lời chúc đặc biệt cho ngày sinh nhật tuổi 16 của Thy. Chạm nhẹ vào đây để mở nhé!
+      </p>
+      <div class="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-amber-400 text-white text-xs font-extrabold shadow-lg">
+        ▶ Chạm để phát lời chúc
+      </div>
+    </div>
+
+    <!-- BƯỚC 2: KHUNG PHÁT VIDEO (HẾT VIDEO TỰ CHUYỂN SANG TRANG CUỐI) -->
+    <div id="video-player-card" class="hidden max-w-sm w-full rounded-3xl bg-black/90 border border-pink-400/50 p-3 text-center space-y-3 shadow-[0_0_50px_rgba(244,114,182,0.6)] animate-fade-up">
+      <div id="greeting-video-slot" class="w-full rounded-2xl overflow-hidden bg-black"></div>
     </div>
   </div>
 
@@ -657,20 +778,20 @@
         Goodbye for now, my love.
       </h2>
       <p class="text-sm text-white/95 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-        Điều ước và lời nhắn của Thy đã được gửi tới anh Long rồi. Hẹn sớm gặp lại Thy nhé! ✨
+        Điều ước và lời nhắn của Quý Thy đã được gửi tới anh Long rồi. Hẹn sớm gặp lại Thy nhé! ✨
       </p>
     </div>
   </div>
 
   <script>
     // =========================================================================
-    // 1. HỆ THỐNG NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG + TIẾNG BÍP CẢNH BÁO
+    // 1. BỘ TỔNG HỢP NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG + CÒI BÁO ĐỘNG
     // =========================================================================
     class SymphonyEngine {
       constructor() {
         this.ctx = null;
         this.timer = null;
-        this.isMuted = false;
+        this.isPausedForMedia = false;
         this.currentScene = 0;
         this.step = 0;
         this.mp3Player = document.getElementById("custom-mp3-player");
@@ -687,7 +808,7 @@
       }
 
       playPianoNote(freq, duration = 0.85, volume = 0.16, type = "triangle") {
-        if (this.isMuted || !this.ctx || !freq) return;
+        if (this.isPausedForMedia || !this.ctx || !freq) return;
         const now = this.ctx.currentTime;
 
         const osc = this.ctx.createOscillator();
@@ -719,21 +840,21 @@
         overtone.stop(now + duration + 0.05);
       }
 
-      // Tiếng bíp báo lỗi phim hành động
-      playAlertBeep() {
-        if (this.isMuted || !this.ctx) return;
+      // Âm thanh còi báo động khẩn cấp khớp từng nhịp nhấp nháy đỏ
+      playSirenPulse() {
+        if (!this.ctx) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(880, now);
-        osc.frequency.setValueAtTime(620, now + 0.12);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.frequency.setValueAtTime(920, now);
+        osc.frequency.linearRampToValueAtTime(580, now + 0.22);
+        gain.gain.setValueAtTime(0.16, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.26);
+        osc.stop(now + 0.27);
       }
 
       stopLoop() {
@@ -750,11 +871,6 @@
         this.currentScene = sceneNum;
         this.step = 0;
 
-        const label = document.getElementById("music-label");
-        const btn = document.getElementById("music-toggle-btn");
-        btn.classList.remove("hidden");
-        btn.classList.add("flex");
-
         let customUrl = "";
         if (sceneNum === 1) customUrl = CONFIG.musicTracks.track1_hpbd;
         if (sceneNum === 2) customUrl = CONFIG.musicTracks.track2_mystery;
@@ -763,21 +879,13 @@
         if (customUrl && customUrl.trim() !== "") {
           this.mp3Player.src = customUrl;
           this.mp3Player.volume = 0.65;
-          if (!this.isMuted) this.mp3Player.play().catch(() => {});
-          if (label) label.textContent = sceneNum === 1 ? "HPBD Piano" : (sceneNum === 2 ? "Giao hưởng Bí ẩn" : "Tình ca Pháo hoa");
+          if (!this.isPausedForMedia) this.mp3Player.play().catch(() => {});
           return;
         }
 
-        if (sceneNum === 1) {
-          if (label && !this.isMuted) label.textContent = "HPBD Piano";
-          this.runHpbdPiano();
-        } else if (sceneNum === 2) {
-          if (label && !this.isMuted) label.textContent = "Giao hưởng Bí ẩn";
-          this.runMysterySymphony();
-        } else if (sceneNum === 3) {
-          if (label && !this.isMuted) label.textContent = "Tình ca Pháo hoa";
-          this.runRomanticSymphony();
-        }
+        if (sceneNum === 1) this.runHpbdPiano();
+        else if (sceneNum === 2) this.runMysterySymphony();
+        else if (sceneNum === 3) this.runRomanticSymphony();
       }
 
       runHpbdPiano() {
@@ -791,7 +899,6 @@
           { f: N.C4, b: N.F3, d: 380 }, { f: N.C4, d: 220 }, { f: N.C5, d: 600 }, { f: N.A4, d: 600 }, { f: N.F4, b: N.Bb3, d: 600 }, { f: N.E4, d: 600 }, { f: N.D4, d: 1100 },
           { f: N.Bb4, b: N.Bb3, d: 380 }, { f: N.Bb4, d: 220 }, { f: N.A4, b: N.F3, d: 600 }, { f: N.F4, d: 600 }, { f: N.G4, b: N.C3, d: 600 }, { f: N.F4, b: N.F3, d: 1500 }
         ];
-
         const playNext = () => {
           if (this.currentScene !== 1) return;
           const note = melody[this.step % melody.length];
@@ -837,27 +944,20 @@
         playNext();
       }
 
-      toggleMute() {
-        this.isMuted = !this.isMuted;
-        const disk = document.getElementById("music-disk");
-        const label = document.getElementById("music-label");
-        if (this.isMuted) {
+      pauseForMedia(shouldPause) {
+        this.isPausedForMedia = shouldPause;
+        if (shouldPause) {
           this.mp3Player.pause();
-          disk.classList.remove("music-spinning");
-          label.textContent = "Đã tắt nhạc";
-        } else {
-          if (this.mp3Player.src) this.mp3Player.play().catch(() => {});
-          disk.classList.add("music-spinning");
-          label.textContent = this.currentScene === 1 ? "HPBD Piano" : (this.currentScene === 2 ? "Giao hưởng Bí ẩn" : "Tình ca Pháo hoa");
+        } else if (this.mp3Player.src) {
+          this.mp3Player.play().catch(() => {});
         }
       }
     }
 
     const symphony = new SymphonyEngine();
-    function toggleSymphonyMusic() { symphony.toggleMute(); }
 
     // =========================================================================
-    // 2. CANVAS BỤI TIÊN CHẠM TAY (NGÓN TAY CHẠM TỚI ĐÂU HIỆU ỨNG ĐẾN ĐÓ)
+    // 2. CANVAS VŨ TRỤ: CHỮ 3D VỪA KHÍT + BỤI TIÊN CHẠM TAY + CHÒM SAO SCORPIO
     // =========================================================================
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
@@ -867,6 +967,7 @@
     window.addEventListener("resize", () => {
       W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
+      if (fxMode === "text3d") create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
     });
 
     let fxMode = "none";
@@ -885,55 +986,60 @@
       hue: Math.random() > 0.65 ? 45 : 330
     }));
 
-    // Hiệu ứng bụi tiên + trái tim nhỏ bung ra theo từng cử động ngón tay Thy
-    function spawnTouchGlitter(x, y) {
+    // Hiệu ứng chạm & vuốt ngón tay: bung tim hồng + bụi sao vàng tại mọi điểm chạm
+    function spawnTouchBurst(x, y, count = 12) {
       if (fxMode === "none") return;
-      for (let i = 0; i < 8; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 2.6 + 0.6;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+        const speed = Math.random() * 3.2 + 0.8;
         touchGlitters.push({
           x, y,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.6,
-          size: Math.random() * 3.4 + 1.2,
+          vy: Math.sin(angle) * speed - 0.5,
+          size: Math.random() * 3.5 + 1.5,
           alpha: 1,
+          isHeart: i % 3 === 0,
           color: ["#fde047", "#f472b6", "#ffffff", "#38bdf8"][Math.floor(Math.random() * 4)]
         });
       }
     }
-    window.addEventListener("pointermove", e => spawnTouchGlitter(e.clientX, e.clientY));
-    window.addEventListener("pointerdown", e => spawnTouchGlitter(e.clientX, e.clientY));
-    window.addEventListener("touchmove", e => {
-      if (e.touches && e.touches[0]) spawnTouchGlitter(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
+    window.addEventListener("pointerdown", e => spawnTouchBurst(e.clientX, e.clientY, 16));
+    window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 5));
 
+    // Tạo chữ 3D căn chỉnh vừa khít bề ngang màn hình điện thoại (không bị tràn mép)
     function create3DTextParticles(text) {
       textParticles = [];
       const off = document.createElement("canvas");
       const octx = off.getContext("2d");
       off.width = W;
-      off.height = 240;
+      off.height = 180;
 
-      const fontSize = Math.min(W * 0.11, 46);
+      // Tự động co cỡ chữ sao cho bề ngang chữ tối đa 86% màn hình
+      let fontSize = Math.min(W * 0.095, 42);
       octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
+      while (octx.measureText(text).width > W * 0.86 && fontSize > 18) {
+        fontSize -= 2;
+        octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
+      }
+
       octx.fillStyle = "#ffffff";
       octx.textAlign = "center";
-      octx.fillText(text, W / 2, 110);
+      octx.fillText(text, W / 2, 95);
 
-      const data = octx.getImageData(0, 0, W, 240).data;
-      const step = W < 420 ? 4 : 5;
-      for (let y = 0; y < 240; y += step) {
+      const data = octx.getImageData(0, 0, W, 180).data;
+      const step = W < 420 ? 3 : 4;
+      for (let y = 0; y < 180; y += step) {
         for (let x = 0; x < W; x += step) {
           const idx = (y * W + x) * 4;
-          if (data[idx + 3] > 150) {
+          if (data[idx + 3] > 145) {
             const palette = ["#f472b6", "#fde047", "#ffffff", "#fb7185"];
             textParticles.push({
               x: Math.random() * W,
               y: Math.random() * H,
               tx: x,
-              ty: y + H * 0.12,
+              ty: y + H * 0.11,
               color: palette[Math.floor(Math.random() * palette.length)],
-              size: Math.random() * 2.2 + 1.1
+              size: Math.random() * 2 + 1
             });
           }
         }
@@ -942,15 +1048,12 @@
 
     function launchFirework(isHeart = false) {
       const startX = Math.random() * W * 0.8 + W * 0.1;
-      const targetY = Math.random() * H * 0.36 + H * 0.1;
+      const targetY = Math.random() * H * 0.35 + H * 0.1;
       const hue = isHeart ? 335 : Math.floor(Math.random() * 360);
       fireworks.push({
-        x: startX,
-        y: H,
-        ty: targetY,
+        x: startX, y: H, ty: targetY,
         vy: -(Math.random() * 4 + 7.8),
-        hue,
-        isHeart
+        hue, isHeart
       });
     }
 
@@ -971,15 +1074,21 @@
           vy = Math.sin(angle) * speed;
         }
         sparks.push({
-          x: fw.x,
-          y: fw.y,
-          vx,
-          vy,
+          x: fw.x, y: fw.y, vx, vy,
           alpha: 1,
           decay: Math.random() * 0.015 + 0.011,
           color: fw.isHeart ? (i % 3 === 0 ? "#fde047" : "#ff4d94") : `hsl(${fw.hue}, 95%, 70%)`
         });
       }
+    }
+
+    function drawMiniHeart(c, x, y, size, color) {
+      c.fillStyle = color;
+      c.beginPath();
+      c.moveTo(x, y);
+      c.bezierCurveTo(x - size, y - size, x - size * 1.6, y + size * 0.5, x, y + size * 1.5);
+      c.bezierCurveTo(x + size * 1.6, y + size * 0.5, x + size, y - size, x, y);
+      c.fill();
     }
 
     function animateCanvas() {
@@ -1001,7 +1110,7 @@
         ctx.fill();
       });
 
-      if (Math.random() < 0.02) {
+      if (Math.random() < 0.022) {
         shootingStars.push({
           x: Math.random() * W,
           y: Math.random() * H * 0.4,
@@ -1032,8 +1141,8 @@
 
       if (fxMode === "text3d") {
         textParticles.forEach(p => {
-          p.x += (p.tx - p.x) * 0.08;
-          p.y += (p.ty - p.y) * 0.08;
+          p.x += (p.tx - p.x) * 0.085;
+          p.y += (p.ty - p.y) * 0.085;
           ctx.fillStyle = p.color;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -1041,7 +1150,8 @@
         });
       }
 
-      if ((fxMode === "fireworks" || fxMode === "heart_finale") && Math.random() < (fxMode === "heart_finale" ? 0.095 : 0.055)) {
+      if ((fxMode === "text3d" || fxMode === "fireworks" || fxMode === "heart_finale") &&
+          Math.random() < (fxMode === "heart_finale" ? 0.095 : 0.055)) {
         launchFirework(fxMode === "heart_finale" ? Math.random() > 0.25 : false);
       }
 
@@ -1081,15 +1191,19 @@
         const g = touchGlitters[i];
         g.x += g.vx;
         g.y += g.vy;
-        g.alpha -= 0.032;
+        g.alpha -= 0.03;
         if (g.alpha <= 0) {
           touchGlitters.splice(i, 1);
         } else {
           ctx.globalAlpha = g.alpha;
-          ctx.fillStyle = g.color;
-          ctx.beginPath();
-          ctx.arc(g.x, g.y, g.size, 0, Math.PI * 2);
-          ctx.fill();
+          if (g.isHeart) {
+            drawMiniHeart(ctx, g.x, g.y, g.size * 1.4, g.color);
+          } else {
+            ctx.fillStyle = g.color;
+            ctx.beginPath();
+            ctx.arc(g.x, g.y, g.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
           ctx.globalAlpha = 1;
         }
       }
@@ -1097,18 +1211,32 @@
     animateCanvas();
 
     // =========================================================================
-    // 3. ĐIỀU HƯỚNG CÁC CHẶNG & CẢM BIẾN THỔI NẾN QUA MIC / LOA / MÀN HÌNH
+    // 3. CHUYỂN CẢNH NỨT TOÁC & GIẬT LAG 4 GIÂY -> TRANG 2
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
       document.getElementById(showId).classList.remove("hidden");
     }
 
+    let twist1Started = false;
     function triggerTwist1() {
-      symphony.setScene(1); // Bật HPBD Piano ngay
+      if (twist1Started) return;
+      twist1Started = true;
+
+      // Bật nhạc HPBD Piano & Rung điện thoại tạo cảm giác nứt vỡ
+      symphony.setScene(1);
+      if (navigator.vibrate) navigator.vibrate([120, 80, 200, 100, 300]);
+
       const s1 = document.getElementById("stage-1");
-      s1.classList.add("glitch-active");
-      setTimeout(() => s1.classList.add("shatter-out"), 450);
+      const crackSvg = document.getElementById("glass-crack-svg");
+
+      // Hiện vết nứt toác mặt kính & giật lag 3.6 giây kích thích tò mò
+      crackSvg.classList.add("show-cracks");
+      s1.classList.add("glitch-4s-active");
+
+      setTimeout(() => {
+        s1.classList.add("shatter-out");
+      }, 3600);
 
       setTimeout(() => {
         document.body.classList.add("bling-universe");
@@ -1116,7 +1244,7 @@
         fxMode = "text3d";
         create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
         switchStage("stage-1", "stage-reveal");
-      }, 1050);
+      }, 4250);
     }
 
     function goToStage2() {
@@ -1124,80 +1252,142 @@
       switchStage("stage-reveal", "stage-2");
     }
 
-    // LOGIC THỔI NẾN 3 LẦN + CẢM BIẾN GIÓ MICRO THỰC TẾ
-    let blowCount = 0;
+    // =========================================================================
+    // 4. TRANG 3: GHI ÂM ĐIỀU ƯỚC -> CHẠM MÀN HÌNH KÍCH HOẠT -> CHỈ NHẬN THỔI MIC
+    // =========================================================================
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let isRecording = false;
+    let recordedAudioBlob = null;
+    let wishCompleted = false;
+    let blowSensorActivated = false;
+
+    async function toggleVoiceRecord() {
+      const btn = document.getElementById("record-btn");
+      const icon = document.getElementById("record-icon");
+      const status = document.getElementById("record-status");
+      const sub = document.getElementById("record-sub");
+      const wave = document.getElementById("audio-wave");
+      const preview = document.getElementById("wish-audio-preview");
+
+      if (!isRecording) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          symphony.pauseForMedia(true);
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+          mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+          mediaRecorder.onstop = () => {
+            recordedAudioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            preview.src = URL.createObjectURL(recordedAudioBlob);
+            preview.classList.remove("hidden");
+            stream.getTracks().forEach(t => t.stop());
+            symphony.pauseForMedia(false);
+            revealBlowPreparationPrompt();
+          };
+          mediaRecorder.start();
+          isRecording = true;
+          icon.textContent = "⏹️";
+          btn.classList.add("animate-pulse");
+          status.textContent = "Đang ghi âm điều ước tuổi 16...";
+          sub.textContent = "Thì thầm xong Thy bấm nút vuông để dừng nha";
+          wave.classList.remove("hidden");
+          wave.classList.add("flex");
+        } catch (err) {
+          // Nếu máy chặn quyền mic thì vẫn mở bước tiếp theo mượt mà
+          status.textContent = "✨ Đã ghi nhận điều ước trong tim Thy!";
+          sub.textContent = "Xem hướng dẫn bên dưới nhé 👇";
+          revealBlowPreparationPrompt();
+        }
+      } else {
+        mediaRecorder.stop();
+        isRecording = false;
+        icon.textContent = "🎙️";
+        btn.classList.remove("animate-pulse");
+        status.textContent = "✅ Đã lưu trọn vẹn điều ước của Thy!";
+        sub.textContent = "Xem hướng dẫn thổi nến bên dưới nhé 👇";
+        wave.classList.add("hidden");
+        wave.classList.remove("flex");
+      }
+    }
+
+    // Chỉ sau khi ghi âm xong mới hiện câu lệnh mời chạm màn hình chuẩn bị thổi nến
+    function revealBlowPreparationPrompt() {
+      if (wishCompleted) return;
+      wishCompleted = true;
+      const area = document.getElementById("blow-instruction-area");
+      area.classList.remove("hidden");
+
+      // Lắng nghe cú chạm vào bất kỳ điểm nào trên màn hình để kích hoạt cảm biến thổi
+      const onScreenTapToArm = () => {
+        if (blowSensorActivated) return;
+        blowSensorActivated = true;
+        document.removeEventListener("pointerdown", onScreenTapToArm);
+        startMicrophoneBlowDetector();
+      };
+      setTimeout(() => {
+        document.addEventListener("pointerdown", onScreenTapToArm);
+      }, 250);
+    }
+
+    let blowStepCount = 0;
     let blowCooldown = false;
     let micStream = null;
-    let micAnalyser = null;
     let micCheckLoop = null;
 
-    async function activateBlowSensorAndTap() {
-      // Nếu chưa bật cảm biến micro thì thử xin quyền micro để thổi bằng hơi thật
-      if (!micStream && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-          micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          const source = audioCtx.createMediaStreamSource(micStream);
-          micAnalyser = audioCtx.createAnalyser();
-          micAnalyser.fftSize = 256;
-          source.connect(micAnalyser);
+    async function startMicrophoneBlowDetector() {
+      const toast = document.getElementById("candle-toast");
+      toast.innerHTML = "🌬️ Giờ thì Thy lấy một hơi thật sâu, ghé sát khuôn miệng xinh lại gần ngọn nến để thổi tắt nến nào!";
 
-          const meter = document.getElementById("mic-wind-meter");
-          meter.classList.remove("hidden");
-          meter.classList.add("flex");
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(micStream);
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
 
-          const dataArray = new Uint8Array(micAnalyser.frequencyBinCount);
-          const detectBlow = () => {
-            if (blowCount >= 3) return;
-            micAnalyser.getByteFrequencyData(dataArray);
-            // Tính năng lượng dải trầm/gió thổi vào micro
-            let lowSum = 0;
-            for (let i = 0; i < 16; i++) lowSum += dataArray[i];
-            const avgWind = lowSum / 16;
-            if (avgWind > 145) {
-              registerBlowAction();
-            }
-            micCheckLoop = requestAnimationFrame(detectBlow);
-          };
-          detectBlow();
-        } catch (err) {
-          // Nếu trình duyệt chặn mic, mỗi lần bấm nút hoặc chạm màn hình đều tính là 1 lần thổi
-        }
-      }
-      registerBlowAction();
-    }
-
-    function stopMicSensor() {
-      if (micCheckLoop) cancelAnimationFrame(micCheckLoop);
-      if (micStream) {
-        micStream.getTracks().forEach(t => t.stop());
-        micStream = null;
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        const detectWind = () => {
+          if (blowStepCount >= 3) return;
+          analyser.getByteFrequencyData(dataArray);
+          let lowSum = 0;
+          for (let i = 0; i < 16; i++) lowSum += dataArray[i];
+          const avgWind = lowSum / 16;
+          // Ngưỡng nhạy vừa phải để thổi nhẹ vào mic/loa là nhận ngay
+          if (avgWind > 125) {
+            triggerCandleBlowResponse();
+          }
+          micCheckLoop = requestAnimationFrame(detectWind);
+        };
+        detectWind();
+      } catch (err) {
+        toast.innerHTML = "⚠️ Hãy cấp quyền Micro cho trình duyệt để thổi nến bằng hơi thở của Thy nhé!";
       }
     }
 
-    function registerBlowAction() {
-      if (blowCooldown || blowCount >= 3) return;
+    function triggerCandleBlowResponse() {
+      if (blowCooldown || blowStepCount >= 3) return;
       blowCooldown = true;
-      setTimeout(() => { blowCooldown = false; }, 850);
+      setTimeout(() => { blowCooldown = false; }, 1100);
 
-      blowCount++;
+      blowStepCount++;
       const flame = document.getElementById("candle-flame");
       const cake = document.getElementById("cake-wrapper");
       const candleStick = document.getElementById("candle-stick");
       const toast = document.getElementById("candle-toast");
 
-      if (blowCount === 1) {
-        // Lần 1: Lửa sáng cháy to hơn hẳn
+      if (blowStepCount === 1) {
         flame.classList.add("super-flame");
-        toast.innerHTML = "🔥 Úi chà! Thổi nhẹ quá nên ngọn lửa bùng cháy sáng to hơn rồi kìa! Thổi mạnh thêm cái nữa nào!";
-      } else if (blowCount === 2) {
-        // Lần 2: Bánh lắc di chuyển sang 2 bên liên tục cho đến khi thổi lần 3
+        toast.innerHTML = "😜 Tình yêu chưa ăn cơm hay sao mà thổi yếu xìu, hời hợt quá vậy nè! Ngọn lửa còn cháy bùng to hơn nữa kìa, lấy hơi thổi mạnh hơn đi nào!";
+      } else if (blowStepCount === 2) {
         flame.classList.remove("super-flame");
         cake.classList.add("cake-dodging");
-        toast.innerHTML = "😜 Haha chiếc bánh đang lắc lư né sang 2 bên rồi! Thổi mạnh lần thứ 3 để bắt đứng bánh lại nào!";
-      } else if (blowCount === 3) {
-        // Lần 3: Bánh dừng lại & nến tắt phụt
-        stopMicSensor();
+        toast.innerHTML = "🤭 Suýt trúng rồi! Chiếc bánh đang lắc lư né sang hai bên kìa, thổi thêm một hơi thật mạnh nữa để giữ bánh đứng yên và thổi tắt nến nào!";
+      } else if (blowStepCount === 3) {
+        if (micCheckLoop) cancelAnimationFrame(micCheckLoop);
+        if (micStream) micStream.getTracks().forEach(t => t.stop());
+
         cake.classList.remove("cake-dodging");
         cake.style.transform = "translateX(0) rotateY(0deg)";
         flame.style.opacity = "0";
@@ -1211,93 +1401,159 @@
           }, s * 200);
         }
 
-        toast.innerHTML = "✨ Tuyệt vời! Điều ước đã bay lên bầu trời sao... Đang mở hộp quà bí mật!";
+        toast.innerHTML = "✨ Tuyệt vời! Điều ước tuổi 16 đã bay lên bầu trời sao... Đang mở hộp quà bí mật!";
         for (let i = 0; i < 8; i++) setTimeout(() => launchFirework(true), i * 150);
+
         setTimeout(() => {
           symphony.setScene(2);
           switchStage("stage-2", "stage-3");
-        }, 1600);
+        }, 1700);
       }
     }
 
     // =========================================================================
-    // 4. QUÉT VÂN TAY -> LỖI NHẤP NHÁY -> THANH NẠP 100% -> BẦU TRỜI KỶ NIỆM
+    // 5. TRANG 4: QUÉT VÂN TAY LƯỢT 1 -> BÁO ĐỘNG ĐỎ 3S -> QUÉT THẺ ĐEN LƯỢT 2
     // =========================================================================
-    let scanTimer = null;
-    let scanProgress = 0;
-    let twist3Triggered = false;
-    let errorBeepInterval = null;
+    let scan1Timer = null;
+    let scan1Pct = 0;
+    let scan1Done = false;
+    let alarmInterval = null;
 
-    function startScan(e) {
+    function startScan1(e) {
       if (e) e.preventDefault();
-      if (twist3Triggered) return;
-      const ring = document.getElementById("scan-ring");
-      const pct = document.getElementById("scan-percent");
-      const circumference = 289;
+      if (scan1Done) return;
+      const ring = document.getElementById("scan-ring-1");
+      const pct = document.getElementById("scan-percent-1");
 
-      scanTimer = setInterval(() => {
-        scanProgress += 4;
-        if (scanProgress > 100) scanProgress = 100;
-        ring.style.strokeDashoffset = circumference - (scanProgress / 100) * circumference;
-        pct.textContent = `${scanProgress}%`;
+      scan1Timer = setInterval(() => {
+        scan1Pct += 4;
+        if (scan1Pct > 100) scan1Pct = 100;
+        ring.style.strokeDashoffset = 289 - (scan1Pct / 100) * 289;
+        pct.textContent = `${scan1Pct}%`;
 
-        if (scanProgress >= 100) {
-          clearInterval(scanTimer);
-          twist3Triggered = true;
-          document.getElementById("stage-3").classList.add("glitch-active");
-          document.getElementById("fake-error-box").classList.remove("hidden");
-
-          // Phát tiếng bíp cảnh báo nhấp nháy
-          symphony.playAlertBeep();
-          errorBeepInterval = setInterval(() => symphony.playAlertBeep(), 1100);
+        if (scan1Pct >= 100) {
+          clearInterval(scan1Timer);
+          scan1Done = true;
+          triggerRedAlertSequence();
         }
       }, 65);
     }
 
-    function stopScan() {
-      if (twist3Triggered) return;
-      clearInterval(scanTimer);
-      scanProgress = 0;
-      document.getElementById("scan-ring").style.strokeDashoffset = 289;
-      document.getElementById("scan-percent").textContent = "GIỮ VÂN TAY";
+    function stopScan1() {
+      if (scan1Done) return;
+      clearInterval(scan1Timer);
+      scan1Pct = 0;
+      document.getElementById("scan-ring-1").style.strokeDashoffset = 289;
+      document.getElementById("scan-percent-1").textContent = "GIỮ VÂN TAY";
     }
 
-    // Hiệu ứng thanh nạp liên tục vào màn hình cho đến khi đầy đủ 100%
-    function startLoveRecharge() {
-      if (errorBeepInterval) clearInterval(errorBeepInterval);
-      const errBox = document.getElementById("fake-error-box");
-      errBox.classList.remove("cinema-error-flash");
-      errBox.style.borderColor = "#f472b6";
-      errBox.style.backgroundColor = "rgba(30, 10, 45, 0.9)";
+    function triggerRedAlertSequence() {
+      // Ẩn hoàn toàn vân tay đầu tiên
+      document.getElementById("scanner-box-1").classList.add("hidden");
+      document.getElementById("vault-subtitle").classList.add("hidden");
 
-      document.getElementById("recharge-action-area").classList.add("hidden");
+      // Bật báo động đỏ inh ỏi toàn màn hình + còi hú + rung điện thoại
+      const globalFrame = document.getElementById("global-red-alarm-frame");
+      const errBox = document.getElementById("fake-error-box");
+      globalFrame.classList.remove("hidden");
+      errBox.classList.remove("hidden");
+
+      symphony.playSirenPulse();
+      if (navigator.vibrate) navigator.vibrate([300, 120, 300, 120, 400]);
+
+      alarmInterval = setInterval(() => {
+        symphony.playSirenPulse();
+        if (navigator.vibrate) navigator.vibrate([250, 150, 250]);
+      }, 750);
+
+      // Báo động 1 lúc (3.2 giây) rồi mới hiện câu lệnh & vòng quét vân tay thứ 2
+      setTimeout(() => {
+        clearInterval(alarmInterval);
+        globalFrame.classList.add("hidden");
+        document.getElementById("black-card-override-box").classList.remove("hidden");
+      }, 3200);
+    }
+
+    // Lượt quét vân tay thứ 2 (Xác nhận Thẻ Đen Vô Hạn)
+    let scan2Timer = null;
+    let scan2Pct = 0;
+    let scan2Done = false;
+
+    function startScan2(e) {
+      if (e) e.preventDefault();
+      if (scan2Done) return;
+      const ring = document.getElementById("scan-ring-2");
+      const pct = document.getElementById("scan-percent-2");
+
+      scan2Timer = setInterval(() => {
+        scan2Pct += 5;
+        if (scan2Pct > 100) scan2Pct = 100;
+        ring.style.strokeDashoffset = 289 - (scan2Pct / 100) * 289;
+        pct.textContent = `${scan2Pct}%`;
+
+        if (scan2Pct >= 100) {
+          clearInterval(scan2Timer);
+          scan2Done = true;
+          runBlackCardRechargeBar();
+        }
+      }, 60);
+    }
+
+    function stopScan2() {
+      if (scan2Done) return;
+      clearInterval(scan2Timer);
+      scan2Pct = 0;
+      document.getElementById("scan-ring-2").style.strokeDashoffset = 289;
+      document.getElementById("scan-percent-2").textContent = "XÁC NHẬN VIP";
+    }
+
+    function runBlackCardRechargeBar() {
+      document.getElementById("scanner-box-2").classList.add("hidden");
+      document.getElementById("fake-error-box").classList.add("hidden");
       document.getElementById("recharge-progress-box").classList.remove("hidden");
 
       const fill = document.getElementById("recharge-bar-fill");
       const txt = document.getElementById("recharge-pct-text");
-      let pct = 0;
+      let p = 0;
 
-      const chargeTimer = setInterval(() => {
-        pct += 2;
-        if (pct > 100) pct = 100;
-        fill.style.width = `${pct}%`;
-        txt.textContent = `${pct}%`;
+      const chargeInt = setInterval(() => {
+        p += 2;
+        if (p > 100) p = 100;
+        fill.style.width = `${p}%`;
+        txt.textContent = `${p}%`;
 
-        if (pct >= 100) {
-          clearInterval(chargeTimer);
-          txt.textContent = "100% — HOÀN TẤT!";
+        if (p >= 100) {
+          clearInterval(chargeInt);
+          txt.textContent = "100% — KÍCH HOẠT THÀNH CÔNG!";
           setTimeout(() => {
             symphony.setScene(3);
             for (let i = 0; i < 12; i++) setTimeout(() => launchFirework(true), i * 130);
             renderSkyMemories();
             switchStage("stage-3", "stage-4-sky");
-          }, 550);
+            showBlackCardActivatedModal();
+          }, 500);
         }
-      }, 38);
+      }, 35);
+    }
+
+    // Popup xác nhận Thẻ Đen Vô Hạn giữa màn hình làm mờ xung quanh
+    function showBlackCardActivatedModal() {
+      const modal = document.getElementById("black-card-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      setTimeout(() => {
+        closeBlackCardModal();
+      }, 3400);
+    }
+
+    function closeBlackCardModal() {
+      const modal = document.getElementById("black-card-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
     }
 
     // =========================================================================
-    // 5. BẦU TRỜI KỶ NIỆM BAY LƠ LỬNG & PHÓNG TO GIỮA MÀN HÌNH LÀM MỜ XUNG QUANH
+    // 6. BẦU TRỜI KỶ NIỆM BAY LƠ LỬNG & PHÓNG TO GIỮA MÀN HÌNH
     // =========================================================================
     let currentModalMediaType = null;
 
@@ -1307,10 +1563,11 @@
 
       if (CONFIG.floatingMemories && CONFIG.floatingMemories.length > 0) {
         CONFIG.floatingMemories.forEach((item, idx) => {
-          const rot = idx % 2 === 0 ? "-2.5deg" : "2.5deg";
-          const dur = `${4.5 + (idx % 3)}s`;
+          const rot = idx % 2 === 0 ? "-3deg" : "3deg";
+          const offsetMargin = idx % 2 === 1 ? "mt-5" : "";
+          const dur = `${4.4 + (idx % 3)}s`;
           const card = document.createElement("div");
-          card.className = "sky-memory-card cursor-pointer transition-transform hover:scale-105";
+          card.className = `sky-memory-card cursor-pointer transition-transform hover:scale-105 ${offsetMargin}`;
           card.style.setProperty("--rot", rot);
           card.style.setProperty("--dur", dur);
           card.onclick = () => openMemoryModal(item);
@@ -1332,17 +1589,17 @@
           grid.appendChild(card);
         });
       } else {
-        // Thẻ mẫu tương tác phóng to được ngay cả khi Long chưa nạp ảnh thật
         const sampleCards = [
-          { type: "card", icon: "✨", title: "Tuổi mới rực rỡ", desc: "Luôn tỏa sáng theo cách riêng của Thy" },
-          { type: "card", icon: "🌷", title: "Bình an & Vui vẻ", desc: "Mọi muộn phiền đều ở lại phía sau" },
-          { type: "card", icon: "💫", title: "Vạn điều như ý", desc: "Điều ước hôm nay sẽ sớm thành thật" },
-          { type: "card", icon: "🎂", title: "Happy Birthday", desc: "Chúc mừng ngày đặc biệt nhất năm" }
+          { type: "card", icon: "✨", title: "Sweet 16 Rực Rỡ", desc: "Tuổi 16 tỏa sáng theo cách riêng của Thy" },
+          { type: "card", icon: "♏", title: "20.11.2010", desc: "Chòm sao Bọ Cạp tinh tế & rạng ngời" },
+          { type: "card", icon: "🌲", title: "Tùng Bách Mộc", desc: "Vững vàng, thanh cao và tràn đầy sức sống" },
+          { type: "card", icon: "🎂", title: "Happy Birthday", desc: "Mọi điều ước hôm nay đều thành hiện thực" }
         ];
         sampleCards.forEach((p, idx) => {
-          const rot = idx % 2 === 0 ? "-2deg" : "2deg";
+          const rot = idx % 2 === 0 ? "-2.5deg" : "2.5deg";
+          const offsetMargin = idx % 2 === 1 ? "mt-4" : "";
           const card = document.createElement("div");
-          card.className = "rounded-2xl p-4 text-center space-y-1 bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_25px_rgba(244,114,182,0.25)] cursor-pointer";
+          card.className = `rounded-2xl p-4 text-center space-y-1 bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_25px_rgba(244,114,182,0.25)] cursor-pointer ${offsetMargin}`;
           card.style.animation = `floatSky ${4 + idx * 0.5}s ease-in-out infinite`;
           card.style.setProperty("--rot", rot);
           card.onclick = () => openMemoryModal(p);
@@ -1364,17 +1621,15 @@
       currentModalMediaType = item.type;
 
       if (item.type === "video") {
-        // Tạm nhỏ/tắt nhạc nền khi mở video kỷ niệm
-        if (!symphony.isMuted) symphony.toggleMute();
+        symphony.pauseForMedia(true);
         box.innerHTML = `<video id="popup-sky-video" src="${item.src}" controls autoplay playsinline class="w-full max-h-[65vh] mx-auto"></video>`;
         cap.textContent = item.caption || "";
-        hint.textContent = "Video sẽ tự động trở lại bầu trời kỷ niệm sau khi phát hết ✨";
+        hint.textContent = "Hết video sẽ tự động trở lại bầu trời kỷ niệm ✨";
 
         const vid = document.getElementById("popup-sky-video");
-        // Hết video thì tự động trở lại bầu trời kỷ niệm!
         vid.addEventListener("ended", () => {
           closeMemoryModal();
-          if (symphony.isMuted) symphony.toggleMute();
+          symphony.pauseForMedia(false);
         });
       } else if (item.type === "image") {
         box.innerHTML = `<img src="${item.src}" class="w-full max-h-[65vh] object-contain mx-auto" />`;
@@ -1388,7 +1643,7 @@
             <div class="text-xs text-pink-100">${item.desc}</div>
           </div>
         `;
-        cap.textContent = "Kỷ niệm đặc biệt dành cho Thy";
+        cap.textContent = "Kỷ niệm tuổi 16 của Quý Thy";
         hint.textContent = "Chạm thêm lần nữa vào màn hình để quay lại bầu trời kỷ niệm";
       }
 
@@ -1396,10 +1651,9 @@
       modal.classList.add("flex");
     }
 
-    // Chạm thêm lần nữa vào màn hình là quay lại bầu trời kỷ niệm
     function handleModalBackdropClick() {
-      if (currentModalMediaType === "video" && symphony.isMuted) {
-        symphony.toggleMute();
+      if (currentModalMediaType === "video") {
+        symphony.pauseForMedia(false);
       }
       closeMemoryModal();
     }
@@ -1411,41 +1665,60 @@
       modal.classList.remove("flex");
     }
 
-    // Chuyển từ Bầu trời kỷ niệm sang Trang lời chúc Video & Trang cuối
-    function goToFinalStage() {
-      const msgBox = document.getElementById("main-message-container");
+    // =========================================================================
+    // 7. CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC -> HẾT VIDEO HIỆN TRANG CUỐI
+    // =========================================================================
+    function openVideoIntroPrompt() {
+      const modal = document.getElementById("video-greeting-modal");
+      document.getElementById("video-prompt-card").classList.remove("hidden");
+      document.getElementById("video-player-card").classList.add("hidden");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function playGreetingVideoNow() {
+      document.getElementById("video-prompt-card").classList.add("hidden");
+      const playerCard = document.getElementById("video-player-card");
+      const slot = document.getElementById("greeting-video-slot");
+      playerCard.classList.remove("hidden");
+
       if (CONFIG.mainBirthdayVideo && CONFIG.mainBirthdayVideo.trim() !== "") {
-        msgBox.innerHTML = `
-          <div class="p-2 rounded-2xl bg-white/10 backdrop-blur-md border border-pink-300/40 shadow-[0_0_35px_rgba(244,114,182,0.4)]">
-            <video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls playsinline class="w-full rounded-xl bg-black max-h-80"></video>
-          </div>
-        `;
+        symphony.pauseForMedia(true);
+        slot.innerHTML = `<video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls autoplay playsinline class="w-full max-h-[68vh] mx-auto bg-black"></video>`;
         const vid = document.getElementById("main-greeting-video");
-        vid.addEventListener("play", () => { if (!symphony.isMuted) symphony.toggleMute(); });
-        vid.addEventListener("ended", () => { if (symphony.isMuted) symphony.toggleMute(); });
+        // Hết video chúc mừng lập tức chuyển sang lời chúc sau cuối
+        vid.addEventListener("ended", () => {
+          symphony.pauseForMedia(false);
+          finishVideoAndShowFinalPage();
+        });
       } else {
-        msgBox.innerHTML = `
-          <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-pink-300/30 text-xs sm:text-sm text-pink-50 leading-relaxed text-left shadow-[0_0_30px_rgba(244,114,182,0.2)]">
-            ${CONFIG.fallbackLetterText}
+        // Nếu chưa chèn file video quay thì hiển thị thiệp động & nút tiếp tục
+        slot.innerHTML = `
+          <div class="p-6 bg-gradient-to-br from-rose-950 via-purple-950 to-slate-950 text-left space-y-4">
+            <div class="text-xs font-mono-tech text-amber-300 uppercase tracking-widest">💌 Lời nhắn gửi Quý Thy</div>
+            <p class="text-xs sm:text-sm text-pink-50 leading-relaxed">${CONFIG.fallbackGreetingCardText}</p>
+            <button type="button" onclick="finishVideoAndShowFinalPage()" class="w-full py-3 rounded-full bg-gradient-to-r from-pink-500 to-amber-400 text-white text-xs font-extrabold">
+              Tiếp tục tới trang cuối ✨
+            </button>
           </div>
         `;
       }
+    }
+
+    function finishVideoAndShowFinalPage() {
+      const modal = document.getElementById("video-greeting-modal");
+      document.getElementById("greeting-video-slot").innerHTML = "";
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
       switchStage("stage-4-sky", "stage-4-final");
     }
 
-    // Ẩn / hiện ô ghi chú nhỏ
-    function toggleSecretNoteBox() {
-      const box = document.getElementById("secret-note-wrapper");
-      box.classList.toggle("hidden");
-    }
-
     // =========================================================================
-    // 6. NÚT KẾT THÚC "GOODBYE FOR NOW, MY LOVE." & GỬI KẾT QUẢ VỀ GMAIL
+    // 8. NÚT KẾT THÚC "GOODBYE FOR NOW, MY LOVE."
     // =========================================================================
     async function triggerFinalGoodbye() {
       const btn = document.getElementById("final-goodbye-btn");
       const statusEl = document.getElementById("send-status-text");
-      const textWish = document.getElementById("wish-text-input").value.trim();
       const replyNote = document.getElementById("reply-note-input").value.trim();
 
       btn.disabled = true;
@@ -1454,10 +1727,10 @@
       for (let i = 0; i < 14; i++) setTimeout(() => launchFirework(true), i * 140);
 
       const summaryLines = [
-        `🎂 THÔNG BÁO SINH NHẬT TỪ WEB CỦA THY`,
+        `🎂 THÔNG BÁO SINH NHẬT TUỔI 16 TỪ WEB CỦA QUÝ THY (20.11.2010)`,
         `----------------------------------------`,
         `• Trạng thái: Thy đã bấm xác nhận "Goodbye for now, my love." 💖`,
-        `• Điều ước tuổi mới của Thy: ${textWish || "(Thy chưa nhập chữ)"}`,
+        `• Ghi âm điều ước: ${recordedAudioBlob ? "Thy đã thu âm điều ước tuổi 16 trên trình duyệt." : "Không có file ghi âm"}`,
         `• Lời nhắn nhủ gửi anh Long: ${replyNote || "(Thy bấm nút xác nhận hẹn gặp lại!)"}`
       ];
 
@@ -1467,8 +1740,8 @@
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({
             access_key: CONFIG.web3formsKey,
-            subject: "💖 [Sinh Nhật Thy] Goodbye for now, my love — Điều ước đã được gửi!",
-            from_name: "Web Sinh Nhật Của Thy",
+            subject: "💖 [Sweet 16 Quý Thy] Goodbye for now, my love — Điều ước đã được gửi!",
+            from_name: "Web Sinh Nhật Của Quý Thy",
             message: summaryLines.join("\n")
           })
         });
@@ -1485,4 +1758,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
