@@ -346,7 +346,7 @@
   <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- LỚP CHỨA 48 MẢNH KÍNH VỠ TOÀN MÀN HÌNH (TRÀN TẬN 4 VIỀN ĐIỆN THOẠI) -->
+  <!-- LỚP CHỨA 56 MẢNH KÍNH VỠ TOÀN MÀN HÌNH (SẼ BỊ XÓA SẠCH SAU KHI RƠI XONG) -->
   <div id="fullscreen-shatter-layer" class="hidden fixed inset-0 z-50 pointer-events-none" style="perspective: 1100px;"></div>
 
   <!-- CONTAINER CHÍNH -->
@@ -1197,7 +1197,7 @@
     animateCanvas();
 
     // =========================================================================
-    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (TRÀN TẬN 4 VIỀN ĐIỆN THOẠI)
+    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (XÓA SẠCH ID TRÙNG & HỦY SAU RƠI)
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
@@ -1218,14 +1218,12 @@
       const stageContainer = document.getElementById("stage-container");
       const fullLayer = document.getElementById("fullscreen-shatter-layer");
 
-      // Đổi nền body sang vũ trụ huyền ảo ngay phía sau lớp kính vỡ để lộ ánh sáng qua khe nứt
       document.body.classList.add("bling-universe");
       fxMode = "fireworks";
 
       const impactX = e ? e.clientX : vw * 0.5;
       const impactY = e ? e.clientY : vh * 0.55;
 
-      // Chia TOÀN BỘ MÀN HÌNH (từ viền trên xuống viền dưới, viền trái sang phải) thành lưới tam giác kính vỡ
       const cols = 4;
       const rows = 7;
       const pts = [];
@@ -1234,7 +1232,6 @@
         for (let c = 0; c <= cols; c++) {
           let px = (c / cols) * vw;
           let py = (r / rows) * vh;
-          // Chỉ dịch chuyển các điểm bên trong, giữ chặt 4 cạnh ngoài chạm sát viền màn hình
           if (r > 0 && r < rows) {
             py += (Math.random() - 0.5) * (vh / rows) * 0.72;
           }
@@ -1249,7 +1246,16 @@
       fullLayer.innerHTML = "";
       const shardElements = [];
 
-      // Nhân bản toàn bộ giao diện trang 1 (gồm cả nền viền xám + thẻ khảo sát) vào từng mảnh kính toàn màn hình
+      // Tạo bản mẫu sạch sẽ chỉ giữ đúng Trang 1 và XÓA SẠCH mọi thuộc tính id để không bao giờ đụng hàng
+      const cleanTemplate = stageContainer.cloneNode(true);
+      cleanTemplate.removeAttribute("id");
+      cleanTemplate.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
+      // Chỉ giữ lại section đầu tiên (phiếu khảo sát) trong bản clone
+      const sectionsInClone = cleanTemplate.querySelectorAll("section");
+      sectionsInClone.forEach((sec, idx) => {
+        if (idx > 0) sec.remove();
+      });
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const p1 = pts[r][c];
@@ -1266,8 +1272,7 @@
             const shard = document.createElement("div");
             shard.className = "fullscreen-glass-shard flex flex-col items-center justify-center";
 
-            const cloneMain = stageContainer.cloneNode(true);
-            cloneMain.removeAttribute("id");
+            const cloneMain = cleanTemplate.cloneNode(true);
             shard.appendChild(cloneMain);
 
             const clipStr = `polygon(${tri[0][0]}px ${tri[0][1]}px, ${tri[1][0]}px ${tri[1][1]}px, ${tri[2][0]}px ${tri[2][1]}px)`;
@@ -1295,11 +1300,12 @@
         }
       }
 
-      // Ẩn bản gốc, bật lớp kính vỡ toàn màn hình
-      document.getElementById("stage-1").classList.add("hidden");
+      // Ẩn vĩnh viễn Trang 1 gốc
+      const stage1El = document.getElementById("stage-1");
+      if (stage1El) stage1El.remove();
+
       fullLayer.classList.remove("hidden");
 
-      // Bung nứt toác toàn màn hình kèm viền sáng phản chiếu kính vỡ
       requestAnimationFrame(() => {
         shardElements.forEach(s => {
           s.el.style.transform = `translate3d(${s.initTx}px, ${s.initTy}px, 18px) rotateX(${s.initRotX}deg) rotateY(${s.initRotY}deg) rotateZ(${s.initRotZ}deg)`;
@@ -1307,10 +1313,8 @@
         });
       });
 
-      // Giật lag kích thích tò mò trong 3.3 giây
       fullLayer.classList.add("screen-glitch-loop");
 
-      // Sau 3.3 giây -> Toàn bộ 56 mảnh kính toàn màn hình rơi sập xuống
       setTimeout(() => {
         fullLayer.classList.remove("screen-glitch-loop");
         shardElements.forEach(s => {
@@ -1323,10 +1327,9 @@
         });
       }, 3300);
 
-      // Hiện Trang 2 hoàn chỉnh
+      // Xóa hẳn lớp mảnh kính khỏi DOM rồi mới mở Trang 2
       setTimeout(() => {
-        fullLayer.classList.add("hidden");
-        fullLayer.innerHTML = "";
+        if (fullLayer) fullLayer.remove();
         document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
         document.getElementById("stage-reveal").classList.remove("hidden");
         fxMode = "text3d";
