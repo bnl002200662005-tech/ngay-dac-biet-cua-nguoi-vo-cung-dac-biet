@@ -17,10 +17,6 @@
       recipientName: "Thy",
       fullRecipientName: "Quý Thy",
       senderName: "Long",
-      birthDateText: "20.11.2010",
-      ageText: "SWEET 16",
-      zodiacText: "♏ SCORPIO",
-      elementText: "TÙNG BÁCH MỘC",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
       // 1. NHẠC NỀN 3 CHẶNG (Để trống "" sẽ tự chơi 3 bản Piano/Giao hưởng tích hợp cực mượt)
@@ -71,42 +67,32 @@
     .font-script-love { font-family: 'Pacifico', cursive; }
 
     /* ===================================================================== */
-    /* HIỆU ỨNG NỨT TOÁC & GIẬT LAG 4 GIÂY KÍCH THÍCH TÒ MÒ                  */
+    /* HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC 3D THẬT SỰ (REALISTIC SHATTER SHARDS)      */
     /* ===================================================================== */
-    .crack-overlay {
+    .glass-shard {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 30;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-    }
-    .crack-overlay.show-cracks { opacity: 1; }
-
-    @keyframes intenseGlitch4s {
-      0%, 100% { transform: translate(0, 0) skewX(0deg); filter: none; }
-      6% { transform: translate(-11px, 4px) skewX(7deg); filter: hue-rotate(90deg) contrast(1.8); }
-      12% { transform: translate(11px, -5px) skewX(-7deg); filter: invert(0.15); }
-      18% { transform: translate(-6px, -3px) scale(1.02); filter: hue-rotate(180deg); }
-      24% { transform: translate(0, 0); filter: none; }
-      38% { transform: translate(14px, 6px) skewX(-10deg); filter: hue-rotate(260deg) contrast(2.2); }
-      43% { transform: translate(-14px, -6px) skewX(10deg); filter: invert(0.85); }
-      48% { transform: translate(5px, 2px); filter: none; }
-      65% { transform: translate(-12px, 5px) skewY(3deg); filter: hue-rotate(120deg) brightness(1.4); }
-      72% { transform: translate(12px, -4px) skewY(-3deg); filter: contrast(2.4); }
-      85% { transform: translate(-8px, 6px) scale(1.04) skewX(8deg); filter: invert(0.3) hue-rotate(300deg); }
-      94% { transform: translate(9px, -6px) scale(0.98) skewX(-8deg); }
-    }
-    .glitch-4s-active {
-      animation: intenseGlitch4s 3.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+      will-change: transform, opacity;
     }
 
-    @keyframes shatterDrop {
-      0% { opacity: 1; transform: scale(1) rotate(0deg); }
-      35% { opacity: 0.95; transform: scale(1.06) rotate(-2deg); }
-      100% { opacity: 0; transform: translateY(180px) scale(0.68) rotate(14deg); filter: blur(10px); }
+    @keyframes screenGlitchPulse {
+      0%, 100% { transform: translate(0, 0); filter: none; }
+      10% { transform: translate(-8px, 3px) skewX(4deg); filter: contrast(1.5) hue-rotate(45deg); }
+      20% { transform: translate(8px, -3px) skewX(-4deg); filter: invert(0.12); }
+      35% { transform: translate(-5px, -2px); filter: none; }
+      55% { transform: translate(10px, 4px) skewX(-6deg); filter: contrast(1.8) hue-rotate(180deg); }
+      65% { transform: translate(-9px, -4px) skewX(6deg); filter: invert(0.8); }
+      75% { transform: translate(3px, 2px); filter: none; }
+      90% { transform: translate(-6px, 4px) scale(1.02); filter: hue-rotate(270deg); }
     }
-    .shatter-out { animation: shatterDrop 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
+    .screen-glitch-loop {
+      animation: screenGlitchPulse 0.9s infinite ease-in-out;
+    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -323,9 +309,7 @@
       0%, 100% { box-shadow: inset 0 0 55px rgba(239, 68, 68, 0.85); }
       50% { box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.1); }
     }
-    .screen-red-alert {
-      animation: redScreenStrobe 0.45s infinite ease-in-out;
-    }
+    .screen-red-alert { animation: redScreenStrobe 0.45s infinite ease-in-out; }
 
     @keyframes exclamationPulse {
       0%, 100% { transform: scale(1); filter: drop-shadow(0 0 18px #ef4444); opacity: 1; }
@@ -333,7 +317,6 @@
     }
     .alert-bang-flash { animation: exclamationPulse 0.42s infinite ease-in-out; }
 
-    /* Thẻ kỷ niệm bay lơ lửng bố cục chòm sao */
     @keyframes floatSky {
       0%, 100% { transform: translateY(0px) rotate(var(--rot, -2deg)); }
       50% { transform: translateY(-11px) rotate(calc(var(--rot, -2deg) * -1)); }
@@ -355,83 +338,88 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative">
 
-  <!-- VIỀN BÁO ĐỘNG ĐỎ TOÀN MÀN HÌNH (CHỈ BẬT KHI LỖI MÀN 4) -->
+  <!-- VIỀN BÁO ĐỘNG ĐỎ TOÀN MÀN HÌNH -->
   <div id="global-red-alarm-frame" class="hidden fixed inset-0 pointer-events-none z-40 screen-red-alert"></div>
 
   <!-- AUDIO PLAYER DỰ PHÒNG NẾU CHÈN MP3 -->
   <audio id="custom-mp3-player" loop preload="auto"></audio>
 
-  <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA + CHÒM SAO -->
+  <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- CONTAINER CHÍNH -->
   <main id="stage-container" class="relative z-10 w-full max-w-md px-5 py-6 flex flex-col items-center justify-center min-h-screen">
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ ĐƠN SƠ ĐÁNH LẠC HƯỚNG                       -->
+    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ & KHUNG VỠ KÍNH CƯỜNG LỰC 3D THẬT           -->
     <!-- ===================================================================== -->
-    <section id="stage-1" class="relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6 overflow-hidden">
-      <!-- LỚP VẾT NỨT KÍNH (HIỆN KHI BẤM VÀO) -->
-      <svg id="glass-crack-svg" class="crack-overlay w-full h-full" viewBox="0 0 300 400" preserveAspectRatio="none">
-        <path d="M150 180 L90 40 M150 180 L240 20 M150 180 L285 160 M150 180 L230 370 M150 180 L40 350 M150 180 L10 190 M90 40 L45 10 M90 40 L125 5 M240 20 L275 80 M230 370 L170 395 M40 350 L15 280 M115 110 L185 125 L205 230 L110 245 Z"
-              stroke="#1f2937" stroke-width="2.2" fill="none" opacity="0.85" />
-        <path d="M152 182 L92 42 M152 182 L242 22 M152 182 L232 372 M152 182 L42 352"
-              stroke="#9ca3af" stroke-width="1" fill="none" opacity="0.9" />
-      </svg>
+    <section id="stage-1" class="relative w-full">
+      <div id="survey-card-original" class="w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+          <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold rounded uppercase tracking-wider">
+            Biểu mẫu đánh giá #2026
+          </span>
+          <span class="text-xs text-gray-400 font-mono-tech">ID: THY-01</span>
+        </div>
 
-      <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
-        <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold rounded uppercase tracking-wider">
-          Biểu mẫu đánh giá #2026
-        </span>
-        <span class="text-xs text-gray-400 font-mono-tech">ID: THY-01</span>
+        <h1 class="text-lg font-bold text-gray-800 leading-snug mb-2">
+          Khảo sát mức độ hài lòng về sự xuất hiện của Long trong thời gian qua
+        </h1>
+        <p class="text-xs text-gray-500 leading-relaxed mb-5">
+          Vui lòng chọn một đánh giá khách quan bên dưới để hệ thống ghi nhận dữ liệu định kỳ.
+        </p>
+
+        <div class="space-y-2.5 mb-5">
+          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
+            <span>1. Rất nhiệt tình, nhưng thỉnh thoảng hơi nhạt</span>
+            <span class="text-gray-300">○</span>
+          </button>
+          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
+            <span>2. Tạm chấp nhận được, cần cố gắng thêm</span>
+            <span class="text-gray-300">○</span>
+          </button>
+          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
+            <span>3. Đỉnh cao chất lượng, 10 điểm không có nhưng</span>
+            <span class="text-gray-300">○</span>
+          </button>
+        </div>
+
+        <div class="text-[11px] text-gray-400 text-center">
+          Hệ thống khảo sát tự động • Bảo mật thông tin người dùng
+        </div>
       </div>
 
-      <h1 class="text-lg font-bold text-gray-800 leading-snug mb-2">
-        Khảo sát mức độ hài lòng về sự xuất hiện của Long trong thời gian qua
-      </h1>
-      <p class="text-xs text-gray-500 leading-relaxed mb-5">
-        Vui lòng chọn một đánh giá khách quan bên dưới để hệ thống ghi nhận dữ liệu định kỳ.
-      </p>
-
-      <div class="space-y-2.5 mb-5">
-        <button type="button" onclick="triggerTwist1()" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-          <span>1. Rất nhiệt tình, nhưng thỉnh thoảng hơi nhạt</span>
-          <span class="text-gray-300">○</span>
-        </button>
-        <button type="button" onclick="triggerTwist1()" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-          <span>2. Tạm chấp nhận được, cần cố gắng thêm</span>
-          <span class="text-gray-300">○</span>
-        </button>
-        <button type="button" onclick="triggerTwist1()" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-          <span>3. Đỉnh cao chất lượng, 10 điểm không có nhưng</span>
-          <span class="text-gray-300">○</span>
-        </button>
-      </div>
-
-      <div class="text-[11px] text-gray-400 text-center">
-        Hệ thống khảo sát tự động • Bảo mật thông tin người dùng
-      </div>
+      <!-- CONTAINER CHỨA CÁC MẢNH KÍNH VỠ 3D ĐƯỢC SINH RA KHI CHẠM -->
+      <div id="shatter-shards-container" class="hidden relative w-full" style="perspective: 900px;"></div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2: SAU VỠ VỤN — HUY HIỆU TUỔI 16 + CÂU DẪN NHỊP NHÀNG + CHỮ NỔI   -->
+    <!-- MÀN 2: CÂU NGUYỆN ĐẦU TRANG -> HUY HIỆU -> CHỮ 3D -> CÂU DẪN -> NÚT  -->
     <!-- ===================================================================== -->
-    <section id="stage-reveal" class="hidden w-full space-y-5 animate-fade-up">
-      <!-- HUY HIỆU CÁ NHÂN HÓA 20/11/2010 • SWEET 16 • SCORPIO • TÙNG BÁCH MỘC -->
-      <div class="flex flex-wrap items-center justify-center gap-1.5 pt-1">
-        <span class="px-2.5 py-1 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-mono-tech font-bold">
+    <section id="stage-reveal" class="hidden w-full space-y-3.5 animate-fade-up">
+      <!-- 1. LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO CHUYỂN LÊN NGAY ĐẦU TRANG -->
+      <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-pink-500/15 to-purple-500/15 backdrop-blur-md border border-amber-200/35 text-center space-y-0.5 shadow-[0_0_25px_rgba(251,191,36,0.2)]">
+        <div class="text-amber-300 text-xs">🕊️ ✨</div>
+        <p class="font-serif-luxury italic text-sm sm:text-base text-amber-100 leading-snug">
+          “Nguyện xin Chúa luôn ban muôn hồng ân, bình an và niềm vui trọn vẹn xuống trên người con gái trước mặt Ngài đây bước trong tuổi 16 rực rỡ này.”
+        </p>
+      </div>
+
+      <!-- 2. HUY HIỆU NGÀY SINH & HOÀNG ĐẠO RÕ RÀNG, KHÔNG BỊ CHỮ CHE -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5">
+        <span class="px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/45 text-amber-200 text-[10px] font-mono-tech font-bold">
           🎂 20.11.2010 • SWEET 16
         </span>
-        <span class="px-2.5 py-1 rounded-full bg-pink-500/15 border border-pink-300/40 text-pink-200 text-[10px] font-mono-tech font-bold">
+        <span class="px-2.5 py-1 rounded-full bg-pink-500/20 border border-pink-300/45 text-pink-200 text-[10px] font-mono-tech font-bold">
           ♏ SCORPIO • TÙNG BÁCH MỘC
         </span>
       </div>
 
-      <!-- KHOẢNG KHÔNG CHO CHỮ HẠT 3D "Happy Birthday Thy" -->
-      <div class="h-24"></div>
+      <!-- 3. KHOẢNG KHÔNG DÀNH RIÊNG CHO CHỮ HẠT 3D "Happy Birthday Thy" -->
+      <div id="text3d-anchor-zone" class="h-24 w-full"></div>
 
-      <!-- CÂU DẪN THÒ THỤT SO LE ĐAN XEN ICON SINH ĐỘNG -->
-      <div class="p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.35)] space-y-2.5 text-xs sm:text-sm">
+      <!-- 4. CÂU DẪN THÒ THỤT SO LE ĐAN XEN ICON SINH ĐỘNG -->
+      <div class="p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.35)] space-y-2 text-xs sm:text-sm">
         <div class="text-left pl-1 text-amber-300 font-extrabold">
           😜 Bị lừa rồi nha!
         </div>
@@ -446,14 +434,7 @@
         </div>
       </div>
 
-      <!-- LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO (TRANG 2) -->
-      <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-pink-500/15 to-purple-500/15 border border-amber-200/30 text-center space-y-1">
-        <div class="text-amber-300 text-xs">🕊️ ✨</div>
-        <p class="font-serif-luxury italic text-sm sm:text-base text-amber-100 leading-snug">
-          “Nguyện xin Chúa luôn ban muôn hồng ân, bình an và niềm vui trọn vẹn xuống trên người con gái trước mặt Ngài đây bước trong tuổi 16 rực rỡ này.”
-        </p>
-      </div>
-
+      <!-- 5. NÚT CHỮ NỔI NHẬP TIỆC THÔI NÀO -->
       <div class="text-center pt-1">
         <button type="button" onclick="goToStage2()" class="btn-3d-pop px-9 py-4 rounded-full text-white font-extrabold text-base tracking-wide uppercase">
           🎉 Nhập tiệc thôi nào!
@@ -517,7 +498,7 @@
         </div>
       </div>
 
-      <!-- BỘ GHI ÂM ĐIỀU ƯỚC (CHỈ GHI ÂM, KHÔNG NHẬP TAY) -->
+      <!-- BỘ GHI ÂM ĐIỀU ƯỚC -->
       <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2.5">
         <div class="flex items-center justify-center gap-3 px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]">
           <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.8)] active:scale-95 transition-all shrink-0">
@@ -536,7 +517,7 @@
         <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-full"></audio>
       </div>
 
-      <!-- KHU VỰC CÂU LỆNH THỔI NẾN (ẨN HOÀN TOÀN CHO ĐẾN KHI GHI ÂM XONG) -->
+      <!-- KHU VỰC CÂU LỆNH THỔI NẾN (ẨN CHO ĐẾN KHI GHI ÂM XONG) -->
       <div id="blow-instruction-area" class="hidden max-w-sm mx-auto pt-1 animate-fade-up">
         <div id="candle-toast" class="px-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
           ✨ Điều ước đã được cất giữ! Giờ thì Thy hãy chạm nhẹ vào một điểm bất kỳ trên màn hình để chuẩn bị thổi nến nào...
@@ -605,7 +586,6 @@
           </p>
         </div>
 
-        <!-- VÒNG QUÉT VÂN TAY LƯỢT 2 (PHIÊN BẢN GOLD VIP) -->
         <div id="scanner-box-2" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-neutral-950/90 backdrop-blur-md border-2 border-amber-400/75 shadow-[0_0_45px_rgba(251,191,36,0.5),inset_0_0_25px_rgba(251,191,36,0.25)] overflow-hidden"
              onmousedown="startScan2()" onmouseup="stopScan2()" onmouseleave="stopScan2()"
              ontouchstart="startScan2(event)" ontouchend="stopScan2()">
@@ -631,7 +611,6 @@
           </div>
         </div>
 
-        <!-- THANH TIẾN TRÌNH NẠP TÌNH CẢM 0% -> 100% -->
         <div id="recharge-progress-box" class="hidden space-y-1.5 pt-1">
           <div class="flex justify-between text-[11px] font-mono-tech font-bold text-amber-300">
             <span>ĐANG KÍCH HOẠT THẺ ĐEN VÔ HẠN...</span>
@@ -660,10 +639,8 @@
         <p class="text-[11px] text-pink-200/85">Chạm vào từng khung ảnh hoặc video đang bay để phóng to xem rõ nhé ✨</p>
       </div>
 
-      <!-- LƯỚI KỶ NIỆM BAY LƠ LỬNG -->
       <div id="memories-grid" class="grid grid-cols-2 gap-4 px-1"></div>
 
-      <!-- ĐIỂM DẪN SANG TRANG VIDEO LỜI CHÚC & TRANG CUỐI -->
       <div class="pt-4 text-center">
         <button type="button" onclick="openVideoIntroPrompt()" class="btn-3d-pop px-8 py-4 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
           <span>Mở lời chúc đặc biệt từ Long</span>
@@ -687,19 +664,16 @@
         <h2 class="font-script-love text-3xl bling-text pt-1">Gửi Quý Thy tuổi 16</h2>
       </div>
 
-      <!-- CÂU KẾT NGUYÊN VĂN CỦA LONG -->
       <div class="p-5 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.3)] text-center">
         <p class="text-sm sm:text-base text-pink-50 leading-relaxed font-medium italic">
           “Một lần nữa, chúc em một ngày đặc biệt, một ngày sinh nhật tràn ngập niềm yêu thương và niềm vui. Hẹn gặp lại nhé người con gái xinh đẹp, giỏi giang, tỏa sáng nhất hôm nay.”
         </p>
       </div>
 
-      <!-- KHUNG NHẮN NHỦ KÍNH MỜ SANG TRỌNG (ĐÃ XÓA CHỮ GHI CHÚ & KHUNG TRẮNG) -->
       <div class="pt-1">
         <textarea id="reply-note-input" rows="2" placeholder="Thy có muốn nhắn nhủ gì với anh Long khum nè 😊" class="w-full px-4 py-3.5 rounded-2xl bg-purple-950/55 backdrop-blur-md border border-pink-300/40 text-xs sm:text-sm text-white text-center placeholder-pink-200/80 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] focus:outline-none focus:border-amber-300"></textarea>
       </div>
 
-      <!-- MŨI TÊN CHỈ XUỐNG & NÚT GOODBYE FOR NOW, MY LOVE -->
       <div class="flex flex-col items-center space-y-3 pt-1">
         <div class="flex flex-col items-center text-amber-300 arrow-down-anim">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -716,9 +690,7 @@
 
   </main>
 
-  <!-- ===================================================================== -->
-  <!-- POPUP 1: XÁC NHẬN KÍCH HOẠT THẺ ĐEN VÔ HẠN GIỮA MÀN HÌNH              -->
-  <!-- ===================================================================== -->
+  <!-- POPUP 1: XÁC NHẬN KÍCH HOẠT THẺ ĐEN VÔ HẠN GIỮA MÀN HÌNH -->
   <div id="black-card-modal" onclick="closeBlackCardModal()" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/80 backdrop-blur-xl">
     <div class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-neutral-900 via-zinc-900 to-black border-2 border-amber-400/80 p-6 text-center space-y-4 shadow-[0_0_60px_rgba(251,191,36,0.55)] animate-fade-up">
       <div class="flex items-center justify-between text-[10px] font-mono-tech text-amber-300/80 tracking-widest">
@@ -735,9 +707,7 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
   <!-- POPUP 2: PHÓNG TO ẢNH / VIDEO KỶ NIỆM GIỮA MÀN HÌNH LÀM MỜ XUNG QUANH -->
-  <!-- ===================================================================== -->
   <div id="memory-modal" onclick="handleModalBackdropClick()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all">
     <div class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up" style="animation: none;">
       <div id="modal-media-box" class="w-full rounded-xl overflow-hidden bg-black"></div>
@@ -746,11 +716,8 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- POPUP 3: CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC & PHÁT VIDEO GIỮA MÀN HÌNH     -->
-  <!-- ===================================================================== -->
+  <!-- POPUP 3: CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC & PHÁT VIDEO GIỮA MÀN HÌNH -->
   <div id="video-greeting-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/85 backdrop-blur-xl">
-    <!-- BƯỚC 1: CÂU DẪN MỜI CHẠM MỞ VIDEO -->
     <div id="video-prompt-card" onclick="playGreetingVideoNow()" class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-purple-950/90 via-rose-950/90 to-slate-950/90 border border-amber-300/50 p-6 text-center space-y-4 shadow-[0_0_50px_rgba(244,114,182,0.5)] cursor-pointer animate-fade-up">
       <div class="text-5xl animate-bounce">🎬✨</div>
       <h3 class="font-serif-luxury text-3xl font-bold bling-text">
@@ -764,7 +731,6 @@
       </div>
     </div>
 
-    <!-- BƯỚC 2: KHUNG PHÁT VIDEO (HẾT VIDEO TỰ CHUYỂN SANG TRANG CUỐI) -->
     <div id="video-player-card" class="hidden max-w-sm w-full rounded-3xl bg-black/90 border border-pink-400/50 p-3 text-center space-y-3 shadow-[0_0_50px_rgba(244,114,182,0.6)] animate-fade-up">
       <div id="greeting-video-slot" class="w-full rounded-2xl overflow-hidden bg-black"></div>
     </div>
@@ -785,7 +751,7 @@
 
   <script>
     // =========================================================================
-    // 1. BỘ TỔNG HỢP NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG + CÒI BÁO ĐỘNG
+    // 1. BỘ TỔNG HỢP NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG + TIẾNG KÍNH VỠ + CÒI BÁO
     // =========================================================================
     class SymphonyEngine {
       constructor() {
@@ -805,6 +771,34 @@
         if (this.ctx.state === "suspended") {
           this.ctx.resume();
         }
+      }
+
+      // Tiếng kính rạn vỡ chân thật khi chạm phiếu khảo sát
+      playGlassCrackSound() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const bufferSize = this.ctx.sampleRate * 0.35;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.06));
+        }
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = "highpass";
+        filter.frequency.setValueAtTime(1800, now);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start(now);
       }
 
       playPianoNote(freq, duration = 0.85, volume = 0.16, type = "triangle") {
@@ -840,7 +834,6 @@
         overtone.stop(now + duration + 0.05);
       }
 
-      // Âm thanh còi báo động khẩn cấp khớp từng nhịp nhấp nháy đỏ
       playSirenPulse() {
         if (!this.ctx) return;
         const now = this.ctx.currentTime;
@@ -957,7 +950,7 @@
     const symphony = new SymphonyEngine();
 
     // =========================================================================
-    // 2. CANVAS VŨ TRỤ: CHỮ 3D VỪA KHÍT + BỤI TIÊN CHẠM TAY + CHÒM SAO SCORPIO
+    // 2. CANVAS VŨ TRỤ: CHỮ 3D CĂN CHUẨN DƯỚI HUY HIỆU + BỤI TIÊN CHẠM TAY
     // =========================================================================
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
@@ -986,7 +979,6 @@
       hue: Math.random() > 0.65 ? 45 : 330
     }));
 
-    // Hiệu ứng chạm & vuốt ngón tay: bung tim hồng + bụi sao vàng tại mọi điểm chạm
     function spawnTouchBurst(x, y, count = 12) {
       if (fxMode === "none") return;
       for (let i = 0; i < count; i++) {
@@ -1006,29 +998,38 @@
     window.addEventListener("pointerdown", e => spawnTouchBurst(e.clientX, e.clientY, 16));
     window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 5));
 
-    // Tạo chữ 3D căn chỉnh vừa khít bề ngang màn hình điện thoại (không bị tràn mép)
+    // Tự động đo chính xác tọa độ của khung #text3d-anchor-zone để chữ 3D nằm lọt thỏm bên trong, KHÔNG ĐÈ LÊN NGÀY SINH
     function create3DTextParticles(text) {
       textParticles = [];
+      const anchor = document.getElementById("text3d-anchor-zone");
+      let targetCenterY = H * 0.36;
+      if (anchor) {
+        const rect = anchor.getBoundingClientRect();
+        if (rect.height > 0) {
+          targetCenterY = rect.top + rect.height / 2;
+        }
+      }
+
       const off = document.createElement("canvas");
       const octx = off.getContext("2d");
       off.width = W;
-      off.height = 180;
+      off.height = 140;
 
-      // Tự động co cỡ chữ sao cho bề ngang chữ tối đa 86% màn hình
-      let fontSize = Math.min(W * 0.095, 42);
+      let fontSize = Math.min(W * 0.09, 38);
       octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
-      while (octx.measureText(text).width > W * 0.86 && fontSize > 18) {
+      while (octx.measureText(text).width > W * 0.85 && fontSize > 18) {
         fontSize -= 2;
         octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
       }
 
       octx.fillStyle = "#ffffff";
       octx.textAlign = "center";
-      octx.fillText(text, W / 2, 95);
+      octx.textBaseline = "middle";
+      octx.fillText(text, W / 2, 70);
 
-      const data = octx.getImageData(0, 0, W, 180).data;
+      const data = octx.getImageData(0, 0, W, 140).data;
       const step = W < 420 ? 3 : 4;
-      for (let y = 0; y < 180; y += step) {
+      for (let y = 0; y < 140; y += step) {
         for (let x = 0; x < W; x += step) {
           const idx = (y * W + x) * 4;
           if (data[idx + 3] > 145) {
@@ -1037,7 +1038,7 @@
               x: Math.random() * W,
               y: Math.random() * H,
               tx: x,
-              ty: y + H * 0.11,
+              ty: targetCenterY + (y - 70),
               color: palette[Math.floor(Math.random() * palette.length)],
               size: Math.random() * 2 + 1
             });
@@ -1141,8 +1142,8 @@
 
       if (fxMode === "text3d") {
         textParticles.forEach(p => {
-          p.x += (p.tx - p.x) * 0.085;
-          p.y += (p.ty - p.y) * 0.085;
+          p.x += (p.tx - p.x) * 0.09;
+          p.y += (p.ty - p.y) * 0.09;
           ctx.fillStyle = p.color;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -1211,7 +1212,7 @@
     animateCanvas();
 
     // =========================================================================
-    // 3. CHUYỂN CẢNH NỨT TOÁC & GIẬT LAG 4 GIÂY -> TRANG 2
+    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC 3D THẬT SỰ (DELAUNAY SHARDS + GIẬT LAG 3.6S)
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
@@ -1219,32 +1220,132 @@
     }
 
     let twist1Started = false;
-    function triggerTwist1() {
+    function triggerTwist1(e) {
       if (twist1Started) return;
       twist1Started = true;
 
-      // Bật nhạc HPBD Piano & Rung điện thoại tạo cảm giác nứt vỡ
+      // Phát tiếng kính vỡ giòn tan + nhạc HPBD Piano + rung điện thoại
+      symphony.playGlassCrackSound();
       symphony.setScene(1);
-      if (navigator.vibrate) navigator.vibrate([120, 80, 200, 100, 300]);
+      if (navigator.vibrate) navigator.vibrate([120, 70, 220, 90, 320]);
 
-      const s1 = document.getElementById("stage-1");
-      const crackSvg = document.getElementById("glass-crack-svg");
+      const origCard = document.getElementById("survey-card-original");
+      const shardsWrap = document.getElementById("shatter-shards-container");
+      const cardRect = origCard.getBoundingClientRect();
+      const w = cardRect.width;
+      const h = cardRect.height;
 
-      // Hiện vết nứt toác mặt kính & giật lag 3.6 giây kích thích tò mò
-      crackSvg.classList.add("show-cracks");
-      s1.classList.add("glitch-4s-active");
+      // Điểm va chạm chính là chỗ ngón tay Thy vừa bấm
+      const impactX = e ? Math.max(30, Math.min(w - 30, e.clientX - cardRect.left)) : w * 0.5;
+      const impactY = e ? Math.max(30, Math.min(h - 30, e.clientY - cardRect.top)) : h * 0.5;
 
+      // Tạo lưới điểm tam giác tỏa ra từ tâm va chạm (giống kính cường lực vỡ thật)
+      const cols = 4;
+      const rows = 5;
+      const pts = [];
+      for (let r = 0; r <= rows; r++) {
+        const rowPts = [];
+        for (let c = 0; c <= cols; c++) {
+          let px = (c / cols) * w;
+          let py = (r / rows) * h;
+          if (r > 0 && r < rows && c > 0 && c < cols) {
+            px += (Math.random() - 0.5) * (w / cols) * 0.75;
+            py += (Math.random() - 0.5) * (h / rows) * 0.75;
+          }
+          rowPts.push([px, py]);
+        }
+        pts.push(rowPts);
+      }
+
+      shardsWrap.style.height = `${h}px`;
+      shardsWrap.innerHTML = "";
+      const shardElements = [];
+
+      // Nhân bản thẻ khảo sát thành các mảnh tam giác kính sắc nét
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const p1 = pts[r][c];
+          const p2 = pts[r][c + 1];
+          const p3 = pts[r + 1][c + 1];
+          const p4 = pts[r + 1][c];
+
+          const triangles = [
+            [p1, p2, p3],
+            [p1, p3, p4]
+          ];
+
+          triangles.forEach(tri => {
+            const shard = document.createElement("div");
+            shard.className = "glass-shard";
+            const clone = origCard.cloneNode(true);
+            clone.style.margin = "0";
+            shard.appendChild(clone);
+
+            const clipStr = `polygon(${tri[0][0]}px ${tri[0][1]}px, ${tri[1][0]}px ${tri[1][1]}px, ${tri[2][0]}px ${tri[2][1]}px)`;
+            shard.style.clipPath = clipStr;
+            shard.style.webkitClipPath = clipStr;
+
+            const cx = (tri[0][0] + tri[1][0] + tri[2][0]) / 3;
+            const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3;
+            shard.style.transformOrigin = `${cx}px ${cy}px`;
+
+            // Khoảng cách từ mảnh kính tới điểm ngón tay bấm
+            const dx = cx - impactX;
+            const dy = cy - impactY;
+            const dist = Math.hypot(dx, dy) + 1;
+            const push = Math.max(4, 24 - dist * 0.06);
+
+            // Bước 1: Rạn nứt & bung nhẹ các mảnh kính tại chỗ kèm ánh sáng phản chiếu
+            const initTx = (dx / dist) * push;
+            const initTy = (dy / dist) * push;
+            const initRotX = (Math.random() - 0.5) * 26;
+            const initRotY = (Math.random() - 0.5) * 26;
+            const initRotZ = (Math.random() - 0.5) * 14;
+
+            shardsWrap.appendChild(shard);
+            shardElements.push({ el: shard, dx, dy, dist, initTx, initTy, initRotX, initRotY, initRotZ });
+          });
+        }
+      }
+
+      origCard.classList.add("hidden");
+      shardsWrap.classList.remove("hidden");
+
+      // Kích hoạt bung nứt kính ngay lập tức
+      requestAnimationFrame(() => {
+        shardElements.forEach(s => {
+          s.el.style.transform = `translate3d(${s.initTx}px, ${s.initTy}px, 15px) rotateX(${s.initRotX}deg) rotateY(${s.initRotY}deg) rotateZ(${s.initRotZ}deg)`;
+          s.el.style.filter = "brightness(1.06)";
+        });
+      });
+
+      // Giật lag kích thích tò mò trong ~3.5 giây khi kính đã nứt toác
+      shardsWrap.classList.add("screen-glitch-loop");
+
+      // Sau 3.3 giây giật lag -> Toàn bộ mảnh kính vỡ rơi sập xuống
       setTimeout(() => {
-        s1.classList.add("shatter-out");
-      }, 3600);
+        shardsWrap.classList.remove("screen-glitch-loop");
+        shardElements.forEach(s => {
+          s.el.style.transition = "transform 0.85s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.8s ease";
+          const fallX = s.dx * 0.65 + (Math.random() - 0.5) * 80;
+          const fallY = 260 + Math.random() * 180;
+          const spinZ = (Math.random() - 0.5) * 140;
+          s.el.style.transform = `translate3d(${fallX}px, ${fallY}px, -80px) rotateX(${s.initRotX * 2}deg) rotateY(${s.initRotY * 2}deg) rotateZ(${spinZ}deg)`;
+          s.el.style.opacity = "0";
+        });
+      }, 3300);
 
+      // Chuyển mượt sang Trang 2
       setTimeout(() => {
         document.body.classList.add("bling-universe");
         document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
-        fxMode = "text3d";
-        create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
         switchStage("stage-1", "stage-reveal");
-      }, 4250);
+        fxMode = "text3d";
+        // Đợi DOM hiển thị xong để lấy chính xác vị trí #text3d-anchor-zone bên dưới huy hiệu
+        requestAnimationFrame(() => {
+          create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
+        });
+      }, 4150);
     }
 
     function goToStage2() {
@@ -1294,7 +1395,6 @@
           wave.classList.remove("hidden");
           wave.classList.add("flex");
         } catch (err) {
-          // Nếu máy chặn quyền mic thì vẫn mở bước tiếp theo mượt mà
           status.textContent = "✨ Đã ghi nhận điều ước trong tim Thy!";
           sub.textContent = "Xem hướng dẫn bên dưới nhé 👇";
           revealBlowPreparationPrompt();
@@ -1311,14 +1411,12 @@
       }
     }
 
-    // Chỉ sau khi ghi âm xong mới hiện câu lệnh mời chạm màn hình chuẩn bị thổi nến
     function revealBlowPreparationPrompt() {
       if (wishCompleted) return;
       wishCompleted = true;
       const area = document.getElementById("blow-instruction-area");
       area.classList.remove("hidden");
 
-      // Lắng nghe cú chạm vào bất kỳ điểm nào trên màn hình để kích hoạt cảm biến thổi
       const onScreenTapToArm = () => {
         if (blowSensorActivated) return;
         blowSensorActivated = true;
@@ -1354,7 +1452,6 @@
           let lowSum = 0;
           for (let i = 0; i < 16; i++) lowSum += dataArray[i];
           const avgWind = lowSum / 16;
-          // Ngưỡng nhạy vừa phải để thổi nhẹ vào mic/loa là nhận ngay
           if (avgWind > 125) {
             triggerCandleBlowResponse();
           }
@@ -1448,11 +1545,9 @@
     }
 
     function triggerRedAlertSequence() {
-      // Ẩn hoàn toàn vân tay đầu tiên
       document.getElementById("scanner-box-1").classList.add("hidden");
       document.getElementById("vault-subtitle").classList.add("hidden");
 
-      // Bật báo động đỏ inh ỏi toàn màn hình + còi hú + rung điện thoại
       const globalFrame = document.getElementById("global-red-alarm-frame");
       const errBox = document.getElementById("fake-error-box");
       globalFrame.classList.remove("hidden");
@@ -1466,7 +1561,6 @@
         if (navigator.vibrate) navigator.vibrate([250, 150, 250]);
       }, 750);
 
-      // Báo động 1 lúc (3.2 giây) rồi mới hiện câu lệnh & vòng quét vân tay thứ 2
       setTimeout(() => {
         clearInterval(alarmInterval);
         globalFrame.classList.add("hidden");
@@ -1474,7 +1568,6 @@
       }, 3200);
     }
 
-    // Lượt quét vân tay thứ 2 (Xác nhận Thẻ Đen Vô Hạn)
     let scan2Timer = null;
     let scan2Pct = 0;
     let scan2Done = false;
@@ -1536,7 +1629,6 @@
       }, 35);
     }
 
-    // Popup xác nhận Thẻ Đen Vô Hạn giữa màn hình làm mờ xung quanh
     function showBlackCardActivatedModal() {
       const modal = document.getElementById("black-card-modal");
       modal.classList.remove("hidden");
@@ -1686,13 +1778,11 @@
         symphony.pauseForMedia(true);
         slot.innerHTML = `<video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls autoplay playsinline class="w-full max-h-[68vh] mx-auto bg-black"></video>`;
         const vid = document.getElementById("main-greeting-video");
-        // Hết video chúc mừng lập tức chuyển sang lời chúc sau cuối
         vid.addEventListener("ended", () => {
           symphony.pauseForMedia(false);
           finishVideoAndShowFinalPage();
         });
       } else {
-        // Nếu chưa chèn file video quay thì hiển thị thiệp động & nút tiếp tục
         slot.innerHTML = `
           <div class="p-6 bg-gradient-to-br from-rose-950 via-purple-950 to-slate-950 text-left space-y-4">
             <div class="text-xs font-mono-tech text-amber-300 uppercase tracking-widest">💌 Lời nhắn gửi Quý Thy</div>
@@ -1758,4 +1848,4 @@
     }
   </script>
 </body>
-  </html>
+</html>
