@@ -67,31 +67,32 @@
     .font-script-love { font-family: 'Pacifico', cursive; }
 
     /* ===================================================================== */
-    /* HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC 3D THẬT SỰ (REALISTIC SHATTER SHARDS)      */
+    /* VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (TRÀN VIỀN 100% VIEWPORT)             */
     /* ===================================================================== */
-    .glass-shard {
-      position: absolute;
+    .fullscreen-glass-shard {
+      position: fixed;
       inset: 0;
+      width: 100vw;
+      height: 100dvh;
       pointer-events: none;
       overflow: hidden;
-      border-radius: 1rem;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(0, 0, 0, 0.25);
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+      background-color: #f3f4f6;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.85s ease;
       will-change: transform, opacity;
     }
 
     @keyframes screenGlitchPulse {
       0%, 100% { transform: translate(0, 0); filter: none; }
-      10% { transform: translate(-8px, 3px) skewX(4deg); filter: contrast(1.5) hue-rotate(45deg); }
-      20% { transform: translate(8px, -3px) skewX(-4deg); filter: invert(0.12); }
+      10% { transform: translate(-9px, 3px) skewX(4deg); filter: contrast(1.55) hue-rotate(45deg); }
+      20% { transform: translate(9px, -3px) skewX(-4deg); filter: invert(0.14); }
       35% { transform: translate(-5px, -2px); filter: none; }
-      55% { transform: translate(10px, 4px) skewX(-6deg); filter: contrast(1.8) hue-rotate(180deg); }
-      65% { transform: translate(-9px, -4px) skewX(6deg); filter: invert(0.8); }
+      55% { transform: translate(11px, 4px) skewX(-6deg); filter: contrast(1.85) hue-rotate(180deg); }
+      65% { transform: translate(-10px, -4px) skewX(6deg); filter: invert(0.82); }
       75% { transform: translate(3px, 2px); filter: none; }
-      90% { transform: translate(-6px, 4px) scale(1.02); filter: hue-rotate(270deg); }
+      90% { transform: translate(-7px, 4px) scale(1.02); filter: hue-rotate(270deg); }
     }
     .screen-glitch-loop {
-      animation: screenGlitchPulse 0.9s infinite ease-in-out;
+      animation: screenGlitchPulse 0.88s infinite ease-in-out;
     }
 
     @keyframes fadeUp {
@@ -100,7 +101,6 @@
     }
     .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-    /* Nút chữ nổi 3D */
     .btn-3d-pop {
       background: linear-gradient(135deg, #ff4d94 0%, #f43f5e 48%, #f59e0b 100%);
       box-shadow: 0 6px 0 #9f1239, 0 15px 30px rgba(244, 63, 94, 0.7), inset 0 2px 3px rgba(255,255,255,0.65);
@@ -112,7 +112,6 @@
       box-shadow: 0 2px 0 #9f1239, 0 6px 15px rgba(244, 63, 94, 0.5);
     }
 
-    /* Chữ phát sáng Bling Bling */
     .bling-text {
       background: linear-gradient(90deg, #fff 0%, #fbcfe8 28%, #f472b6 50%, #fde047 72%, #fff 100%);
       background-size: 200% auto;
@@ -347,11 +346,14 @@
   <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
+  <!-- LỚP CHỨA 48 MẢNH KÍNH VỠ TOÀN MÀN HÌNH (TRÀN TẬN 4 VIỀN ĐIỆN THOẠI) -->
+  <div id="fullscreen-shatter-layer" class="hidden fixed inset-0 z-50 pointer-events-none" style="perspective: 1100px;"></div>
+
   <!-- CONTAINER CHÍNH -->
   <main id="stage-container" class="relative z-10 w-full max-w-md px-5 py-6 flex flex-col items-center justify-center min-h-screen">
 
     <!-- ===================================================================== -->
-    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ & KHUNG VỠ KÍNH CƯỜNG LỰC 3D THẬT           -->
+    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ                                             -->
     <!-- ===================================================================== -->
     <section id="stage-1" class="relative w-full">
       <div id="survey-card-original" class="w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
@@ -388,16 +390,12 @@
           Hệ thống khảo sát tự động • Bảo mật thông tin người dùng
         </div>
       </div>
-
-      <!-- CONTAINER CHỨA CÁC MẢNH KÍNH VỠ 3D ĐƯỢC SINH RA KHI CHẠM -->
-      <div id="shatter-shards-container" class="hidden relative w-full" style="perspective: 900px;"></div>
     </section>
 
     <!-- ===================================================================== -->
     <!-- MÀN 2: CÂU NGUYỆN ĐẦU TRANG -> HUY HIỆU -> CHỮ 3D -> CÂU DẪN -> NÚT  -->
     <!-- ===================================================================== -->
     <section id="stage-reveal" class="hidden w-full space-y-3.5 animate-fade-up">
-      <!-- 1. LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO CHUYỂN LÊN NGAY ĐẦU TRANG -->
       <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-pink-500/15 to-purple-500/15 backdrop-blur-md border border-amber-200/35 text-center space-y-0.5 shadow-[0_0_25px_rgba(251,191,36,0.2)]">
         <div class="text-amber-300 text-xs">🕊️ ✨</div>
         <p class="font-serif-luxury italic text-sm sm:text-base text-amber-100 leading-snug">
@@ -405,7 +403,6 @@
         </p>
       </div>
 
-      <!-- 2. HUY HIỆU NGÀY SINH & HOÀNG ĐẠO RÕ RÀNG, KHÔNG BỊ CHỮ CHE -->
       <div class="flex flex-wrap items-center justify-center gap-1.5">
         <span class="px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/45 text-amber-200 text-[10px] font-mono-tech font-bold">
           🎂 20.11.2010 • SWEET 16
@@ -415,10 +412,8 @@
         </span>
       </div>
 
-      <!-- 3. KHOẢNG KHÔNG DÀNH RIÊNG CHO CHỮ HẠT 3D "Happy Birthday Thy" -->
       <div id="text3d-anchor-zone" class="h-24 w-full"></div>
 
-      <!-- 4. CÂU DẪN THÒ THỤT SO LE ĐAN XEN ICON SINH ĐỘNG -->
       <div class="p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.35)] space-y-2 text-xs sm:text-sm">
         <div class="text-left pl-1 text-amber-300 font-extrabold">
           😜 Bị lừa rồi nha!
@@ -434,7 +429,6 @@
         </div>
       </div>
 
-      <!-- 5. NÚT CHỮ NỔI NHẬP TIỆC THÔI NÀO -->
       <div class="text-center pt-1">
         <button type="button" onclick="goToStage2()" class="btn-3d-pop px-9 py-4 rounded-full text-white font-extrabold text-base tracking-wide uppercase">
           🎉 Nhập tiệc thôi nào!
@@ -455,12 +449,10 @@
         <h2 class="font-serif-luxury text-4xl font-bold bling-text">Thì thầm điều ước của Thy</h2>
       </div>
 
-      <!-- LỜI NGUYỆN CHÚC PHÚC CÔNG GIÁO THỨ 2 (KHÁC NỘI DUNG TRANG 2) -->
       <p class="font-serif-luxury italic text-sm text-amber-100/95 px-3 leading-snug">
         “Xin Chúa luôn gìn giữ, nâng đỡ từng bước chân và soi sáng mọi ước mơ đẹp nhất của Quý Thy trong tuổi mới bình an.” 🕊️
       </p>
 
-      <!-- CHIẾC BÁNH KEM 3D CAO CẤP & NGỌN LỬA LẢ LƠI -->
       <div class="realistic-cake-stage pt-12 pb-1">
         <div id="cake-wrapper" class="cake-3d-body">
           <div id="candle-stick" class="candle-3d">
@@ -498,7 +490,6 @@
         </div>
       </div>
 
-      <!-- BỘ GHI ÂM ĐIỀU ƯỚC -->
       <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2.5">
         <div class="flex items-center justify-center gap-3 px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]">
           <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.8)] active:scale-95 transition-all shrink-0">
@@ -517,7 +508,6 @@
         <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-full"></audio>
       </div>
 
-      <!-- KHU VỰC CÂU LỆNH THỔI NẾN (ẨN CHO ĐẾN KHI GHI ÂM XONG) -->
       <div id="blow-instruction-area" class="hidden max-w-sm mx-auto pt-1 animate-fade-up">
         <div id="candle-toast" class="px-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
           ✨ Điều ước đã được cất giữ! Giờ thì Thy hãy chạm nhẹ vào một điểm bất kỳ trên màn hình để chuẩn bị thổi nến nào...
@@ -539,7 +529,6 @@
         <p id="vault-subtitle" class="text-xs text-pink-100/85">Đặt ngón tay và giữ 2 giây để quét vân tay xác thực</p>
       </div>
 
-      <!-- VÒNG QUÉT VÂN TAY LƯỢT 1 -->
       <div id="scanner-box-1" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-slate-900/75 backdrop-blur-md border-2 border-cyan-400/55 shadow-[0_0_45px_rgba(56,189,248,0.45),inset_0_0_25px_rgba(56,189,248,0.25)] overflow-hidden"
            onmousedown="startScan1()" onmouseup="stopScan1()" onmouseleave="stopScan1()"
            ontouchstart="startScan1(event)" ontouchend="stopScan1()">
@@ -565,7 +554,6 @@
         </div>
       </div>
 
-      <!-- BẢNG BÁO ĐỘNG ĐỎ INH ỎI VỚI DẤU CHẤM THAN KHỔNG LỒ -->
       <div id="fake-error-box" class="hidden max-w-sm mx-auto rounded-3xl bg-red-950/90 border-2 border-red-500 p-5 text-center space-y-3 shadow-[0_0_45px_rgba(239,68,68,0.85)] animate-fade-up">
         <div class="w-16 h-16 mx-auto rounded-full bg-red-600/30 border-2 border-red-400 flex items-center justify-center alert-bang-flash">
           <span class="text-4xl font-extrabold text-red-400">!</span>
@@ -578,7 +566,6 @@
         </p>
       </div>
 
-      <!-- CÂU LỆNH CẤP QUYỀN THẺ ĐEN VÔ HẠN & VÒNG QUÉT VÂN TAY LƯỢT 2 -->
       <div id="black-card-override-box" class="hidden max-w-sm mx-auto space-y-5 animate-fade-up">
         <div class="p-4 rounded-2xl bg-gradient-to-r from-neutral-900 via-amber-950/60 to-neutral-900 border border-amber-400/60 shadow-[0_0_30px_rgba(251,191,36,0.35)]">
           <p class="text-xs sm:text-sm text-amber-200 font-bold leading-relaxed">
@@ -773,27 +760,26 @@
         }
       }
 
-      // Tiếng kính rạn vỡ chân thật khi chạm phiếu khảo sát
       playGlassCrackSound() {
         this.init();
         if (!this.ctx) return;
         const now = this.ctx.currentTime;
-        const bufferSize = this.ctx.sampleRate * 0.35;
+        const bufferSize = this.ctx.sampleRate * 0.42;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.06));
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.07));
         }
         const noise = this.ctx.createBufferSource();
         noise.buffer = buffer;
 
         const filter = this.ctx.createBiquadFilter();
         filter.type = "highpass";
-        filter.frequency.setValueAtTime(1800, now);
+        filter.frequency.setValueAtTime(1700, now);
 
         const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
 
         noise.connect(filter);
         filter.connect(gain);
@@ -998,7 +984,6 @@
     window.addEventListener("pointerdown", e => spawnTouchBurst(e.clientX, e.clientY, 16));
     window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 5));
 
-    // Tự động đo chính xác tọa độ của khung #text3d-anchor-zone để chữ 3D nằm lọt thỏm bên trong, KHÔNG ĐÈ LÊN NGÀY SINH
     function create3DTextParticles(text) {
       textParticles = [];
       const anchor = document.getElementById("text3d-anchor-zone");
@@ -1212,7 +1197,7 @@
     animateCanvas();
 
     // =========================================================================
-    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC 3D THẬT SỰ (DELAUNAY SHARDS + GIẬT LAG 3.6S)
+    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (TRÀN TẬN 4 VIỀN ĐIỆN THOẠI)
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
@@ -1224,44 +1209,47 @@
       if (twist1Started) return;
       twist1Started = true;
 
-      // Phát tiếng kính vỡ giòn tan + nhạc HPBD Piano + rung điện thoại
       symphony.playGlassCrackSound();
       symphony.setScene(1);
       if (navigator.vibrate) navigator.vibrate([120, 70, 220, 90, 320]);
 
-      const origCard = document.getElementById("survey-card-original");
-      const shardsWrap = document.getElementById("shatter-shards-container");
-      const cardRect = origCard.getBoundingClientRect();
-      const w = cardRect.width;
-      const h = cardRect.height;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const stageContainer = document.getElementById("stage-container");
+      const fullLayer = document.getElementById("fullscreen-shatter-layer");
 
-      // Điểm va chạm chính là chỗ ngón tay Thy vừa bấm
-      const impactX = e ? Math.max(30, Math.min(w - 30, e.clientX - cardRect.left)) : w * 0.5;
-      const impactY = e ? Math.max(30, Math.min(h - 30, e.clientY - cardRect.top)) : h * 0.5;
+      // Đổi nền body sang vũ trụ huyền ảo ngay phía sau lớp kính vỡ để lộ ánh sáng qua khe nứt
+      document.body.classList.add("bling-universe");
+      fxMode = "fireworks";
 
-      // Tạo lưới điểm tam giác tỏa ra từ tâm va chạm (giống kính cường lực vỡ thật)
+      const impactX = e ? e.clientX : vw * 0.5;
+      const impactY = e ? e.clientY : vh * 0.55;
+
+      // Chia TOÀN BỘ MÀN HÌNH (từ viền trên xuống viền dưới, viền trái sang phải) thành lưới tam giác kính vỡ
       const cols = 4;
-      const rows = 5;
+      const rows = 7;
       const pts = [];
       for (let r = 0; r <= rows; r++) {
         const rowPts = [];
         for (let c = 0; c <= cols; c++) {
-          let px = (c / cols) * w;
-          let py = (r / rows) * h;
-          if (r > 0 && r < rows && c > 0 && c < cols) {
-            px += (Math.random() - 0.5) * (w / cols) * 0.75;
-            py += (Math.random() - 0.5) * (h / rows) * 0.75;
+          let px = (c / cols) * vw;
+          let py = (r / rows) * vh;
+          // Chỉ dịch chuyển các điểm bên trong, giữ chặt 4 cạnh ngoài chạm sát viền màn hình
+          if (r > 0 && r < rows) {
+            py += (Math.random() - 0.5) * (vh / rows) * 0.72;
+          }
+          if (c > 0 && c < cols) {
+            px += (Math.random() - 0.5) * (vw / cols) * 0.72;
           }
           rowPts.push([px, py]);
         }
         pts.push(rowPts);
       }
 
-      shardsWrap.style.height = `${h}px`;
-      shardsWrap.innerHTML = "";
+      fullLayer.innerHTML = "";
       const shardElements = [];
 
-      // Nhân bản thẻ khảo sát thành các mảnh tam giác kính sắc nét
+      // Nhân bản toàn bộ giao diện trang 1 (gồm cả nền viền xám + thẻ khảo sát) vào từng mảnh kính toàn màn hình
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const p1 = pts[r][c];
@@ -1276,10 +1264,11 @@
 
           triangles.forEach(tri => {
             const shard = document.createElement("div");
-            shard.className = "glass-shard";
-            const clone = origCard.cloneNode(true);
-            clone.style.margin = "0";
-            shard.appendChild(clone);
+            shard.className = "fullscreen-glass-shard flex flex-col items-center justify-center";
+
+            const cloneMain = stageContainer.cloneNode(true);
+            cloneMain.removeAttribute("id");
+            shard.appendChild(cloneMain);
 
             const clipStr = `polygon(${tri[0][0]}px ${tri[0][1]}px, ${tri[1][0]}px ${tri[1][1]}px, ${tri[2][0]}px ${tri[2][1]}px)`;
             shard.style.clipPath = clipStr;
@@ -1289,59 +1278,58 @@
             const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3;
             shard.style.transformOrigin = `${cx}px ${cy}px`;
 
-            // Khoảng cách từ mảnh kính tới điểm ngón tay bấm
             const dx = cx - impactX;
             const dy = cy - impactY;
             const dist = Math.hypot(dx, dy) + 1;
-            const push = Math.max(4, 24 - dist * 0.06);
+            const push = Math.max(5, 26 - dist * 0.045);
 
-            // Bước 1: Rạn nứt & bung nhẹ các mảnh kính tại chỗ kèm ánh sáng phản chiếu
             const initTx = (dx / dist) * push;
             const initTy = (dy / dist) * push;
-            const initRotX = (Math.random() - 0.5) * 26;
-            const initRotY = (Math.random() - 0.5) * 26;
-            const initRotZ = (Math.random() - 0.5) * 14;
+            const initRotX = (Math.random() - 0.5) * 24;
+            const initRotY = (Math.random() - 0.5) * 24;
+            const initRotZ = (Math.random() - 0.5) * 12;
 
-            shardsWrap.appendChild(shard);
-            shardElements.push({ el: shard, dx, dy, dist, initTx, initTy, initRotX, initRotY, initRotZ });
+            fullLayer.appendChild(shard);
+            shardElements.push({ el: shard, dx, dy, initTx, initTy, initRotX, initRotY, initRotZ });
           });
         }
       }
 
-      origCard.classList.add("hidden");
-      shardsWrap.classList.remove("hidden");
+      // Ẩn bản gốc, bật lớp kính vỡ toàn màn hình
+      document.getElementById("stage-1").classList.add("hidden");
+      fullLayer.classList.remove("hidden");
 
-      // Kích hoạt bung nứt kính ngay lập tức
+      // Bung nứt toác toàn màn hình kèm viền sáng phản chiếu kính vỡ
       requestAnimationFrame(() => {
         shardElements.forEach(s => {
-          s.el.style.transform = `translate3d(${s.initTx}px, ${s.initTy}px, 15px) rotateX(${s.initRotX}deg) rotateY(${s.initRotY}deg) rotateZ(${s.initRotZ}deg)`;
-          s.el.style.filter = "brightness(1.06)";
+          s.el.style.transform = `translate3d(${s.initTx}px, ${s.initTy}px, 18px) rotateX(${s.initRotX}deg) rotateY(${s.initRotY}deg) rotateZ(${s.initRotZ}deg)`;
+          s.el.style.filter = "brightness(1.05) contrast(1.08)";
         });
       });
 
-      // Giật lag kích thích tò mò trong ~3.5 giây khi kính đã nứt toác
-      shardsWrap.classList.add("screen-glitch-loop");
+      // Giật lag kích thích tò mò trong 3.3 giây
+      fullLayer.classList.add("screen-glitch-loop");
 
-      // Sau 3.3 giây giật lag -> Toàn bộ mảnh kính vỡ rơi sập xuống
+      // Sau 3.3 giây -> Toàn bộ 56 mảnh kính toàn màn hình rơi sập xuống
       setTimeout(() => {
-        shardsWrap.classList.remove("screen-glitch-loop");
+        fullLayer.classList.remove("screen-glitch-loop");
         shardElements.forEach(s => {
           s.el.style.transition = "transform 0.85s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.8s ease";
-          const fallX = s.dx * 0.65 + (Math.random() - 0.5) * 80;
-          const fallY = 260 + Math.random() * 180;
+          const fallX = s.dx * 0.55 + (Math.random() - 0.5) * 90;
+          const fallY = vh * 0.75 + Math.random() * 220;
           const spinZ = (Math.random() - 0.5) * 140;
-          s.el.style.transform = `translate3d(${fallX}px, ${fallY}px, -80px) rotateX(${s.initRotX * 2}deg) rotateY(${s.initRotY * 2}deg) rotateZ(${spinZ}deg)`;
+          s.el.style.transform = `translate3d(${fallX}px, ${fallY}px, -90px) rotateX(${s.initRotX * 2}deg) rotateY(${s.initRotY * 2}deg) rotateZ(${spinZ}deg)`;
           s.el.style.opacity = "0";
         });
       }, 3300);
 
-      // Chuyển mượt sang Trang 2
+      // Hiện Trang 2 hoàn chỉnh
       setTimeout(() => {
-        document.body.classList.add("bling-universe");
+        fullLayer.classList.add("hidden");
+        fullLayer.innerHTML = "";
         document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
-        switchStage("stage-1", "stage-reveal");
+        document.getElementById("stage-reveal").classList.remove("hidden");
         fxMode = "text3d";
-        // Đợi DOM hiển thị xong để lấy chính xác vị trí #text3d-anchor-zone bên dưới huy hiệu
         requestAnimationFrame(() => {
           create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
         });
