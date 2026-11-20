@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo QR Trái Tim - Sweet 16 Quý Thy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top, #fff1f2 0%, #ffe4e6 45%, #fbcfe8 100%);
+      min-height: 100vh;
+    }
+    .font-script { font-family: 'Pacifico', cursive; }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4">
+
+  <div class="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-pink-200 p-6 text-center space-y-5">
+    <div>
+      <span class="px-3 py-1 rounded-full bg-pink-100 text-rose-600 text-xs font-extrabold">
+        💌 HEART QR GENERATOR
+      </span>
+      <h1 class="font-script text-3xl text-rose-600 mt-2">QR Trái Tim Gửi Thy</h1>
+      <p class="text-xs text-gray-500 mt-1">Quét camera là vào thẳng web • Chuẩn nhận diện 100%</p>
+    </div>
+
+    <!-- Ô nhập link web -->
+    <div class="text-left space-y-1.5">
+      <label class="text-xs font-bold text-gray-700">Link web sinh nhật của Thy:</label>
+      <input
+        id="url-input"
+        type="url"
+        placeholder="https://..."
+        value="https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/"
+        oninput="generateHeartQR()"
+        class="w-full px-4 py-3 rounded-2xl border-2 border-pink-200 focus:border-rose-500 focus:outline-none text-sm font-medium text-gray-800 bg-pink-50/40"
+      />
+    </div>
+
+    <!-- Khung Canvas hiển thị QR Trái Tim (vừa quét được vừa click mở link) -->
+    <div class="flex flex-col items-center justify-center">
+      <a id="qr-clickable-link" href="https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/" target="_blank" title="Bấm vào để mở thử link web" class="group relative inline-block cursor-pointer transition-transform hover:scale-[1.02] active:scale-95">
+        <canvas id="heart-qr-canvas" width="600" height="600" class="w-72 h-72 sm:w-80 sm:h-80 rounded-3xl shadow-xl border-2 border-pink-100 bg-white"></canvas>
+        <span class="block text-[11px] font-bold text-rose-500 mt-2 group-hover:underline">
+          👆 Bấm trực tiếp vào QR để test mở web (hoặc giơ camera quét thử)
+        </span>
+      </a>
+    </div>
+
+    <!-- Tùy chọn màu sắc -->
+    <div class="flex items-center justify-center gap-3">
+      <button type="button" onclick="setTheme('rose')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-500 text-white shadow">
+        Hồng Dâu Pastel
+      </button>
+      <button type="button" onclick="setTheme('crimson')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-red-700 text-white shadow">
+        Đỏ Nhung Đậm
+      </button>
+      <button type="button" onclick="setTheme('gold')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-600 text-white shadow">
+        Hồng Ánh Kim
+      </button>
+    </div>
+
+    <!-- Nút tải ảnh PNG sắc nét -->
+    <button
+      type="button"
+      onclick="downloadHeartQR()"
+      class="w-full py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-extrabold text-sm shadow-lg active:scale-95 transition-all"
+    >
+      ⬇️ Tải ảnh QR Trái Tim (PNG nét căng)
+    </button>
+  </div>
+
+  <script>
+    let currentTheme = "rose";
+
+    const THEMES = {
+      rose: {
+        bg: "#fff8fa",
+        heartFill: "#ffe4e6",
+        heartStroke: "#f43f5e",
+        qrDark: "#be123c",
+        qrAccent: "#f43f5e",
+        text: "#e11d48"
+      },
+      crimson: {
+        bg: "#ffffff",
+        heartFill: "#fff1f2",
+        heartStroke: "#9f1239",
+        qrDark: "#881337",
+        qrAccent: "#be123c",
+        text: "#881337"
+      },
+      gold: {
+        bg: "#fffbeb",
+        heartFill: "#fef3c7",
+        heartStroke: "#d97706",
+        qrDark: "#9f1239",
+        qrAccent: "#d97706",
+        text: "#b45309"
+      }
+    };
+
+    function setTheme(name) {
+      currentTheme = name;
+      generateHeartQR();
+    }
+
+    function drawHeartPath(ctx, cx, cy, size) {
+      ctx.beginPath();
+      const topCurveHeight = size * 0.3;
+      ctx.moveTo(cx, cy + topCurveHeight);
+      ctx.bezierCurveTo(cx, cy, cx - size / 2, cy, cx - size / 2, cy + topCurveHeight);
+      ctx.bezierCurveTo(cx - size / 2, cy + (size + topCurveHeight) / 2, cx, cy + (size + topCurveHeight) / 1.35, cx, cy + size);
+      ctx.bezierCurveTo(cx, cy + (size + topCurveHeight) / 1.35, cx + size / 2, cy + (size + topCurveHeight) / 2, cx + size / 2, cy + topCurveHeight);
+      ctx.bezierCurveTo(cx + size / 2, cy, cx, cy, cx, cy + topCurveHeight);
+      ctx.closePath();
+    }
+
+    function generateHeartQR() {
+      const defaultUrl = "https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/";
+      const rawUrl = document.getElementById("url-input").value.trim() || defaultUrl;
+      document.getElementById("qr-clickable-link").href = rawUrl;
+
+      const theme = THEMES[currentTheme];
+      const canvas = document.getElementById("heart-qr-canvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;
+      const H = canvas.height;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = theme.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // 1. Trái tim lớn bao ngoài
+      ctx.save();
+      drawHeartPath(ctx, W / 2, 32, 520);
+      ctx.fillStyle = theme.heartFill;
+      ctx.fill();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = theme.heartStroke;
+      ctx.stroke();
+      ctx.restore();
+
+      // 2. Ma trận QR mức sửa lỗi cao (H - 30%)
+      const qr = qrcode(0, "H");
+      qr.addData(rawUrl);
+      qr.make();
+      const count = qr.getModuleCount();
+
+      const qrBoxSize = 265;
+      const startX = (W - qrBoxSize) / 2;
+      const startY = 145;
+      const cell = qrBoxSize / count;
+
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.roundRect(startX - 14, startY - 14, qrBoxSize + 28, qrBoxSize + 28, 22);
+      ctx.fill();
+
+      for (let r = 0; r < count; r++) {
+        for (let c = 0; c < count; c++) {
+          if (!qr.isDark(r, c)) continue;
+
+          const isFinder =
+            (r < 7 && c < 7) ||
+            (r < 7 && c >= count - 7) ||
+            (r >= count - 7 && c < 7);
+
+          const centerDist = Math.hypot(r - count / 2, c - count / 2);
+          if (centerDist < count * 0.13) continue;
+
+          const px = startX + c * cell;
+          const py = startY + r * cell;
+
+          if (isFinder) {
+            ctx.fillStyle = theme.qrDark;
+            ctx.beginPath();
+            ctx.roundRect(px + 0.4, py + 0.4, cell - 0.8, cell - 0.8, cell * 0.28);
+            ctx.fill();
+          } else {
+            ctx.fillStyle = (r + c) % 3 === 0 ? theme.qrAccent : theme.qrDark;
+            ctx.beginPath();
+            ctx.arc(px + cell / 2, py + cell / 2, cell * 0.42, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      // 3. Trái tim nhỏ ở tâm QR
+      ctx.save();
+      drawHeartPath(ctx, W / 2, startY + qrBoxSize / 2 - 22, 46);
+      ctx.fillStyle = theme.heartStroke;
+      ctx.fill();
+      ctx.restore();
+
+      // 4. Dòng chữ dưới tâm trái tim
+      ctx.fillStyle = theme.text;
+      ctx.font = "800 20px 'Plus Jakarta Sans', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Quét mở quà tuổi 16 ✨", W / 2, startY + qrBoxSize + 46);
+    }
+
+    function downloadHeartQR() {
+      const canvas = document.getElementById("heart-qr-canvas");
+      const link = document.createElement("a");
+      link.download = "QR_Trai_Tim_Quy_Thy.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      generateHeartQR();
+    });
+  </script>
+</body>
+</html>
