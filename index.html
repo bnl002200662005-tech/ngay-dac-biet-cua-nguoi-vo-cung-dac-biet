@@ -19,23 +19,22 @@
       senderName: "Long",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
-      // 1. NHẠC NỀN 3 CHẶNG (Tự động chơi 3 bản Piano/Giao hưởng tích hợp)
       musicTracks: {
         track1_hpbd: "",
         track2_mystery: "",
         track3_romantic: ""
       },
 
-      // 2. VIDEO LỜI CHÚC CỦA LONG Ở TRANG CUỐI
+      // Video lời chúc chính ở trang cuối
       mainBirthdayVideo: "clip_loi_chuc.mp4",
 
-      // 3. DANH SÁCH ẢNH & VIDEO BAY LƠ LỬNG TRÊN BẦU TRỜI KỶ NIỆM
+      // Danh sách ảnh & video bay lơ lửng trên bầu trời ký ức
       floatingMemories: [
         { type: "image", src: "anh1.jpg", caption: "Nụ cười tỏa nắng tuổi 16 🌷" },
-        { type: "video", src: "clip1.mp4", caption: "Khoảnh khắc đáng nhớ ✨" },
+        { type: "video", src: "clip1.mp4", poster: "anh1.jpg", caption: "Khoảnh khắc đáng nhớ ✨" },
         { type: "image", src: "anh2.png", caption: "Xinh xắn mọi góc nhìn 💖" },
         { type: "image", src: "anh3.png", caption: "Dễ thương hết phần thiên hạ 🌸" },
-        { type: "video", src: "clip2.mp4", caption: "Kỷ niệm vui của tụi mình 🎬" },
+        { type: "video", src: "clip2.mp4", poster: "anh3.png", caption: "Kỷ niệm vui của tụi mình 🎬" },
         { type: "image", src: "anh4.jpg", caption: "Đáng yêu từ bé tới lớn 🥰" },
         { type: "image", src: "anh5.jpg", caption: "Tinh nghịch mà vẫn cưng xỉu ✨" },
         { type: "image", src: "anh6.png", caption: "Ánh mắt biết cười 💫" },
@@ -43,7 +42,6 @@
         { type: "image", src: "anh8.png", caption: "Tuổi 16 thật rực rỡ nhé Thy 🥂" }
       ],
 
-      // Thiệp thay thế dự phòng
       fallbackGreetingCardText: "Gửi Quý Thy, hôm nay là cột mốc tuổi 16 thật rực rỡ. Cảm ơn Thy vì đã luôn mang đến những nguồn năng lượng trong trẻo và tuyệt vời nhất. Chúc Thy tuổi mới luôn bình an, tự tin, rạng ngời và chạm tới mọi ước mơ đẹp nhất của mình!"
     };
   </script>
@@ -74,7 +72,7 @@
     .font-script-love { font-family: 'Pacifico', cursive; }
 
     /* ===================================================================== */
-    /* VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (TRÀN VIỀN 100% VIEWPORT)             */
+    /* VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH                                       */
     /* ===================================================================== */
     .fullscreen-glass-shard {
       position: fixed;
@@ -292,7 +290,7 @@
     .wave-bar { animation: waveBar 0.6s infinite ease-in-out; }
 
     /* ===================================================================== */
-    /* BÁO ĐỘNG ĐỎ NHẤP NHÁY INH ỎI & QUÉT VÂN TAY                           */
+    /* BÁO ĐỘNG ĐỎ & QUÉT VÂN TAY                                            */
     /* ===================================================================== */
     @keyframes laserSweep {
       0%, 100% { top: 12%; opacity: 0.45; }
@@ -323,16 +321,43 @@
     }
     .alert-bang-flash { animation: exclamationPulse 0.42s infinite ease-in-out; }
 
-    @keyframes floatSky {
-      0%, 100% { transform: translateY(0px) rotate(var(--rot, -2deg)); }
-      50% { transform: translateY(-11px) rotate(calc(var(--rot, -2deg) * -1)); }
+    /* ===================================================================== */
+    /* BẦU TRỜI KÝ ỨC BAY LƠ LỬNG 3D ZOOM TO NHỎ TRÔI BỒNG BỀNH               */
+    /* ===================================================================== */
+    .sky-orbit-stage {
+      position: relative;
+      width: 100%;
+      height: 58vh;
+      min-height: 410px;
+      max-height: 540px;
+      overflow: hidden;
+      border-radius: 28px;
+      background: radial-gradient(ellipse at center, rgba(244, 114, 182, 0.08) 0%, rgba(15, 23, 42, 0.25) 100%);
+      border: 1px solid rgba(251, 207, 232, 0.2);
+      box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.65);
     }
-    .sky-memory-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.88));
-      padding: 7px 7px 12px 7px;
+
+    .floating-orb-card {
+      position: absolute;
+      width: 132px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
+      padding: 5px 5px 9px 5px;
       border-radius: 14px;
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.8), 0 0 22px rgba(244, 114, 182, 0.4);
-      animation: floatSky var(--dur, 5s) ease-in-out infinite;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), 0 0 22px rgba(244, 114, 182, 0.45);
+      will-change: transform, opacity;
+      cursor: pointer;
+      transition: box-shadow 0.25s ease;
+    }
+
+    .floating-orb-card:active {
+      box-shadow: 0 0 35px rgba(253, 224, 71, 0.9);
+    }
+
+    .sky-memory-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
+      padding: 7px 7px 12px 7px;
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(244, 114, 182, 0.5);
     }
 
     @keyframes arrowBounceDown {
@@ -347,17 +372,17 @@
   <!-- VIỀN BÁO ĐỘNG ĐỎ TOÀN MÀN HÌNH -->
   <div id="global-red-alarm-frame" class="hidden fixed inset-0 pointer-events-none z-40 screen-red-alert"></div>
 
-  <!-- AUDIO PLAYER DỰ PHÒNG NẾU CHÈN MP3 -->
-  <audio id="custom-mp3-player" loop preload="auto"></audio>
+  <!-- AUDIO PLAYER DỰ PHÒNG -->
+  <audio id="custom-mp3-player" loop preload="none"></audio>
 
   <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- LỚP CHỨA 56 MẢNH KÍNH VỠ TOÀN MÀN HÌNH (SẼ BỊ XÓA SẠCH SAU KHI RƠI XONG) -->
+  <!-- LỚP CHỨA 56 MẢNH KÍNH VỠ TOÀN MÀN HÌNH -->
   <div id="fullscreen-shatter-layer" class="hidden fixed inset-0 z-50 pointer-events-none" style="perspective: 1100px;"></div>
 
   <!-- CONTAINER CHÍNH -->
-  <main id="stage-container" class="relative z-10 w-full max-w-md px-5 py-6 flex flex-col items-center justify-center min-h-screen">
+  <main id="stage-container" class="relative z-10 w-full max-w-md px-4 py-5 flex flex-col items-center justify-center min-h-screen">
 
     <!-- ===================================================================== -->
     <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ                                             -->
@@ -618,25 +643,26 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 5: BẦU TRỜI KỶ NIỆM LƠ LỬNG CHÒM SAO BỌ CẠP                       -->
+    <!-- MÀN 5: BẦU TRỜI KÝ ỨC BAY LƠ LỬNG ZOOM TO NHỎ KHÔNG GIAN 3D           -->
     <!-- ===================================================================== -->
-    <section id="stage-4-sky" class="hidden w-full space-y-6 pb-10 animate-fade-up">
-      <div class="text-center space-y-1.5 pt-1">
+    <section id="stage-4-sky" class="hidden w-full space-y-4 pb-6 animate-fade-up">
+      <div class="text-center space-y-1">
         <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[10px] font-mono-tech font-bold">
           <span>♏ SCORPIO CONSTELLATION</span>
           <span>•</span>
           <span>20.11.2010</span>
         </div>
-        <h2 class="font-script-love text-4xl bling-text drop-shadow-[0_0_20px_rgba(244,114,182,0.85)] pt-1">
+        <h2 class="font-script-love text-3xl sm:text-4xl bling-text drop-shadow-[0_0_20px_rgba(244,114,182,0.85)] pt-0.5">
           Bầu trời kỷ niệm của Thy
         </h2>
-        <p class="text-[11px] text-pink-200/85">Chạm vào từng khung ảnh hoặc video đang bay để phóng to xem rõ nhé ✨</p>
+        <p class="text-[11px] text-pink-200/85">Chạm vào từng mảnh ký ức đang bay lơ lửng để phóng to xem rõ ✨</p>
       </div>
 
-      <div id="memories-grid" class="grid grid-cols-2 gap-4 px-1"></div>
+      <!-- SÂN KHẤU BẦU TRỜI 3D BAY LƠ LỬNG ZOOM TO NHỎ -->
+      <div id="sky-orbit-stage" class="sky-orbit-stage"></div>
 
-      <div class="pt-4 text-center">
-        <button type="button" onclick="openVideoIntroPrompt()" class="btn-3d-pop px-8 py-4 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
+      <div class="pt-1 text-center">
+        <button type="button" onclick="openVideoIntroPrompt()" class="btn-3d-pop px-8 py-3.5 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
           <span>Mở lời chúc đặc biệt từ Long</span>
           <span>🎬</span>
         </button>
@@ -701,12 +727,12 @@
     </div>
   </div>
 
-  <!-- POPUP 2: PHÓNG TO ẢNH / VIDEO KỶ NIỆM GIỮA MÀN HÌNH LÀM MỜ XUNG QUANH -->
+  <!-- POPUP 2: PHÓNG TO ẢNH / VIDEO KỶ NIỆM GIỮA MÀN HÌNH -->
   <div id="memory-modal" onclick="handleModalBackdropClick()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all">
-    <div class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up" style="animation: none;">
+    <div onclick="event.stopPropagation()" class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up">
       <div id="modal-media-box" class="w-full rounded-xl overflow-hidden bg-black"></div>
       <p id="modal-caption" class="text-xs text-gray-800 font-bold"></p>
-      <p id="modal-hint" class="text-[10px] text-pink-600 font-semibold"></p>
+      <p id="modal-hint" onclick="handleModalBackdropClick()" class="text-[11px] text-pink-600 font-bold cursor-pointer py-1"></p>
     </div>
   </div>
 
@@ -943,7 +969,7 @@
     const symphony = new SymphonyEngine();
 
     // =========================================================================
-    // 2. CANVAS VŨ TRỤ: CHỮ 3D CĂN CHUẨN DƯỚI HUY HIỆU + BỤI TIÊN CHẠM TAY
+    // 2. CANVAS VŨ TRỤ: CHỮ 3D + BỤI TIÊN CHẠM TAY + SAO BĂNG + PHÁO HOA
     // =========================================================================
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
@@ -963,7 +989,7 @@
     let touchGlitters = [];
     let shootingStars = [];
 
-    let stars = Array.from({ length: 130 }, () => ({
+    let stars = Array.from({ length: 120 }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
       r: Math.random() * 1.9 + 0.3,
@@ -989,7 +1015,7 @@
       }
     }
     window.addEventListener("pointerdown", e => spawnTouchBurst(e.clientX, e.clientY, 16));
-    window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 5));
+    window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 4));
 
     function create3DTextParticles(text) {
       textParticles = [];
@@ -1204,7 +1230,7 @@
     animateCanvas();
 
     // =========================================================================
-    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH (XÓA SẠCH ID TRÙNG & HỦY SAU RƠI)
+    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH
     // =========================================================================
     function switchStage(hideId, showId) {
       document.getElementById(hideId).classList.add("hidden");
@@ -1239,12 +1265,8 @@
         for (let c = 0; c <= cols; c++) {
           let px = (c / cols) * vw;
           let py = (r / rows) * vh;
-          if (r > 0 && r < rows) {
-            py += (Math.random() - 0.5) * (vh / rows) * 0.72;
-          }
-          if (c > 0 && c < cols) {
-            px += (Math.random() - 0.5) * (vw / cols) * 0.72;
-          }
+          if (r > 0 && r < rows) py += (Math.random() - 0.5) * (vh / rows) * 0.72;
+          if (c > 0 && c < cols) px += (Math.random() - 0.5) * (vw / cols) * 0.72;
           rowPts.push([px, py]);
         }
         pts.push(rowPts);
@@ -1268,12 +1290,7 @@
           const p3 = pts[r + 1][c + 1];
           const p4 = pts[r + 1][c];
 
-          const triangles = [
-            [p1, p2, p3],
-            [p1, p3, p4]
-          ];
-
-          triangles.forEach(tri => {
+          [[p1, p2, p3], [p1, p3, p4]].forEach(tri => {
             const shard = document.createElement("div");
             shard.className = "fullscreen-glass-shard flex flex-col items-center justify-center";
 
@@ -1348,7 +1365,7 @@
     }
 
     // =========================================================================
-    // 4. TRANG 3: GHI ÂM ĐIỀU ƯỚC -> CHẠM MÀN HÌNH KÍCH HOẠT -> CHỈ NHẬN THỔI MIC
+    // 4. TRANG 3: GHI ÂM ĐIỀU ƯỚC -> CHẠM MÀN HÌNH KÍCH HOẠT -> THỔI MIC
     // =========================================================================
     let mediaRecorder = null;
     let audioChunks = [];
@@ -1503,7 +1520,7 @@
     }
 
     // =========================================================================
-    // 5. TRANG 4: QUÉT VÂN TAY LƯỢT 1 -> BÁO ĐỘNG ĐỎ 3S -> QUÉT THẺ ĐEN LƯỢT 2
+    // 5. TRANG 4: QUÉT VÂN TAY LƯỢT 1 -> BÁO ĐỘNG ĐỎ -> QUÉT THẺ ĐEN LƯỢT 2
     // =========================================================================
     let scan1Timer = null;
     let scan1Pct = 0;
@@ -1615,8 +1632,8 @@
           setTimeout(() => {
             symphony.setScene(3);
             for (let i = 0; i < 12; i++) setTimeout(() => launchFirework(true), i * 130);
-            renderSkyMemories();
             switchStage("stage-3", "stage-4-sky");
+            startFloatingMemorySky();
             showBlackCardActivatedModal();
           }, 500);
         }
@@ -1639,67 +1656,102 @@
     }
 
     // =========================================================================
-    // 6. BẦU TRỜI KỶ NIỆM BAY LƠ LỬNG & PHÓNG TO GIỮA MÀN HÌNH
+    // 6. BẦU TRỜI KÝ ỨC BAY LƠ LỬNG 3D ZOOM TO NHỎ & TỐI ƯU TẢI SIÊU MƯỢT
     // =========================================================================
     let currentModalMediaType = null;
+    let floatingOrbs = [];
+    let skyAnimFrame = null;
+    let isSkyPaused = false;
 
-    function renderSkyMemories() {
-      const grid = document.getElementById("memories-grid");
-      grid.innerHTML = "";
+    function startFloatingMemorySky() {
+      const stage = document.getElementById("sky-orbit-stage");
+      stage.innerHTML = "";
+      floatingOrbs = [];
 
-      if (CONFIG.floatingMemories && CONFIG.floatingMemories.length > 0) {
-        CONFIG.floatingMemories.forEach((item, idx) => {
-          const rot = idx % 2 === 0 ? "-3deg" : "3deg";
-          const offsetMargin = idx % 2 === 1 ? "mt-5" : "";
-          const dur = `${4.4 + (idx % 3)}s`;
-          const card = document.createElement("div");
-          card.className = `sky-memory-card cursor-pointer transition-transform hover:scale-105 ${offsetMargin}`;
-          card.style.setProperty("--rot", rot);
-          card.style.setProperty("--dur", dur);
-          card.onclick = () => openMemoryModal(item);
+      const items = CONFIG.floatingMemories || [];
+      const stageW = stage.clientWidth || 350;
+      const stageH = stage.clientHeight || 440;
 
-          if (item.type === "video") {
-            card.innerHTML = `
-              <div class="relative">
-                <video src="${item.src}" muted autoplay loop playsinline class="w-full h-32 object-cover rounded-lg bg-black"></video>
-                <span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 bg-black/65 text-white text-[9px] rounded-md font-bold">▶ VIDEO</span>
-              </div>
-              <p class="text-[11px] text-gray-800 mt-1.5 truncate font-bold text-center">${item.caption || "Kỷ niệm 🎬"}</p>
-            `;
-          } else {
-            card.innerHTML = `
-              <img src="${item.src}" alt="Kỷ niệm" class="w-full h-32 object-cover rounded-lg" />
-              <p class="text-[11px] text-gray-800 mt-1.5 truncate font-bold text-center">${item.caption || "Khoảnh khắc ✨"}</p>
-            `;
-          }
-          grid.appendChild(card);
-        });
-      } else {
-        const sampleCards = [
-          { type: "card", icon: "✨", title: "Sweet 16 Rực Rỡ", desc: "Tuổi 16 tỏa sáng theo cách riêng của Thy" },
-          { type: "card", icon: "♏", title: "20.11.2010", desc: "Chòm sao Bọ Cạp tinh tế & rạng ngời" },
-          { type: "card", icon: "🌲", title: "Tùng Bách Mộc", desc: "Vững vàng, thanh cao và tràn đầy sức sống" },
-          { type: "card", icon: "🎂", title: "Happy Birthday", desc: "Mọi điều ước hôm nay đều thành hiện thực" }
-        ];
-        sampleCards.forEach((p, idx) => {
-          const rot = idx % 2 === 0 ? "-2.5deg" : "2.5deg";
-          const offsetMargin = idx % 2 === 1 ? "mt-4" : "";
-          const card = document.createElement("div");
-          card.className = `rounded-2xl p-4 text-center space-y-1 bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_25px_rgba(244,114,182,0.25)] cursor-pointer ${offsetMargin}`;
-          card.style.animation = `floatSky ${4 + idx * 0.5}s ease-in-out infinite`;
-          card.style.setProperty("--rot", rot);
-          card.onclick = () => openMemoryModal(p);
+      items.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "floating-orb-card";
+
+        if (item.type === "video") {
+          const thumbSrc = item.poster || "anh1.jpg";
           card.innerHTML = `
-            <div class="text-3xl">${p.icon}</div>
-            <div class="text-xs font-bold text-amber-200">${p.title}</div>
-            <div class="text-[10px] text-pink-100/80 leading-snug">${p.desc}</div>
+            <div class="relative w-full h-28 rounded-lg overflow-hidden bg-slate-900">
+              <img src="${thumbSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90" />
+              <div class="absolute inset-0 flex items-center justify-center bg-black/25">
+                <div class="w-9 h-9 rounded-full bg-pink-500/90 text-white flex items-center justify-center text-xs shadow-lg pl-0.5">▶</div>
+              </div>
+              <span class="absolute top-1 right-1 px-1.5 py-0.5 bg-black/70 text-amber-300 text-[8px] rounded font-bold">CLIP</span>
+            </div>
+            <p class="text-[10px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Kỷ niệm 🎬"}</p>
           `;
-          grid.appendChild(card);
+        } else {
+          card.innerHTML = `
+            <img src="${item.src}" loading="lazy" decoding="async" alt="Kỷ niệm" class="w-full h-28 object-cover rounded-lg bg-slate-200" />
+            <p class="text-[10px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Khoảnh khắc ✨"}</p>
+          `;
+        }
+
+        card.onclick = () => openMemoryModal(item);
+        stage.appendChild(card);
+
+        // Phân bổ đều không gian để các khung bay lơ lửng tự nhiên, phóng to thu nhỏ theo chu kỳ 3D
+        const laneX = (idx % 2 === 0) ? (0.06 + Math.random() * 0.24) : (0.50 + Math.random() * 0.16);
+        const startY = (idx / items.length) * (stageH + 140) - 70;
+
+        floatingOrbs.push({
+          el: card,
+          baseX: laneX * stageW,
+          y: startY,
+          speedY: 0.42 + (idx % 3) * 0.14,
+          swayPhase: idx * 1.15,
+          swayAmp: 14 + (idx % 3) * 6,
+          zoomPhase: idx * 0.9,
+          rotBase: (idx % 2 === 0 ? -1 : 1) * (3 + (idx % 4))
         });
-      }
+      });
+
+      let t = 0;
+      const animateSky = () => {
+        skyAnimFrame = requestAnimationFrame(animateSky);
+        if (isSkyPaused) return;
+
+        t += 0.018;
+        const curW = stage.clientWidth || 350;
+        const curH = stage.clientHeight || 440;
+
+        floatingOrbs.forEach((orb, idx) => {
+          orb.y -= orb.speedY;
+          if (orb.y < -165) {
+            orb.y = curH + 35;
+            orb.baseX = (idx % 2 === 0)
+              ? (0.04 + Math.random() * 0.25) * curW
+              : (0.48 + Math.random() * 0.16) * curW;
+          }
+
+          const x = orb.baseX + Math.sin(t + orb.swayPhase) * orb.swayAmp;
+          // Hiệu ứng zoom to - nhỏ nhịp nhàng như ký ức tiến lại gần rồi lùi ra xa
+          const depthWave = Math.sin(t * 0.85 + orb.zoomPhase); // -1 đến +1
+          const scale = 0.78 + ((depthWave + 1) / 2) * 0.36; // Zoom từ 0.78x lên 1.14x
+          const rot = orb.rotBase + Math.cos(t * 0.7 + orb.swayPhase) * 4;
+          const zIndex = Math.round(scale * 20);
+          const opacity = 0.72 + ((depthWave + 1) / 2) * 0.28;
+
+          orb.el.style.zIndex = zIndex;
+          orb.el.style.opacity = opacity.toFixed(2);
+          orb.el.style.transform = `translate3d(${x.toFixed(1)}px, ${orb.y.toFixed(1)}px, 0) scale(${scale.toFixed(3)}) rotate(${rot.toFixed(1)}deg)`;
+        });
+      };
+
+      if (skyAnimFrame) cancelAnimationFrame(skyAnimFrame);
+      animateSky();
     }
 
     function openMemoryModal(item) {
+      isSkyPaused = true;
       const modal = document.getElementById("memory-modal");
       const box = document.getElementById("modal-media-box");
       const cap = document.getElementById("modal-caption");
@@ -1708,29 +1760,19 @@
 
       if (item.type === "video") {
         symphony.pauseForMedia(true);
-        box.innerHTML = `<video id="popup-sky-video" src="${item.src}" controls autoplay playsinline class="w-full max-h-[65vh] mx-auto"></video>`;
+        box.innerHTML = `<video id="popup-sky-video" src="${item.src}" controls autoplay playsinline preload="metadata" class="w-full max-h-[65vh] mx-auto bg-black"></video>`;
         cap.textContent = item.caption || "";
-        hint.textContent = "Hết video sẽ tự động trở lại bầu trời kỷ niệm ✨";
+        hint.textContent = "✕ Đóng video & tiếp tục ngắm bầu trời";
 
         const vid = document.getElementById("popup-sky-video");
         vid.addEventListener("ended", () => {
           closeMemoryModal();
           symphony.pauseForMedia(false);
         });
-      } else if (item.type === "image") {
+      } else {
         box.innerHTML = `<img src="${item.src}" class="w-full max-h-[65vh] object-contain mx-auto" />`;
         cap.textContent = item.caption || "";
-        hint.textContent = "Chạm thêm lần nữa vào màn hình để quay lại bầu trời kỷ niệm";
-      } else {
-        box.innerHTML = `
-          <div class="p-8 bg-gradient-to-br from-rose-900 via-purple-900 to-slate-900 text-white space-y-2">
-            <div class="text-5xl">${item.icon}</div>
-            <div class="text-lg font-bold text-amber-200">${item.title}</div>
-            <div class="text-xs text-pink-100">${item.desc}</div>
-          </div>
-        `;
-        cap.textContent = "Kỷ niệm tuổi 16 của Quý Thy";
-        hint.textContent = "Chạm thêm lần nữa vào màn hình để quay lại bầu trời kỷ niệm";
+        hint.textContent = "✕ Chạm để thả kỷ niệm bay tiếp lên bầu trời";
       }
 
       modal.classList.remove("hidden");
@@ -1745,6 +1787,7 @@
     }
 
     function closeMemoryModal() {
+      isSkyPaused = false;
       const modal = document.getElementById("memory-modal");
       document.getElementById("modal-media-box").innerHTML = "";
       modal.classList.add("hidden");
@@ -1755,6 +1798,7 @@
     // 7. CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC -> HẾT VIDEO HIỆN TRANG CUỐI
     // =========================================================================
     function openVideoIntroPrompt() {
+      isSkyPaused = true;
       const modal = document.getElementById("video-greeting-modal");
       document.getElementById("video-prompt-card").classList.remove("hidden");
       document.getElementById("video-player-card").classList.add("hidden");
@@ -1770,7 +1814,7 @@
 
       if (CONFIG.mainBirthdayVideo && CONFIG.mainBirthdayVideo.trim() !== "") {
         symphony.pauseForMedia(true);
-        slot.innerHTML = `<video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls autoplay playsinline class="w-full max-h-[68vh] mx-auto bg-black"></video>`;
+        slot.innerHTML = `<video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls autoplay playsinline preload="metadata" class="w-full max-h-[68vh] mx-auto bg-black"></video>`;
         const vid = document.getElementById("main-greeting-video");
         vid.addEventListener("ended", () => {
           symphony.pauseForMedia(false);
@@ -1790,6 +1834,7 @@
     }
 
     function finishVideoAndShowFinalPage() {
+      if (skyAnimFrame) cancelAnimationFrame(skyAnimFrame);
       const modal = document.getElementById("video-greeting-modal");
       document.getElementById("greeting-video-slot").innerHTML = "";
       modal.classList.add("hidden");
