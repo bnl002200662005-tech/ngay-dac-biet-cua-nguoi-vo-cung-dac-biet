@@ -25,7 +25,8 @@
         nv2_2: "nv2_thoai2.jpg",
         nv3_1: "nv3_thoai1.jpg",
         nv3_2: "nv3_thoai2.jpg",
-        ngongac: "nv2_nv3_ngo_ngac.jpg"
+        nv2_ngongac: "nv2_ngo_ngac.jpg",
+        nv3_ngongac: "nv3_ngo_ngac.jpg"
       },
 
       mainBirthdayVideo: "clip_loi_chuc.mp4",
@@ -121,14 +122,14 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     }
     @keyframes shineText { to { background-position: 200% center; } }
 
-    /* VƯỜN HOA TULIP & BÉ CÚN GÓC TRÊN GỌN GÀNG KHÔNG CHE NÚT */
+    /* VƯỜN HOA TULIP & BÉ CÚN */
     #cyber-tulip-layer {
       position: fixed; inset: 0; pointer-events: none; z-index: 2;
       opacity: 0; transition: opacity 1s ease;
     }
     #cyber-tulip-layer.active { opacity: 1; }
     .tulip-corner {
-      position: absolute; bottom: -8px; width: 115px; height: 155px;
+      position: absolute; bottom: -8px; width: 112px; height: 150px;
       filter: drop-shadow(0 0 12px rgba(244, 114, 182, 0.65));
       animation: tulipSway 4s ease-in-out infinite alternate;
       transform-origin: bottom center;
@@ -147,7 +148,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     }
     #puppy-companion.active { display: flex; }
     .puppy-mini-bubble {
-      background: rgba(255, 255, 255, 0.92); color: #3b0764;
+      background: rgba(255, 255, 255, 0.94); color: #3b0764;
       font-size: 10.5px; font-weight: 700; padding: 5px 10px;
       border-radius: 14px 14px 2px 14px; max-width: 175px;
       border: 1.5px solid #f472b6; box-shadow: 0 4px 14px rgba(244, 114, 182, 0.4);
@@ -196,8 +197,48 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       text-shadow: 0 0 20px #ff4d94, 0 0 38px #fde047;
     }
 
-    /* BÁNH KEM 3D BẢN GỐC */
-    .realistic-cake-stage { perspective: 1000px; }
+    /* HIỆU ỨNG BÁNH KEM HẠ XẾP TẦNG TỪ TRÊN XUỐNG + VIẾT CHỮ HAPPY BIRTHDAY */
+    @keyframes tierDropIn {
+      0% { opacity: 0; transform: translateY(-230px) scale(0.85); }
+      72% { opacity: 1; transform: translateY(8px) scale(1.03); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .cake-tier-drop {
+      opacity: 0;
+      animation: tierDropIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes floatBalloonRise {
+      0% { transform: translateY(40px) scale(0.85); opacity: 0; }
+      20% { opacity: 0.92; }
+      100% { transform: translateY(-220px) scale(1.05); opacity: 0; }
+    }
+    .cake-float-heart {
+      position: absolute; pointer-events: none;
+      animation: floatBalloonRise 4.2s ease-out infinite;
+    }
+
+    .hpbd-script-svg text {
+      font-family: 'Pacifico', cursive;
+      font-size: 40px;
+      fill: rgba(253, 224, 71, 0.12);
+      stroke: #fde047;
+      stroke-width: 1.8;
+      stroke-dasharray: 650;
+      stroke-dashoffset: 650;
+      filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.85));
+    }
+    .hpbd-script-svg.write-active text {
+      animation: writeGoldStroke 2.6s ease forwards;
+    }
+    @keyframes writeGoldStroke {
+      0% { stroke-dashoffset: 650; fill: rgba(253, 224, 71, 0); }
+      75% { stroke-dashoffset: 0; fill: rgba(253, 224, 71, 0.35); }
+      100% { stroke-dashoffset: 0; fill: #fef08a; }
+    }
+
+    /* BÁNH KEM 3D */
+    .realistic-cake-stage { perspective: 1000px; position: relative; }
     .cake-3d-body {
       position: relative; width: 240px; margin: 0 auto;
       transform-style: preserve-3d; transition: transform 0.4s ease;
@@ -212,9 +253,9 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     .cake-dodging { animation: cakeDodgeLoop 1.15s infinite ease-in-out; }
     .cake-plate {
       width: 265px; height: 20px; margin: -6px auto 0; border-radius: 50%;
-      background: radial-gradient(ellipse at center, #ffffff 0%, #e2e8f0 55%, #94a3b8 85%, #475569 100%);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(251, 191, 36, 0.35);
-      border-bottom: 3px solid #cbd5e1;
+      background: radial-gradient(ellipse at center, #ffffff 0%, #fde68a 50%, #d97706 88%, #78350f 100%);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(251, 191, 36, 0.45);
+      border-bottom: 3px solid #f59e0b;
     }
     .cake-tier-bottom {
       position: relative; width: 216px; height: 76px; margin: 0 auto;
@@ -321,20 +362,24 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     }
     .alert-bang-flash { animation: exclamationPulse 0.42s infinite ease-in-out; }
 
-    /* THIÊN HÀ KỶ NIỆM XOÁY ỐC 3D */
+    /* THIÊN HÀ KỶ NIỆM 3D THOÁNG ĐẸP */
     .galaxy-3d-stage {
-      position: relative; width: 100%; height: 52vh; min-height: 360px; max-height: 460px;
+      position: relative; width: 100%; height: 54vh; min-height: 380px; max-height: 480px;
       overflow: hidden; border-radius: 28px;
-      background: radial-gradient(ellipse at center, rgba(244, 114, 182, 0.12) 0%, rgba(15, 23, 42, 0.25) 100%);
+      background: radial-gradient(ellipse at center, rgba(244, 114, 182, 0.14) 0%, rgba(5, 2, 16, 0.35) 100%);
       border: 1px solid rgba(251, 207, 232, 0.25);
       touch-action: none;
     }
     .galaxy-orbit-node {
-      position: absolute; top: 50%; left: 50%; width: 106px;
-      background: rgba(255,255,255,0.96); padding: 4px 4px 8px; border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.8), 0 0 16px rgba(244,114,182,0.5);
+      position: absolute; top: 50%; left: 50%; width: 88px;
+      background: rgba(20, 10, 35, 0.72); backdrop-filter: blur(6px);
+      padding: 3px; border-radius: 14px;
+      border: 1.5px solid rgba(244, 114, 182, 0.65);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.85), 0 0 16px rgba(244,114,182,0.45);
       cursor: pointer; will-change: transform, opacity;
+      transition: border-color 0.2s;
     }
+    .galaxy-orbit-node:hover { border-color: #fde047; }
     .sky-memory-card {
       background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
       padding: 7px 7px 12px 7px; border-radius: 16px;
@@ -389,10 +434,10 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
   <div id="global-red-alarm-frame" class="hidden fixed inset-0 pointer-events-none z-40 screen-red-alert"></div>
   <audio id="obito-mp3-player" src="happy_birthday_obito.mp3" loop preload="auto"></audio>
 
-  <!-- CANVAS HIỆU ỨNG HẠT 3D + MƯA MATRIX + PHÁO HOA -->
+  <!-- CANVAS HIỆU ỨNG HẠT 3D PHÁT SÁNG + MƯA MATRIX + PHÁO HOA -->
   <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- VƯỜN HOA TULIP & BÉ CÚN XUYÊN SUỐT TỪ TRANG BÁNH KEM -->
+  <!-- VƯỜN HOA TULIP & BÉ CÚN -->
   <div id="cyber-tulip-layer">
     <svg class="tulip-corner left" viewBox="0 0 140 190" fill="none">
       <path d="M40 190 Q35 120 50 72" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
@@ -472,7 +517,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2A: HỘI THOẠI STICKER MEME 3 NHÂN VẬT (CHỮ CHẠY TỪNG CHỮ)         -->
+    <!-- MÀN 2A: HỘI THOẠI STICKER MEME 3 NHÂN VẬT                           -->
     <!-- ===================================================================== -->
     <section id="stage-dialogue" onclick="advanceMemeDialogue()" class="hidden w-full space-y-5 cursor-pointer animate-fade-up">
       <div class="flex items-end justify-center gap-3 min-h-[135px]">
@@ -506,7 +551,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2B: VÒNG QUAY SỐ NGÀY 20 -> 11 • 2010                             -->
+    <!-- MÀN 2B: VÒNG QUAY SỐ NGÀY 20 • 11 • 2010                              -->
     <!-- ===================================================================== -->
     <section id="stage-slot" class="hidden w-full text-center space-y-6 animate-fade-up">
       <div id="slot-happy-title" class="font-script-love text-4xl bling-text opacity-0 transition-opacity duration-700">
@@ -525,40 +570,56 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2C: HẠT 3D BIẾN HÌNH + CUNG TÊN HẠT BẮN TRÁI TIM                   -->
+    <!-- MÀN 2C: HẠT PHÁT SÁNG 3D + KÉO CUNG GỒNG LỰC BẮN TRÁI TIM             -->
     <!-- ===================================================================== -->
-    <section id="stage-particle-journey" class="hidden w-full h-screen flex-col items-center justify-end pb-12 pointer-events-none">
-      <div id="cupid-bow-hint" class="hidden px-5 py-2.5 rounded-full bg-black/75 border border-amber-300/70 text-amber-200 text-xs font-bold shadow-[0_0_25px_rgba(251,191,36,0.45)] animate-bounce pointer-events-auto">
-        🏹 Chạm vào màn hình để bắn mũi tên ánh sáng vỡ trái tim nhé!
+    <section id="stage-particle-journey" class="hidden w-full h-screen flex-col items-center justify-end pb-10 pointer-events-none">
+      <div id="cupid-bow-hint" class="hidden flex-col items-center space-y-2.5 w-full max-w-xs pointer-events-auto">
+        <div class="w-full px-4 py-2 rounded-2xl bg-black/75 border border-amber-300/60 space-y-1.5 shadow-[0_0_25px_rgba(251,191,36,0.35)]">
+          <div class="flex justify-between text-[11px] font-mono-tech font-bold text-amber-200">
+            <span>LỰC KÉO CUNG</span>
+            <span id="bow-power-pct">0%</span>
+          </div>
+          <div class="w-full h-2.5 bg-white/15 rounded-full overflow-hidden">
+            <div id="bow-power-bar" class="h-full w-0 bg-gradient-to-r from-pink-500 via-amber-400 to-yellow-200 transition-all duration-75"></div>
+          </div>
+        </div>
+        <div class="px-5 py-2.5 rounded-full bg-black/80 border border-pink-400/70 text-pink-100 text-xs font-bold text-center shadow-[0_0_20px_rgba(244,114,182,0.5)]">
+          🏹 Giữ & kéo ngược xuống để căng dây cung, thả tay bắn vỡ trái tim!
+        </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 3: BÁNH KEM 3D + LỜI CHÚA + GHI ÂM ĐIỀU ƯỚC + THỔI NẾN            -->
+    <!-- MÀN 3: BÁNH KEM HẠ XẾP TẦNG + CHỮ HAPPY BIRTHDAY + GHI ÂM + THỔI NẾN  -->
     <!-- ===================================================================== -->
-    <section id="stage-2" class="hidden w-full text-center space-y-3.5 animate-fade-up">
-      <div class="pt-4">
+    <section id="stage-2" class="hidden w-full text-center space-y-3 animate-fade-up">
+      <div class="pt-3">
         <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-amber-300/30 text-[10px] font-mono-tech text-amber-200 mb-1">
           <span>🕊️ SWEET 16 BLESSING</span>
           <span>•</span>
           <span>20.11.2010</span>
         </div>
-        <h2 class="font-serif-luxury text-4xl font-bold bling-text">Thì thầm điều ước của Thy</h2>
+
+        <svg id="hpbd-gold-svg" class="hpbd-script-svg w-full max-w-[330px] h-14 mx-auto overflow-visible" viewBox="0 0 360 65">
+          <text x="50%" y="48" text-anchor="middle">Happy Birthday</text>
+        </svg>
       </div>
 
-      <div class="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-amber-300/35 shadow-[0_0_20px_rgba(251,191,36,0.2)]">
+      <div class="px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-amber-300/35 shadow-[0_0_20px_rgba(251,191,36,0.2)]">
         <p class="font-serif-luxury italic text-sm text-amber-100 leading-snug">
           “Nguyện xin Chúa luôn ban muôn hồng ân, gìn giữ, nâng đỡ từng bước chân và soi sáng mọi ước mơ đẹp nhất của Quý Thy trong tuổi 16 bình an.” 🕊️
         </p>
       </div>
 
-      <div class="realistic-cake-stage pt-10 pb-1">
+      <div class="realistic-cake-stage pt-8 pb-1">
+        <div id="cake-floating-hearts" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
         <div id="cake-wrapper" class="cake-3d-body">
-          <div id="candle-stick" class="candle-3d">
+          <div id="candle-stick" class="candle-3d cake-tier-drop" style="animation-delay: 1.35s;">
             <div id="candle-flame" class="flame-3d"></div>
           </div>
 
-          <div class="cake-tier-top">
+          <div class="cake-tier-top cake-tier-drop" style="animation-delay: 0.9s;">
             <div class="strawberry-3d" style="left: 24px;"></div>
             <div class="strawberry-3d" style="left: 70px; top: -7px;"></div>
             <div class="strawberry-3d" style="right: 24px;"></div>
@@ -573,7 +634,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
             </div>
           </div>
 
-          <div class="cake-tier-bottom flex items-center justify-center">
+          <div class="cake-tier-bottom flex items-center justify-center cake-tier-drop" style="animation-delay: 0.45s;">
             <span class="font-script-love text-white/95 text-base pt-3 drop-shadow-[0_2px_5px_rgba(136,19,55,0.9)]">
               Happy Birthday Thy
             </span>
@@ -585,11 +646,11 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
             </div>
           </div>
 
-          <div class="cake-plate"></div>
+          <div class="cake-plate cake-tier-drop" style="animation-delay: 0.05s;"></div>
         </div>
       </div>
 
-      <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2.5">
+      <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2">
         <div class="flex items-center justify-center gap-3 px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]">
           <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.8)] active:scale-95 transition-all shrink-0">
             <span id="record-icon" class="text-lg">🎙️</span>
@@ -608,7 +669,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       </div>
 
       <div id="blow-instruction-area" class="hidden max-w-sm mx-auto pt-1 animate-fade-up">
-        <div id="candle-toast" class="px-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
+        <div id="candle-toast" class="px-4 py-3 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
           ✨ Điều ước đã được cất giữ! Giờ thì Thy hãy chạm nhẹ vào một điểm bất kỳ trên màn hình để chuẩn bị thổi nến nào...
         </div>
       </div>
@@ -732,7 +793,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       </div>
 
       <div id="galaxy-container-wrap" class="hidden space-y-4 animate-fade-up">
-        <p class="text-[11px] text-pink-200/90 text-center">Kéo xoay thiên hà, phóng to thu nhỏ hoặc chạm từng mảnh kỷ niệm để xem rõ ✨</p>
+        <p class="text-[11px] text-pink-200/90 text-center">Kéo xoay thiên hà 3D, phóng to thu nhỏ hoặc chạm từng mảnh kỷ niệm để xem rõ ✨</p>
         <div id="sky-orbit-stage" class="galaxy-3d-stage"></div>
 
         <div class="pt-1 text-center">
@@ -745,7 +806,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 6: TRANG CUỐI — VIDEO LONG HPBD -> THIỆP MỞ CÁNH 2 TRANG -> KẾT   -->
+    <!-- MÀN 6: TRANG CUỐI — HIỆN TUẦN TỰ TỪNG BƯỚC                            -->
     <!-- ===================================================================== -->
     <section id="stage-4-final" class="hidden w-full space-y-5 pb-12 animate-fade-up">
       <div class="text-center space-y-1 pt-5">
@@ -759,13 +820,15 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         <h2 class="font-script-love text-3xl bling-text pt-1">Gửi Quý Thy tuổi 16</h2>
       </div>
 
+      <!-- BƯỚC 1: VIDEO CHÚC CỦA LONG -->
       <div class="p-3 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_30px_rgba(244,114,182,0.3)] text-center space-y-2">
         <div class="text-xs font-extrabold text-amber-200">🎬 Đôi lời chúc từ Long gửi Thy</div>
         <video id="main-greeting-video" src="clip_loi_chuc.mp4" controls playsinline preload="metadata" class="w-full max-h-56 rounded-2xl bg-black mx-auto"></video>
-        <p class="text-[11px] text-pink-100/85">Xem xong video, Thy chạm mở tấm thiệp bên dưới để đọc tâm sự dài hơn nhé 👇</p>
+        <p id="video-watch-hint" class="text-[11px] text-pink-100/85">Xem hết video để mở món quà tiếp theo nhé Thy ✨</p>
       </div>
 
-      <div class="double-wing-card-wrap">
+      <!-- BƯỚC 2: THIỆP 2 CÁNH (CHỈ HIỆN SAU KHI XEM HẾT VIDEO) -->
+      <div id="finale-card-section" class="hidden double-wing-card-wrap animate-fade-up">
         <div id="double-wing-book" class="double-wing-book">
           <div class="card-left-wing">
             <div class="text-[11px] font-extrabold text-pink-700">🌷 Tuổi 16 🐶</div>
@@ -794,11 +857,13 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         </div>
       </div>
 
-      <div class="pt-1">
+      <!-- BƯỚC 3: Ô NHẮN NHỦ GỬI LONG (HIỆN SAU KHI MỞ THIỆP ĐỌC) -->
+      <div id="finale-reply-section" class="hidden pt-1 animate-fade-up">
         <textarea id="reply-note-input" rows="2" placeholder="Thy có muốn nhắn nhủ gì với anh Long khum nè 😊" class="w-full px-4 py-3.5 rounded-2xl bg-purple-950/55 backdrop-blur-md border border-pink-300/40 text-xs sm:text-sm text-white text-center placeholder-pink-200/80 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] focus:outline-none focus:border-amber-300"></textarea>
       </div>
 
-      <div class="flex flex-col items-center space-y-3 pt-1">
+      <!-- BƯỚC 4: MŨI TÊN + NÚT GOODBYE (HIỆN SAU CÙNG) -->
+      <div id="finale-goodbye-section" class="hidden flex-col items-center space-y-3 pt-1 animate-fade-up">
         <div class="flex flex-col items-center text-amber-300 arrow-down-anim">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
@@ -1049,7 +1114,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
 
     const symphony = new SymphonyEngine();
 
-    // 2. CANVAS VŨ TRỤ + MATRIX + HẠT 3D SIÊU MỊN + CUNG TÊN
+    // 2. CANVAS VŨ TRỤ + MATRIX + HẠT 3D PHÁT SÁNG + CUNG TÊN KÉO LỰC
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1074,6 +1139,9 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
 
     let morphParticles = [];
     let bowVisible = false;
+    let bowPulling = false;
+    let bowPullStart = { x: 0, y: 0 };
+    let bowTension = 0;
     let bowArrowFlying = false;
     let bowArrowT = 0;
     let bowHeartBurst = false;
@@ -1101,16 +1169,46 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         });
       }
     }
+
+    function updateBowPowerUI(tension) {
+      const pct = Math.round(tension * 100);
+      document.getElementById("bow-power-pct").textContent = `${pct}%`;
+      document.getElementById("bow-power-bar").style.width = `${pct}%`;
+    }
+
     window.addEventListener("pointerdown", e => {
-      spawnTouchBurst(e.clientX, e.clientY, 14);
-      if (fxMode === "matrix_morph" && bowVisible && !bowArrowFlying) {
-        bowArrowFlying = true;
-        symphony.playPianoNote(880, 0.35, 0.14, "triangle");
+      spawnTouchBurst(e.clientX, e.clientY, 12);
+      if (fxMode === "matrix_morph" && bowVisible && !bowArrowFlying && !bowHeartBurst) {
+        bowPulling = true;
+        bowPullStart = { x: e.clientX, y: e.clientY };
+        bowTension = 0.15;
+        updateBowPowerUI(bowTension);
       }
     });
-    window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 3));
 
-    function sampleHighResPoints(drawFn, step = 3) {
+    window.addEventListener("pointermove", e => {
+      spawnTouchBurst(e.clientX, e.clientY, 3);
+      if (bowPulling) {
+        const dragDist = Math.hypot(e.clientX - bowPullStart.x, e.clientY - bowPullStart.y);
+        bowTension = Math.min(1, Math.max(0.2, dragDist / 115));
+        updateBowPowerUI(bowTension);
+      }
+    });
+
+    window.addEventListener("pointerup", () => {
+      if (bowPulling) {
+        bowPulling = false;
+        if (bowTension >= 0.45) {
+          bowArrowFlying = true;
+          symphony.playPianoNote(880, 0.35, 0.14, "triangle");
+        } else {
+          bowTension = 0;
+          updateBowPowerUI(0);
+        }
+      }
+    });
+
+    function sampleHighResPoints(drawFn, step = 4) {
       const off = document.createElement("canvas");
       off.width = W; off.height = H;
       const octx = off.getContext("2d");
@@ -1120,8 +1218,17 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       const pts = [];
       for (let y = 0; y < H; y += step) {
         for (let x = 0; x < W; x += step) {
-          if (data[(y * W + x) * 4 + 3] > 150) pts.push({ x, y });
+          if (data[(y * W + x) * 4 + 3] > 150) {
+            pts.push({
+              x: x + (Math.random() - 0.5) * 3.2,
+              y: y + (Math.random() - 0.5) * 3.2
+            });
+          }
         }
+      }
+      for (let i = pts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pts[i], pts[j]] = [pts[j], pts[i]];
       }
       return pts;
     }
@@ -1210,39 +1317,57 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
 
     function renderParticleCupidBow() {
       if (!bowVisible || bowHeartBurst) return;
-      const bx = W * 0.24, by = H * 0.74;
-      const tx = W * 0.66, ty = H * 0.35;
+      if (bowPulling && bowTension < 1) {
+        bowTension = Math.min(1, bowTension + 0.016);
+        updateBowPowerUI(bowTension);
+      }
+
+      const bx = W * 0.23, by = H * 0.72;
+      const tx = W * 0.66, ty = H * 0.34;
       const angle = Math.atan2(ty - by, tx - bx);
 
       ctx.save();
       ctx.translate(bx, by);
       ctx.rotate(angle);
 
-      for (let a = -Math.PI * 0.42; a <= Math.PI * 0.42; a += 0.05) {
+      const bend = bowTension * 10;
+      for (let a = -Math.PI * 0.42; a <= Math.PI * 0.42; a += 0.045) {
         ctx.fillStyle = "#fde047";
         ctx.beginPath();
-        ctx.arc(-10 + Math.cos(a) * 56, Math.sin(a) * 56, 1.7, 0, Math.PI * 2);
+        ctx.arc(-10 - bend * Math.abs(Math.sin(a)) + Math.cos(a) * 58, Math.sin(a) * 58, 1.9, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      const pull = bowArrowFlying ? 0 : Math.sin(Date.now() * 0.006) * 8 - 10;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
-      ctx.lineWidth = 1.4;
+      const pull = bowArrowFlying ? 0 : -(6 + bowTension * 46);
+      ctx.strokeStyle = bowTension > 0.7 ? "#fde047" : "rgba(255, 255, 255, 0.85)";
+      ctx.lineWidth = 1.6;
       ctx.beginPath();
-      ctx.moveTo(6, -53); ctx.lineTo(pull - 14, 0); ctx.lineTo(6, 53);
+      ctx.moveTo(6 - bend * 0.8, -55);
+      ctx.lineTo(pull - 12, 0);
+      ctx.lineTo(6 - bend * 0.8, 55);
       ctx.stroke();
 
       const dist = Math.hypot(tx - bx, ty - by);
-      const ax = bowArrowFlying ? bowArrowT * dist : pull - 14;
-      for (let k = 0; k <= 75; k += 3) {
-        ctx.fillStyle = k > 62 ? "#ffffff" : "#ff4d94";
+      if (bowTension > 0.1 && !bowArrowFlying) {
+        ctx.strokeStyle = `rgba(255, 77, 148, ${0.25 + bowTension * 0.55})`;
+        ctx.setLineDash([6, 6]);
         ctx.beginPath();
-        ctx.arc(ax + k, 0, k > 62 ? 2.1 : 1.5, 0, Math.PI * 2);
+        ctx.moveTo(pull + 75, 0);
+        ctx.lineTo(dist, 0);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      const ax = bowArrowFlying ? bowArrowT * dist : pull - 12;
+      for (let k = 0; k <= 78; k += 3) {
+        ctx.fillStyle = k > 64 ? "#ffffff" : "#ff4d94";
+        ctx.beginPath();
+        ctx.arc(ax + k, 0, k > 64 ? 2.3 : 1.6, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.fillStyle = "#fde047";
       ctx.beginPath();
-      ctx.moveTo(ax + 84, 0); ctx.lineTo(ax + 68, -7); ctx.lineTo(ax + 68, 7);
+      ctx.moveTo(ax + 88, 0); ctx.lineTo(ax + 70, -7); ctx.lineTo(ax + 70, 7);
       ctx.closePath(); ctx.fill();
       ctx.restore();
     }
@@ -1282,7 +1407,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         return;
       }
 
-      ctx.fillStyle = "rgba(6, 2, 14, 0.24)";
+      ctx.fillStyle = "rgba(6, 2, 14, 0.26)";
       ctx.fillRect(0, 0, W, H);
 
       if (cyberMatrixOn) {
@@ -1290,7 +1415,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         for (let i = 0; i < matrixDrops.length; i++) {
           const ch = matrixGlyphs[Math.floor(Math.random() * matrixGlyphs.length)];
           const x = i * 16, y = matrixDrops[i] * 16;
-          ctx.fillStyle = Math.random() > 0.88 ? "rgba(253, 224, 71, 0.45)" : "rgba(244, 114, 182, 0.32)";
+          ctx.fillStyle = Math.random() > 0.88 ? "rgba(253, 224, 71, 0.42)" : "rgba(244, 114, 182, 0.28)";
           ctx.fillText(ch, x, y);
           if (y > H && Math.random() > 0.975) matrixDrops[i] = 0;
           matrixDrops[i] += 0.55;
@@ -1324,20 +1449,32 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       }
 
       if (fxMode === "matrix_morph" || fxMode === "eternal_heart") {
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        const now = Date.now() * 0.004;
         const beat = fxMode === "eternal_heart" ? 1 + Math.sin(Date.now() * 0.005) * 0.045 : 1;
+
         for (let i = 0; i < morphParticles.length; i++) {
           const p = morphParticles[i];
           if (!bowHeartBurst) {
-            const targetX = W / 2 + (p.tx - W / 2) * beat;
-            const targetY = H / 2 + (p.ty - H / 2) * beat;
-            p.x += (targetX - p.x) * 0.095;
-            p.y += (targetY - p.y) * 0.095;
+            const floatX = Math.cos(now + p.phase) * 1.6;
+            const floatY = Math.sin(now * 1.2 + p.phase) * 1.6;
+            const targetX = W / 2 + (p.tx - W / 2) * beat + floatX;
+            const targetY = H / 2 + (p.ty - H / 2) * beat + floatY;
+            p.x += (targetX - p.x) * p.ease;
+            p.y += (targetY - p.y) * p.ease;
           } else {
             p.x += p.vx; p.y += p.vy; p.vy += 0.16;
           }
+
           ctx.fillStyle = p.color;
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = 0.26;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 2.3, 0, Math.PI * 2); ctx.fill();
+
+          ctx.globalAlpha = 0.92;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 0.95, 0, Math.PI * 2); ctx.fill();
         }
+        ctx.restore();
       }
 
       if (fxMode === "matrix_morph" && bowVisible && !bowHeartBurst) {
@@ -1503,7 +1640,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       { who: "nv2", tag: "Ông Bạn 2", img: CONFIG.stickers.nv2_1, text: "Ờ thì nay là ngày 20 tháng 11, ngày Nhà giáo Việt Nam." },
       { who: "nv3", tag: "Ông Bạn 3", img: CONFIG.stickers.nv3_1, text: "Chứ còn gì nữa cha này hỏi câu kì." },
       { who: "nv1", tag: "Long", img: CONFIG.stickers.nv1_2, text: "Ừ thì đúng là vậy. Nhưng 2 ông thử nghĩ kĩ lại xem ngày hôm nay còn gì đặc biệt nữa." },
-      { who: "confused", tag: "Ông Bạn 2 & 3", img: CONFIG.stickers.ngongac, text: "... ??? (Đang vắt óc suy nghĩ cực căng...)" },
+      { who: "confused", tag: "Ông Bạn 2 & 3", img2: CONFIG.stickers.nv2_ngongac, img3: CONFIG.stickers.nv3_ngongac, text: "... ??? (Đang vắt óc suy nghĩ cực căng...)" },
       { who: "nv2", tag: "Ông Bạn 2", img: CONFIG.stickers.nv2_2, text: "Hay là anh em mình có hẹn đi bơi hia." },
       { who: "nv3", tag: "Ông Bạn 3", img: CONFIG.stickers.nv3_2, text: "Ý kiến hay, giơ 2 tay tán thành liền." },
       { who: "nv1", tag: "Long", img: CONFIG.stickers.nv1_3, text: "2 ông cứ luyên thuyên." },
@@ -1541,8 +1678,8 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
           document.getElementById("sticker-nv3").src = item.img;
         } else if (item.who === "confused") {
           b2.classList.add("sticker-speaking"); b3.classList.add("sticker-speaking");
-          document.getElementById("sticker-nv2").src = item.img;
-          document.getElementById("sticker-nv3").src = item.img;
+          document.getElementById("sticker-nv2").src = item.img2;
+          document.getElementById("sticker-nv3").src = item.img3;
           m2.classList.remove("hidden"); m3.classList.remove("hidden");
         }
       }
@@ -1592,7 +1729,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         track.appendChild(d);
       });
 
-      setTimeout(() => { track.style.transform = "translateY(-910px)"; }, 150);
+      setTimeout(() => { track.style.transform = "translateY(-845px)"; }, 150);
       setTimeout(() => {
         document.getElementById("digit-20-lock").classList.add("locked-20");
         document.getElementById("slot-month-year").classList.add("opacity-100", "translate-x-0");
@@ -1601,34 +1738,38 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       setTimeout(() => startParticleMorphJourney(), 4600);
     }
 
-    // 5. HẠT 3D BIẾN HÌNH + CUNG TÊN
+    // 5. HẠT 3D PHÁT SÁNG + CUNG TÊN KÉO LỰC
     function startParticleMorphJourney() {
       switchStage("stage-slot", "stage-particle-journey");
       fxMode = "matrix_morph";
       cyberMatrixOn = true;
 
-      morphParticles = Array.from({ length: 1850 }, () => ({
+      morphParticles = Array.from({ length: 1650 }, () => ({
         x: Math.random() * W, y: Math.random() * H,
         tx: W / 2, ty: H / 2, vx: 0, vy: 0,
-        size: 1.15 + Math.random() * 1.15, color: "#ff4d94"
+        phase: Math.random() * Math.PI * 2,
+        ease: 0.065 + Math.random() * 0.045,
+        size: 1.2 + Math.random() * 1.15, color: "#ff4d94"
       }));
 
       const steps = [
-        { t: 100, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"3",0.32), 3), "pink") },
-        { t: 1050, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"2",0.32), 3), "pink") },
-        { t: 2000, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"1",0.32), 3), "gold") },
-        { t: 2950, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"CHÚC MỪNG",0.13), 3), "pink") },
-        { t: 4450, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"SINH NHẬT",0.13), 3), "pink") },
-        { t: 5950, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"QUÝ THY",0.15), 3), "gold") },
-        { t: 7500, fn: () => morphToPoints(sampleHighResPoints(shapeScorpio, 3), "pink") },
-        { t: 9100, fn: () => morphToPoints(sampleHighResPoints(shapePineTree, 3), "emerald") },
-        { t: 10700, fn: () => morphToPoints(sampleHighResPoints(shapeJesusCross, 3), "gold") },
+        { t: 100, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"3",0.32), 4), "pink") },
+        { t: 1050, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"2",0.32), 4), "pink") },
+        { t: 2000, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"1",0.32), 4), "gold") },
+        { t: 2950, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"CHÚC MỪNG",0.13), 4), "pink") },
+        { t: 4450, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"SINH NHẬT",0.13), 4), "pink") },
+        { t: 5950, fn: () => morphToPoints(sampleHighResPoints((c,w,h)=>shapeText(c,w,h,"QUÝ THY",0.15), 4), "gold") },
+        { t: 7500, fn: () => morphToPoints(sampleHighResPoints(shapeScorpio, 4), "pink") },
+        { t: 9100, fn: () => morphToPoints(sampleHighResPoints(shapePineTree, 4), "emerald") },
+        { t: 10700, fn: () => morphToPoints(sampleHighResPoints(shapeJesusCross, 4), "gold") },
         {
           t: 12400,
           fn: () => {
-            morphToPoints(sampleHighResPoints(shapeHeart, 3), "pink", W * 0.16, -H * 0.14, 0.78);
+            morphToPoints(sampleHighResPoints(shapeHeart, 4), "pink", W * 0.16, -H * 0.14, 0.78);
             bowVisible = true;
-            document.getElementById("cupid-bow-hint").classList.remove("hidden");
+            const hint = document.getElementById("cupid-bow-hint");
+            hint.classList.remove("hidden");
+            hint.classList.add("flex");
           }
         }
       ];
@@ -1641,6 +1782,22 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       document.getElementById("cyber-tulip-layer").classList.add("active");
       document.getElementById("puppy-companion").classList.add("active");
       switchStage("stage-particle-journey", "stage-2");
+
+      setTimeout(() => {
+        document.getElementById("hpbd-gold-svg").classList.add("write-active");
+      }, 1500);
+
+      const heartLayer = document.getElementById("cake-floating-hearts");
+      const icons = ["💖", "💗", "🎈", "✨", "🌷"];
+      for (let i = 0; i < 12; i++) {
+        const sp = document.createElement("span");
+        sp.className = "cake-float-heart text-base";
+        sp.textContent = icons[i % icons.length];
+        sp.style.left = `${8 + Math.random() * 84}%`;
+        sp.style.bottom = "10px";
+        sp.style.animationDelay = `${(i * 0.45).toFixed(2)}s`;
+        heartLayer.appendChild(sp);
+      }
     }
 
     function petPuppyCompanion() {
@@ -1917,7 +2074,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       modal.classList.add("hidden"); modal.classList.remove("flex");
     }
 
-    // 8. TRÁI TIM HẠT PHÓNG TO NỔ TUNG -> THIÊN HÀ XOÁY ỐC 3D
+    // 8. TRÁI TIM HẠT PHÓNG TO NỔ TUNG -> THIÊN HÀ KỶ NIỆM 3D
     const pumpCanvas = document.getElementById("pump-heart-canvas");
     const pumpCtx = pumpCanvas.getContext("2d");
     let pumpClicks = 0, pumpScale = 1, pumpAnim = null;
@@ -1933,14 +2090,15 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         pumpCtx.save();
         pumpCtx.translate(145, 150);
         pumpCtx.scale(s, s);
+        pumpCtx.globalCompositeOperation = "lighter";
 
-        for (let i = 0; i < 320; i++) {
-          const t = (i / 320) * Math.PI * 2;
-          const r = 3.8 + (i % 6) * 0.42;
+        for (let i = 0; i < 380; i++) {
+          const t = (i / 380) * Math.PI * 2;
+          const r = 3.5 + (i % 7) * 0.45;
           const x = 16 * Math.pow(Math.sin(t), 3) * r;
           const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * r;
           pumpCtx.fillStyle = i % 3 === 0 ? "#fde047" : "#ff4d94";
-          pumpCtx.beginPath(); pumpCtx.arc(x, y, 1.8, 0, Math.PI * 2); pumpCtx.fill();
+          pumpCtx.beginPath(); pumpCtx.arc(x, y, 1.9, 0, Math.PI * 2); pumpCtx.fill();
         }
         pumpCtx.restore();
         pumpAnim = requestAnimationFrame(drawPump);
@@ -1981,29 +2139,31 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         if (item.type === "video") {
           const thumbSrc = item.poster || "anh1.jpg";
           card.innerHTML = `
-            <div class="relative w-full h-24 rounded-lg overflow-hidden bg-slate-900">
+            <div class="relative w-full h-24 rounded-xl overflow-hidden bg-slate-900">
               <img src="${thumbSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90" />
               <div class="absolute inset-0 flex items-center justify-center bg-black/25">
-                <div class="w-8 h-8 rounded-full bg-pink-500/90 text-white flex items-center justify-center text-xs shadow-lg pl-0.5">▶</div>
+                <div class="w-7 h-7 rounded-full bg-pink-500/90 text-white flex items-center justify-center text-xs shadow-lg pl-0.5">▶</div>
               </div>
             </div>
-            <p class="text-[9px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Kỷ niệm 🎬"}</p>
           `;
         } else {
           card.innerHTML = `
-            <img src="${item.src}" loading="lazy" decoding="async" alt="Kỷ niệm" class="w-full h-24 object-cover rounded-lg bg-slate-200" />
-            <p class="text-[9px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Khoảnh khắc ✨"}</p>
+            <img src="${item.src}" loading="lazy" decoding="async" alt="Kỷ niệm" class="w-full h-24 object-cover rounded-xl bg-slate-800" />
           `;
         }
 
         card.onclick = e => { e.stopPropagation(); openMemoryModal(item); };
         stage.appendChild(card);
 
+        const tier = idx % 3;
+        const ringRadius = tier === 0 ? 1.15 : (tier === 1 ? 0.85 : 0.58);
+        const yOffsetBase = tier === 0 ? -48 : (tier === 1 ? 45 : 0);
+
         galaxyNodes.push({
           el: card,
-          baseAngle: (idx / items.length) * Math.PI * 2,
-          ring: idx % 2 === 0 ? 1 : 0.65,
-          yWavePhase: idx * 0.75
+          baseAngle: (idx / items.length) * Math.PI * 2 + tier * 0.4,
+          ring: ringRadius,
+          yOffsetBase: yOffsetBase
         });
       });
 
@@ -2024,17 +2184,17 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         skyAnimFrame = requestAnimationFrame(animateGalaxy);
         if (isSkyPaused) return;
 
-        if (!isDraggingGalaxy) galaxyAngleOffset += 0.0075;
-        const rx = (stage.clientWidth || 350) * 0.37 * galaxyZoom;
-        const ry = (stage.clientHeight || 420) * 0.31 * galaxyZoom;
+        if (!isDraggingGalaxy) galaxyAngleOffset += 0.0068;
+        const rx = (stage.clientWidth || 350) * 0.36 * galaxyZoom;
+        const ry = (stage.clientHeight || 420) * 0.30 * galaxyZoom;
 
         galaxyNodes.forEach(node => {
           const ang = node.baseAngle + galaxyAngleOffset;
           const x = Math.cos(ang) * rx * node.ring;
           const z = Math.sin(ang);
-          const y = z * ry * 0.65 + Math.sin(ang * 2 + node.yWavePhase) * 24;
-          const scale = (0.68 + ((z + 1) / 2) * 0.45) * galaxyZoom;
-          const opacity = 0.55 + ((z + 1) / 2) * 0.45;
+          const y = z * ry * 0.62 + node.yOffsetBase * galaxyZoom;
+          const scale = (0.62 + ((z + 1) / 2) * 0.48) * galaxyZoom;
+          const opacity = 0.48 + ((z + 1) / 2) * 0.52;
           const zIdx = Math.round((z + 2) * 20);
 
           node.el.style.zIndex = zIdx;
@@ -2083,23 +2243,52 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       modal.classList.add("hidden"); modal.classList.remove("flex");
     }
 
-    // 9. TRANG CUỐI: VIDEO + THIỆP MỞ CÁNH 2 TRANG
+    // 9. TRANG CUỐI TUẦN TỰ: VIDEO HẾT -> HIỆN THIỆP -> MỞ THIỆP -> HIỆN Ô NHẮN -> HIỆN GOODBYE
+    let finaleCardShown = false;
+    let finaleCardOpened = false;
+
     function openFinaleStage() {
       if (skyAnimFrame) cancelAnimationFrame(skyAnimFrame);
       symphony.setScene(4);
       switchStage("stage-4-sky", "stage-4-final");
+      document.getElementById("puppy-mini-text").textContent = "Xem hết video lời chúc của anh Long nha Thy 🎬🐶";
+    }
+
+    function revealFinaleCardAfterVideo() {
+      if (finaleCardShown) return;
+      finaleCardShown = true;
+      document.getElementById("video-watch-hint").textContent = "✨ Chạm vào tấm thiệp bên dưới để mở đọc nhé Thy 👇";
+      document.getElementById("finale-card-section").classList.remove("hidden");
       document.getElementById("puppy-mini-text").textContent = "Mở tấm thiệp bên dưới đọc lời chúc nha Thy 💌";
     }
 
     const mainGreetVideo = document.getElementById("main-greeting-video");
     mainGreetVideo.addEventListener("play", () => symphony.pauseForMedia(true));
     mainGreetVideo.addEventListener("pause", () => symphony.pauseForMedia(false));
-    mainGreetVideo.addEventListener("ended", () => symphony.pauseForMedia(false));
+    mainGreetVideo.addEventListener("ended", () => {
+      symphony.pauseForMedia(false);
+      revealFinaleCardAfterVideo();
+    });
 
     function openDoubleWingCard() {
+      if (finaleCardOpened) return;
+      finaleCardOpened = true;
+
       document.getElementById("double-wing-book").classList.add("is-open");
       symphony.playPianoNote(523.25, 0.5, 0.14, "sine");
       symphony.playPianoNote(659.25, 0.7, 0.14, "sine");
+
+      // Sau khi mở thiệp 2.5s -> hiện ô nhắn nhủ gửi Long
+      setTimeout(() => {
+        document.getElementById("finale-reply-section").classList.remove("hidden");
+      }, 2500);
+
+      // Sau đó 1.5s nữa -> hiện mũi tên & nút Goodbye
+      setTimeout(() => {
+        const gbSec = document.getElementById("finale-goodbye-section");
+        gbSec.classList.remove("hidden");
+        gbSec.classList.add("flex");
+      }, 4000);
     }
 
     // 10. GOODBYE -> PHÁO HOA 4 GIÂY -> TRÁI TIM HẠT VĨNH CỬU
@@ -2144,9 +2333,11 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         morphParticles = Array.from({ length: 1600 }, () => ({
           x: Math.random() * W, y: Math.random() * H,
           tx: W / 2, ty: H / 2, vx: 0, vy: 0,
+          phase: Math.random() * Math.PI * 2,
+          ease: 0.065 + Math.random() * 0.045,
           size: 1.3 + Math.random() * 1.1, color: "#ff4d94"
         }));
-        morphToPoints(sampleHighResPoints(shapeHeart, 3), "pink", 0, -25, 0.92);
+        morphToPoints(sampleHighResPoints(shapeHeart, 4), "pink", 0, -25, 0.92);
 
         const eternalOverlay = document.getElementById("eternal-heart-overlay");
         eternalOverlay.classList.remove("hidden");
