@@ -16,6 +16,9 @@
       senderName: "Long",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
+      // Tên file ảnh 2 chú cháu gắn ở giữa thiệp (Long đổi tên file ảnh thành chu_chau.jpg hoặc sửa tên ở đây)
+      chuChauPhoto: "chu_chau.jpg",
+
       stickers: {
         nv1_1: "nv1_thoai1.jpg",
         nv1_2: "nv1_thoai2.jpg",
@@ -71,6 +74,9 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
     input, textarea { user-select: text; }
+    html, body {
+      overscroll-behavior-y: none;
+    }
     body {
       margin: 0; padding: 0; min-height: 100dvh;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -386,43 +392,112 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(244, 114, 182, 0.5);
     }
 
-    /* THIỆP MỞ CÁNH 2 TRANG 3D */
-    .double-wing-card-wrap {
-      width: 100%; max-width: 390px; height: 390px; margin: 0 auto;
-      perspective: 1400px; position: relative;
+    /* ===================================================================== */
+    /* THIỆP DẠNG 2 CÁNH CỬA ĐÓNG MỞ TÔNG TRẮNG - HỒNG PASTEL CHÂN THẬT        */
+    /* ===================================================================== */
+    .double-door-card-wrap {
+      width: 100%; max-width: 390px; height: 400px; margin: 0 auto;
+      perspective: 1600px; position: relative;
     }
-    .double-wing-book {
+    .double-door-book {
       width: 100%; height: 100%; position: relative; display: flex;
-      border-radius: 18px; box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+      border-radius: 20px;
+      background: #fffafa;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.75), 0 0 0 3px #fbcfe8, 0 0 28px rgba(244, 114, 182, 0.45);
+      overflow: hidden;
     }
     .card-left-wing {
       width: 36%; height: 100%;
-      background: linear-gradient(180deg, #ffe4e6 0%, #fbcfe8 100%);
-      border-radius: 18px 0 0 18px; border-right: 1.5px dashed #f472b6;
+      background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 55%, #fecdd3 100%);
+      border-right: 1.5px dashed #f472b6;
       padding: 12px 8px; display: flex; flex-direction: column;
       align-items: center; justify-content: space-between;
     }
     .card-right-wing {
       width: 64%; height: 100%;
-      background: linear-gradient(180deg, #fffbfb 0%, #fff1f2 100%);
-      border-radius: 0 18px 18px 0; padding: 14px 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fff8fa 100%);
+      padding: 14px 12px;
       display: flex; flex-direction: column; color: #1f2937;
     }
     .card-letter-scroll {
-      flex: 1; overflow-y: auto; font-size: 12.5px; line-height: 1.6;
+      flex: 1; overflow-y: auto; font-size: 12.5px; line-height: 1.62;
       color: #374151; white-space: pre-line; text-align: left; padding-right: 4px;
     }
-    .card-front-flap {
-      position: absolute; inset: 0; border-radius: 18px;
-      background: linear-gradient(135deg, #3b0764 0%, #831843 52%, #e11d48 100%);
-      border: 2px solid #fde047;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 20px; text-align: center; cursor: pointer; z-index: 10;
-      transform-origin: left center;
-      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease 0.45s;
+
+    /* HAI CÁNH CỬA ĐÓNG MỞ 2 BÊN TÔNG TRẮNG HỒNG */
+    .door-leaf-left, .door-leaf-right {
+      position: absolute; top: 0; bottom: 0; width: 50%;
+      z-index: 15; cursor: pointer;
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease 0.65s;
+      backface-visibility: hidden;
     }
-    .double-wing-book.is-open .card-front-flap {
-      transform: rotateY(-165deg); opacity: 0; pointer-events: none;
+    .door-leaf-left {
+      left: 0;
+      transform-origin: left center;
+      border-radius: 20px 0 0 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #fff1f2 60%, #fbcfe8 100%);
+      border-right: 1.5px solid #f472b6;
+      box-shadow: inset -6px 0 18px rgba(244, 114, 182, 0.22);
+    }
+    .door-leaf-right {
+      right: 0;
+      transform-origin: right center;
+      border-radius: 0 20px 20px 0;
+      background: linear-gradient(225deg, #ffffff 0%, #fff1f2 60%, #fbcfe8 100%);
+      border-left: 1.5px solid #f472b6;
+      box-shadow: inset 6px 0 18px rgba(244, 114, 182, 0.22);
+    }
+    /* Khung viền lụa hồng bên trong mỗi cánh cửa */
+    .door-inner-frame-left {
+      position: absolute; inset: 12px 6px 12px 12px;
+      border: 1.5px solid rgba(244, 114, 182, 0.45);
+      border-right: none;
+      border-radius: 12px 0 0 12px;
+      pointer-events: none;
+    }
+    .door-inner-frame-right {
+      position: absolute; inset: 12px 12px 12px 6px;
+      border: 1.5px solid rgba(244, 114, 182, 0.45);
+      border-left: none;
+      border-radius: 0 12px 12px 0;
+      pointer-events: none;
+    }
+    /* Con dấu sáp & lời mời ở chính giữa khe cửa */
+    .door-center-seal {
+      position: absolute; inset: 0; z-index: 20;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      pointer-events: auto; cursor: pointer; text-align: center; padding: 16px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .wax-seal-badge {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ff85c0 0%, #f43f5e 65%, #be123c 100%);
+      border: 3px solid #fff1f2;
+      box-shadow: 0 8px 22px rgba(225, 29, 72, 0.45), inset 0 2px 5px rgba(255,255,255,0.6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin-bottom: 10px;
+      animation: sealPulse 2s infinite ease-in-out;
+    }
+    @keyframes sealPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+
+    /* Khi mở cửa: 2 cánh xoay mở ra 2 bên 150 độ */
+    .double-door-book.is-open .door-leaf-left {
+      transform: rotateY(-155deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .double-door-book.is-open .door-leaf-right {
+      transform: rotateY(155deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .double-door-book.is-open .door-center-seal {
+      opacity: 0;
+      transform: scale(1.2);
+      pointer-events: none;
     }
 
     @keyframes arrowBounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
@@ -570,10 +645,10 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 2C: HẠT PHÁT SÁNG 3D + KÉO CUNG GỒNG LỰC BẮN TRÁI TIM             -->
+    <!-- MÀN 2C: HẠT PHÁT SÁNG 3D + KÉO CUNG SIÊU NHẠY BẮN TRÁI TIM            -->
     <!-- ===================================================================== -->
-    <section id="stage-particle-journey" class="hidden w-full h-screen flex-col items-center justify-end pb-10 pointer-events-none">
-      <div id="cupid-bow-hint" class="hidden flex-col items-center space-y-2.5 w-full max-w-xs pointer-events-auto">
+    <section id="stage-particle-journey" class="hidden w-full h-screen flex-col items-center justify-end pb-10 select-none" style="touch-action: none;">
+      <div id="cupid-bow-hint" class="hidden flex-col items-center space-y-2.5 w-full max-w-xs">
         <div class="w-full px-4 py-2 rounded-2xl bg-black/75 border border-amber-300/60 space-y-1.5 shadow-[0_0_25px_rgba(251,191,36,0.35)]">
           <div class="flex justify-between text-[11px] font-mono-tech font-bold text-amber-200">
             <span>LỰC KÉO CUNG</span>
@@ -584,7 +659,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
           </div>
         </div>
         <div class="px-5 py-2.5 rounded-full bg-black/80 border border-pink-400/70 text-pink-100 text-xs font-bold text-center shadow-[0_0_20px_rgba(244,114,182,0.5)]">
-          🏹 Giữ & kéo ngược xuống để căng dây cung, thả tay bắn vỡ trái tim!
+          🏹 Chạm màn hình kéo nhẹ để căng dây cung, thả tay bắn vỡ trái tim!
         </div>
       </div>
     </section>
@@ -806,7 +881,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     </section>
 
     <!-- ===================================================================== -->
-    <!-- MÀN 6: TRANG CUỐI — HIỆN TUẦN TỰ TỪNG BƯỚC                            -->
+    <!-- MÀN 6: TRANG CUỐI — VIDEO -> THIỆP CỬA ĐÔI TRẮNG HỒNG -> NHẮN -> KẾT  -->
     <!-- ===================================================================== -->
     <section id="stage-4-final" class="hidden w-full space-y-5 pb-12 animate-fade-up">
       <div class="text-center space-y-1 pt-5">
@@ -827,31 +902,42 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
         <p id="video-watch-hint" class="text-[11px] text-pink-100/85">Xem hết video để mở món quà tiếp theo nhé Thy ✨</p>
       </div>
 
-      <!-- BƯỚC 2: THIỆP 2 CÁNH (CHỈ HIỆN SAU KHI XEM HẾT VIDEO) -->
-      <div id="finale-card-section" class="hidden double-wing-card-wrap animate-fade-up">
-        <div id="double-wing-book" class="double-wing-book">
+      <!-- BƯỚC 2: THIỆP CỬA ĐÔI ĐÓNG MỞ 2 BÊN TÔNG TRẮNG - HỒNG PASTEL -->
+      <div id="finale-card-section" class="hidden double-door-card-wrap animate-fade-up">
+        <div id="double-door-book" class="double-door-book">
+          <!-- NỘI DUNG BÊN TRONG SAU KHI 2 CÁNH CỬA MỞ RA -->
           <div class="card-left-wing">
-            <div class="text-[11px] font-extrabold text-pink-700">🌷 Tuổi 16 🐶</div>
+            <div class="text-[11px] font-extrabold text-rose-600">🌷 Tuổi 16 🌷</div>
             <img src="anh1.jpg" alt="Kỷ niệm 1" class="w-20 h-20 object-cover rounded-xl border-2 border-white shadow-md -rotate-6" />
-            <img src="nv1_thoai4.jpg" alt="Sticker" class="w-14 h-14 object-cover rounded-full border-2 border-pink-400 shadow" />
-            <img src="anh2.png" onerror="this.src='anh4.jpg'" alt="Kỷ niệm 2" class="w-20 h-20 object-cover rounded-xl border-2 border-white shadow-md rotate-6" />
-            <div class="text-[10px] font-bold text-rose-600">20 • 11 • 2010</div>
+            <!-- Ảnh 2 chú cháu ở giữa thay cho sticker -->
+            <img id="card-chuchau-img" src="chu_chau.jpg" onerror="this.src='anh4.jpg'" alt="Hai chú cháu" class="w-20 h-20 object-cover rounded-2xl border-2 border-pink-300 shadow-md" />
+            <img src="anh2.png" onerror="this.src='anh8.png'" alt="Kỷ niệm 2" class="w-20 h-20 object-cover rounded-xl border-2 border-white shadow-md rotate-6" />
+            <div class="text-[10px] font-extrabold text-rose-600 tracking-wider">20 • 11 • 2010</div>
           </div>
 
           <div class="card-right-wing">
             <div class="flex items-center justify-between border-b border-pink-200 pb-1.5 mb-2">
               <span class="font-script-love text-base text-rose-600">Gửi Quý Thy ✨</span>
-              <span class="text-[10px] text-gray-400">Lướt xuống đọc ▾</span>
+              <span class="text-[10px] text-pink-400 font-semibold">Lướt xuống đọc ▾</span>
             </div>
             <div id="card-letter-body" class="card-letter-scroll"></div>
           </div>
 
-          <div class="card-front-flap" onclick="openDoubleWingCard()">
-            <div class="text-4xl mb-2">🌷💌🐶</div>
-            <div class="font-script-love text-3xl text-white drop-shadow">Happy Sweet 16</div>
-            <div class="text-xs font-bold text-amber-300 mt-1">Thiệp gửi riêng Nguyễn Quý Thy</div>
-            <div class="mt-5 px-5 py-2 rounded-full bg-white/20 border border-white/60 text-white text-xs font-extrabold">
-              ✨ Chạm để mở cánh thiệp ✨
+          <!-- HAI CÁNH CỬA TRẮNG HỒNG ĐÓNG KÍN BAN ĐẦU -->
+          <div class="door-leaf-left" onclick="openDoubleDoorCard()">
+            <div class="door-inner-frame-left"></div>
+          </div>
+          <div class="door-leaf-right" onclick="openDoubleDoorCard()">
+            <div class="door-inner-frame-right"></div>
+          </div>
+
+          <!-- CON DẤU SÁP HỒNG & TIÊU ĐỀ Ở CHÍNH GIỮA 2 CÁNH CỬA -->
+          <div class="door-center-seal" onclick="openDoubleDoorCard()">
+            <div class="wax-seal-badge">💌</div>
+            <div class="font-script-love text-2xl text-rose-600 drop-shadow-sm">Happy Sweet 16</div>
+            <div class="text-xs font-extrabold text-pink-700 mt-0.5">Thiệp gửi riêng Nguyễn Quý Thy</div>
+            <div class="mt-4 px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-extrabold shadow-md">
+              ✨ Chạm mở cánh cửa thiệp ✨
             </div>
           </div>
         </div>
@@ -919,6 +1005,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
 
   <script>
     document.getElementById("card-letter-body").textContent = CONFIG.letterText;
+    document.getElementById("card-chuchau-img").src = CONFIG.chuChauPhoto;
 
     // 1. ÂM THANH 5 CHẶNG
     class SymphonyEngine {
@@ -1114,7 +1201,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
 
     const symphony = new SymphonyEngine();
 
-    // 2. CANVAS VŨ TRỤ + MATRIX + HẠT 3D PHÁT SÁNG + CUNG TÊN KÉO LỰC
+    // 2. CANVAS VŨ TRỤ + MATRIX + HẠT 3D PHÁT SÁNG + CUNG TÊN SIÊU NHẠY
     const canvas = document.getElementById("fx-canvas");
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1176,12 +1263,17 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       document.getElementById("bow-power-bar").style.width = `${pct}%`;
     }
 
+    // Chống trình duyệt tự reload (pull-to-refresh) và tăng độ nhạy kéo cung gấp đôi
+    document.addEventListener("touchmove", e => {
+      if (bowPulling) e.preventDefault();
+    }, { passive: false });
+
     window.addEventListener("pointerdown", e => {
       spawnTouchBurst(e.clientX, e.clientY, 12);
       if (fxMode === "matrix_morph" && bowVisible && !bowArrowFlying && !bowHeartBurst) {
         bowPulling = true;
         bowPullStart = { x: e.clientX, y: e.clientY };
-        bowTension = 0.15;
+        bowTension = 0.25;
         updateBowPowerUI(bowTension);
       }
     });
@@ -1190,7 +1282,8 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       spawnTouchBurst(e.clientX, e.clientY, 3);
       if (bowPulling) {
         const dragDist = Math.hypot(e.clientX - bowPullStart.x, e.clientY - bowPullStart.y);
-        bowTension = Math.min(1, Math.max(0.2, dragDist / 115));
+        // Chỉ cần kéo nhẹ 60px là đầy 100% lực cực nhạy!
+        bowTension = Math.min(1, Math.max(0.25, 0.25 + dragDist / 60));
         updateBowPowerUI(bowTension);
       }
     });
@@ -1198,13 +1291,20 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     window.addEventListener("pointerup", () => {
       if (bowPulling) {
         bowPulling = false;
-        if (bowTension >= 0.45) {
+        if (bowTension >= 0.35) {
           bowArrowFlying = true;
           symphony.playPianoNote(880, 0.35, 0.14, "triangle");
         } else {
           bowTension = 0;
           updateBowPowerUI(0);
         }
+      }
+    });
+
+    window.addEventListener("pointercancel", () => {
+      if (bowPulling) {
+        bowPulling = false;
+        if (bowTension >= 0.35) bowArrowFlying = true;
       }
     });
 
@@ -1318,7 +1418,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     function renderParticleCupidBow() {
       if (!bowVisible || bowHeartBurst) return;
       if (bowPulling && bowTension < 1) {
-        bowTension = Math.min(1, bowTension + 0.016);
+        bowTension = Math.min(1, bowTension + 0.028);
         updateBowPowerUI(bowTension);
       }
 
@@ -1480,7 +1580,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       if (fxMode === "matrix_morph" && bowVisible && !bowHeartBurst) {
         renderParticleCupidBow();
         if (bowArrowFlying) {
-          bowArrowT += 0.065;
+          bowArrowT += 0.075;
           if (bowArrowT >= 1) {
             bowHeartBurst = true;
             document.getElementById("cupid-bow-hint").classList.add("hidden");
@@ -1738,7 +1838,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       setTimeout(() => startParticleMorphJourney(), 4600);
     }
 
-    // 5. HẠT 3D PHÁT SÁNG + CUNG TÊN KÉO LỰC
+    // 5. HẠT 3D PHÁT SÁNG + CUNG TÊN SIÊU NHẠY
     function startParticleMorphJourney() {
       switchStage("stage-slot", "stage-particle-journey");
       fxMode = "matrix_morph";
@@ -2243,7 +2343,7 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       modal.classList.add("hidden"); modal.classList.remove("flex");
     }
 
-    // 9. TRANG CUỐI TUẦN TỰ: VIDEO HẾT -> HIỆN THIỆP -> MỞ THIỆP -> HIỆN Ô NHẮN -> HIỆN GOODBYE
+    // 9. TRANG CUỐI TUẦN TỰ: VIDEO HẾT -> THIỆP CỬA ĐÔI TRẮNG HỒNG -> Ô NHẮN -> GOODBYE
     let finaleCardShown = false;
     let finaleCardOpened = false;
 
@@ -2257,9 +2357,9 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     function revealFinaleCardAfterVideo() {
       if (finaleCardShown) return;
       finaleCardShown = true;
-      document.getElementById("video-watch-hint").textContent = "✨ Chạm vào tấm thiệp bên dưới để mở đọc nhé Thy 👇";
+      document.getElementById("video-watch-hint").textContent = "✨ Chạm vào cánh cửa thiệp bên dưới để mở đọc nhé Thy 👇";
       document.getElementById("finale-card-section").classList.remove("hidden");
-      document.getElementById("puppy-mini-text").textContent = "Mở tấm thiệp bên dưới đọc lời chúc nha Thy 💌";
+      document.getElementById("puppy-mini-text").textContent = "Chạm mở cánh cửa thiệp trắng hồng bên dưới nha Thy 💌";
     }
 
     const mainGreetVideo = document.getElementById("main-greeting-video");
@@ -2270,15 +2370,15 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
       revealFinaleCardAfterVideo();
     });
 
-    function openDoubleWingCard() {
+    function openDoubleDoorCard() {
       if (finaleCardOpened) return;
       finaleCardOpened = true;
 
-      document.getElementById("double-wing-book").classList.add("is-open");
+      document.getElementById("double-door-book").classList.add("is-open");
       symphony.playPianoNote(523.25, 0.5, 0.14, "sine");
       symphony.playPianoNote(659.25, 0.7, 0.14, "sine");
 
-      // Sau khi mở thiệp 2.5s -> hiện ô nhắn nhủ gửi Long
+      // Sau khi mở cửa thiệp 2.5s -> hiện ô nhắn nhủ gửi Long
       setTimeout(() => {
         document.getElementById("finale-reply-section").classList.remove("hidden");
       }, 2500);
@@ -2347,4 +2447,4 @@ Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
     }
   </script>
 </body>
-</html>
+  </html>
