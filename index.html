@@ -2,1889 +2,1883 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Khảo sát định kỳ chất lượng dịch vụ</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;600;700;800&family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <script>
-    // =========================================================================
-    // BẢNG CẤU HÌNH CỦA LONG (ĐÃ TÍCH HỢP TOÀN BỘ ẢNH & VIDEO KỶ NIỆM)
-    // =========================================================================
-    const CONFIG = {
-      recipientName: "Thy",
-      fullRecipientName: "Quý Thy",
-      senderName: "Long",
-      web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
-
-      musicTracks: {
-        track1_hpbd: "",
-        track2_mystery: "",
-        track3_romantic: ""
-      },
-
-      // Video lời chúc chính ở trang cuối
-      mainBirthdayVideo: "clip_loi_chuc.mp4",
-
-      // Danh sách ảnh & video bay lơ lửng trên bầu trời ký ức
-      floatingMemories: [
-        { type: "image", src: "anh1.jpg", caption: "Nụ cười tỏa nắng tuổi 16 🌷" },
-        { type: "video", src: "clip1.mp4", poster: "anh1.jpg", caption: "Khoảnh khắc đáng nhớ ✨" },
-        { type: "image", src: "anh2.png", caption: "Xinh xắn mọi góc nhìn 💖" },
-        { type: "image", src: "anh3.png", caption: "Dễ thương hết phần thiên hạ 🌸" },
-        { type: "video", src: "clip2.mp4", poster: "anh3.png", caption: "Kỷ niệm vui của tụi mình 🎬" },
-        { type: "image", src: "anh4.jpg", caption: "Đáng yêu từ bé tới lớn 🥰" },
-        { type: "image", src: "anh5.jpg", caption: "Tinh nghịch mà vẫn cưng xỉu ✨" },
-        { type: "image", src: "anh6.png", caption: "Ánh mắt biết cười 💫" },
-        { type: "image", src: "anh7.png", caption: "Nàng thơ tháng 11 🎂" },
-        { type: "image", src: "anh8.png", caption: "Tuổi 16 thật rực rỡ nhé Thy 🥂" }
-      ],
-
-      fallbackGreetingCardText: "Gửi Quý Thy, hôm nay là cột mốc tuổi 16 thật rực rỡ. Cảm ơn Thy vì đã luôn mang đến những nguồn năng lượng trong trẻo và tuyệt vời nhất. Chúc Thy tuổi mới luôn bình an, tự tin, rạng ngời và chạm tới mọi ước mơ đẹp nhất của mình!"
-    };
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sweet 16 • Quý Thy (20/11/2010)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+    :root {
+      --pink: #ff3e9d;
+      --pink-soft: #ff85c0;
+      --gold: #ffd166;
+      --cyan: #38f2ff;
+      --bg-dark: #07030e;
+      --glass: rgba(22, 10, 38, 0.72);
+      --border-neon: rgba(255, 62, 157, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--bg-dark); color: #fff;
+      font-family: 'Be Vietnam Pro', sans-serif;
       user-select: none;
     }
-    input, textarea { user-select: text; }
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100dvh;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f3f4f6;
-      color: #1f2937;
-      overflow-x: hidden;
-      transition: background 1.1s ease;
-    }
-    body.bling-universe {
-      background: radial-gradient(circle at 50% 18%, #260c3a 0%, #0d0418 58%, #030108 100%);
-      color: #ffffff;
-    }
-    .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
-    .font-serif-luxury { font-family: 'Cormorant Garamond', serif; }
-    .font-script-love { font-family: 'Pacifico', cursive; }
 
-    /* ===================================================================== */
-    /* VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH                                       */
-    /* ===================================================================== */
-    .fullscreen-glass-shard {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100dvh;
-      pointer-events: none;
-      overflow: hidden;
-      background-color: #f3f4f6;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.85s ease;
-      will-change: transform, opacity;
+    /* GLOBAL CYBER BACKGROUND & GARDEN OVERLAY */
+    #cyber-bg-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none;
     }
 
-    @keyframes screenGlitchPulse {
-      0%, 100% { transform: translate(0, 0); filter: none; }
-      10% { transform: translate(-9px, 3px) skewX(4deg); filter: contrast(1.55) hue-rotate(45deg); }
-      20% { transform: translate(9px, -3px) skewX(-4deg); filter: invert(0.14); }
-      35% { transform: translate(-5px, -2px); filter: none; }
-      55% { transform: translate(11px, 4px) skewX(-6deg); filter: contrast(1.85) hue-rotate(180deg); }
-      65% { transform: translate(-10px, -4px) skewX(6deg); filter: invert(0.82); }
-      75% { transform: translate(3px, 2px); filter: none; }
-      90% { transform: translate(-7px, 4px) scale(1.02); filter: hue-rotate(270deg); }
+    #tulip-garden-layer {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      opacity: 0; transition: opacity 1.2s ease;
     }
-    .screen-glitch-loop {
-      animation: screenGlitchPulse 0.88s infinite ease-in-out;
+    #tulip-garden-layer.active { opacity: 1; }
+
+    .tulip-cluster {
+      position: absolute; bottom: -10px; width: 165px; height: 220px;
+      filter: drop-shadow(0 0 14px rgba(255, 62, 157, 0.65));
+      animation: swayTulip 4.5s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    .tulip-cluster.left { left: -12px; }
+    .tulip-cluster.right { right: -12px; transform: scaleX(-1); animation-delay: -2s; }
+
+    @keyframes swayTulip {
+      0% { transform: rotate(-3deg) scale(1); }
+      100% { transform: rotate(4deg) scale(1.03); }
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* INTERACTIVE PUPPY MASCOT */
+    #puppy-mascot {
+      position: fixed; bottom: 16px; right: 16px; z-index: 45;
+      display: none; flex-direction: column; align-items: flex-end;
+      pointer-events: auto; cursor: pointer;
     }
-    .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    #puppy-mascot.active { display: flex; }
+    .puppy-bubble {
+      background: rgba(255, 255, 255, 0.95); color: #2b0b3f;
+      padding: 8px 13px; border-radius: 16px 16px 4px 16px;
+      font-size: 12.5px; font-weight: 700; max-width: 205px;
+      box-shadow: 0 6px 20px rgba(255, 62, 157, 0.45);
+      margin-bottom: 6px; border: 2px solid var(--pink);
+      animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      line-height: 1.35;
+    }
+    .puppy-avatar {
+      width: 72px; height: 72px;
+      filter: drop-shadow(0 0 12px rgba(255, 209, 102, 0.7));
+      animation: puppyBounce 1.8s ease-in-out infinite;
+    }
+    .puppy-avatar.excited { animation: puppyJump 0.45s ease infinite; }
+    @keyframes puppyBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(3deg); }
+    }
+    @keyframes puppyJump {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-16px) scale(1.08); }
+    }
 
-    .btn-3d-pop {
-      background: linear-gradient(135deg, #ff4d94 0%, #f43f5e 48%, #f59e0b 100%);
-      box-shadow: 0 6px 0 #9f1239, 0 15px 30px rgba(244, 63, 94, 0.7), inset 0 2px 3px rgba(255,255,255,0.65);
-      text-shadow: 0 2px 4px rgba(136, 19, 55, 0.75);
-      transition: all 0.15s ease;
+    /* STAGE SYSTEM */
+    .stage {
+      position: fixed; inset: 0; z-index: 10;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 20px;
     }
-    .btn-3d-pop:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #9f1239, 0 6px 15px rgba(244, 63, 94, 0.5);
+    .stage.active { display: flex; }
+
+    /* STAGE 1: FAKE SURVEY & GLASS SHATTER */
+    #stage-survey { background: linear-gradient(135deg, #f3f6fb 0%, #e5ecf6 100%); color: #1e293b; z-index: 50; }
+    .survey-card {
+      background: #ffffff; border-radius: 20px; padding: 28px 22px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      border: 1px solid #e2e8f0;
+    }
+    .survey-tag {
+      display: inline-block; background: #e0f2fe; color: #0284c7;
+      font-size: 11px; font-weight: 800; padding: 4px 10px;
+      border-radius: 99px; margin-bottom: 12px; letter-spacing: 0.5px;
+    }
+    .survey-title { font-size: 19px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; }
+    .survey-sub { font-size: 13.5px; color: #64748b; margin-bottom: 18px; }
+    .survey-opt {
+      width: 100%; text-align: left; padding: 14px 16px;
+      margin-bottom: 10px; border-radius: 14px;
+      border: 1.5px solid #cbd5e1; background: #f8fafc;
+      font-size: 14.5px; font-weight: 600; color: #334155;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .survey-opt:hover, .survey-opt:active {
+      border-color: #0284c7; background: #f0f9ff; transform: translateX(4px);
     }
 
-    .bling-text {
-      background: linear-gradient(90deg, #fff 0%, #fbcfe8 28%, #f472b6 50%, #fde047 72%, #fff 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shineText 3.4s linear infinite;
+    #glass-shatter-container {
+      position: fixed; inset: 0; z-index: 999; pointer-events: none; display: none;
     }
-    @keyframes shineText { to { background-position: 200% center; } }
+    .glass-shard {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,235,255,0.45));
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      transition: transform 1.15s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 1.1s ease;
+    }
+    .shake-screen { animation: screenShake 0.45s cubic-bezier(.36,.07,.19,.97) both; }
+    @keyframes screenShake {
+      10%, 90% { transform: translate3d(-4px, 2px, 0); }
+      20%, 80% { transform: translate3d(6px, -3px, 0); }
+      30%, 50%, 70% { transform: translate3d(-8px, 4px, 0); }
+      40%, 60% { transform: translate3d(8px, -2px, 0); }
+    }
 
-    /* ===================================================================== */
-    /* BÁNH KEM 3D CAO CẤP & NGỌN LỬA LẢ LƠI                                 */
-    /* ===================================================================== */
-    .realistic-cake-stage { perspective: 1000px; }
-    .cake-3d-body {
+    /* STAGE 2: 3-CHARACTER MEME DIALOGUE */
+    #stage-dialogue { background: #000000; z-index: 40; }
+    .dialogue-arena {
+      width: 100%; max-width: 440px; height: 420px;
+      position: relative; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .char-row {
+      display: flex; width: 100%; justify-content: space-between;
+      align-items: flex-end; gap: 10px; margin-bottom: 18px;
+      min-height: 150px;
+    }
+    .char-box {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      opacity: 0; transform: scale(0.6) translateY(25px);
+      transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      width: 240px;
-      margin: 0 auto;
-      transform-style: preserve-3d;
-      transition: transform 0.4s ease;
     }
-    @keyframes cakeDodgeLoop {
-      0% { transform: translateX(0px) rotateY(0deg) rotateZ(0deg); }
-      25% { transform: translateX(52px) rotateY(18deg) rotateZ(5deg); }
-      50% { transform: translateX(0px) rotateY(0deg) rotateZ(0deg); }
-      75% { transform: translateX(-52px) rotateY(-18deg) rotateZ(-5deg); }
-      100% { transform: translateX(0px) rotateY(0deg) rotateZ(0deg); }
+    .char-box.visible { opacity: 1; transform: scale(1) translateY(0); }
+    .char-box.center-solo { position: absolute; left: 50%; transform: translateX(-50%) scale(1.15); top: 20px; }
+    .char-box.speaking .sticker-img {
+      border-color: var(--pink);
+      box-shadow: 0 0 24px rgba(255, 62, 157, 0.85);
+      transform: scale(1.08);
     }
-    .cake-dodging { animation: cakeDodgeLoop 1.15s infinite ease-in-out; }
+    .sticker-img {
+      width: 96px; height: 96px; object-fit: cover;
+      border-radius: 22px; border: 3px solid rgba(255,255,255,0.25);
+      background: #1a1026; transition: all 0.3s ease;
+    }
+    .char-name {
+      margin-top: 6px; font-size: 11px; font-weight: 800;
+      padding: 2px 9px; border-radius: 99px;
+      background: rgba(255, 62, 157, 0.25); color: var(--pink-soft);
+      border: 1px solid rgba(255, 62, 157, 0.4);
+    }
+    .confused-marks {
+      position: absolute; top: -24px; font-weight: 900; font-size: 20px;
+      color: var(--gold); text-shadow: 0 0 10px #ff9f1c;
+      animation: floatQ 0.6s ease-in-out infinite alternate;
+      display: none;
+    }
+    @keyframes floatQ { from { transform: translateY(0) rotate(-8deg); } to { transform: translateY(-7px) rotate(8deg); } }
 
-    .cake-plate {
-      width: 265px;
-      height: 20px;
-      margin: -6px auto 0;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, #ffffff 0%, #e2e8f0 55%, #94a3b8 85%, #475569 100%);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(251, 191, 36, 0.35);
-      border-bottom: 3px solid #cbd5e1;
+    .dialogue-bubble-box {
+      width: 100%; min-height: 110px;
+      background: rgba(24, 14, 38, 0.92);
+      border: 2px solid var(--pink);
+      border-radius: 22px; padding: 18px 20px;
+      box-shadow: 0 0 30px rgba(255, 62, 157, 0.35);
+      position: relative; margin-top: 10px;
+    }
+    .speaker-badge {
+      position: absolute; top: -13px; left: 20px;
+      background: linear-gradient(90deg, var(--pink), #ff758f);
+      color: #fff; font-size: 12px; font-weight: 800;
+      padding: 3px 14px; border-radius: 99px;
+    }
+    .typewriter-text {
+      font-size: 16px; line-height: 1.55; font-weight: 600; color: #fff;
+      min-height: 52px;
+    }
+    .tap-hint {
+      text-align: right; font-size: 11.5px; color: var(--pink-soft);
+      margin-top: 8px; opacity: 0.85; animation: pulseOpacity 1.2s infinite;
+    }
+
+    /* STAGE 3: DATE SLOT PICKER (20 -> 11 • 2010) */
+    #stage-slot {
+      background: radial-gradient(circle at center, #3b0d54 0%, #12041f 70%, #05010a 100%);
+      z-index: 35;
+    }
+    .slot-header {
+      font-family: 'Dancing Script', cursive; font-size: 42px; font-weight: 700;
+      color: #fff; text-shadow: 0 0 20px var(--pink), 0 0 40px var(--pink);
+      margin-bottom: 24px; opacity: 0; transform: translateY(-15px);
+      transition: all 0.8s ease;
+    }
+    .slot-header.show { opacity: 1; transform: translateY(0); }
+
+    .slot-machine-wrap {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      position: relative; padding: 16px 26px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 26px; border: 1.5px solid rgba(255, 133, 192, 0.35);
+      box-shadow: 0 0 45px rgba(255, 62, 157, 0.3);
+    }
+    .slot-arrow {
+      font-size: 32px; color: var(--gold);
+      text-shadow: 0 0 15px var(--gold);
+      animation: arrowNudge 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes arrowNudge { from { transform: translateX(-4px); } to { transform: translateX(4px); } }
+
+    .slot-window {
+      width: 96px; height: 210px; overflow: hidden; position: relative;
+      mask-image: linear-gradient(to bottom, transparent, black 28%, black 72%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 28%, black 72%, transparent);
+    }
+    .slot-reel {
+      display: flex; flex-direction: column; align-items: center;
+      transition: transform 2.7s cubic-bezier(0.12, 0.85, 0.22, 1);
+    }
+    .slot-num {
+      height: 70px; line-height: 70px;
+      font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900;
+      color: rgba(255, 255, 255, 0.35); transition: all 0.4s;
+    }
+    .slot-num.locked {
+      color: #fff; font-size: 50px;
+      text-shadow: 0 0 20px var(--pink), 0 0 40px var(--gold);
+    }
+    .slot-month-year {
+      font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 800;
+      color: var(--gold); text-shadow: 0 0 18px rgba(255, 209, 102, 0.85);
+      opacity: 0; transform: translateX(15px); transition: all 0.7s ease;
+    }
+    .slot-month-year.show { opacity: 1; transform: translateX(0); }
+
+    /* STAGE 4: MATRIX PARTICLE MORPH + CUPID BOW */
+    #stage-particles { z-index: 30; padding: 0; }
+    #particle-morph-canvas { width: 100%; height: 100%; display: block; }
+    #bow-instruction {
+      position: fixed; bottom: 42px; left: 50%; transform: translateX(-50%);
+      background: rgba(18, 7, 34, 0.88); border: 1.5px solid var(--gold);
+      padding: 10px 20px; border-radius: 99px; font-size: 13.5px; font-weight: 700;
+      color: var(--gold); box-shadow: 0 0 25px rgba(255, 209, 102, 0.45);
+      display: none; white-space: nowrap; z-index: 32;
+      animation: pulseScale 1.3s infinite;
+    }
+
+    /* STAGE 5: BIRTHDAY CAKE + SCRIPTURE + TULIPS + PUPPY */
+    #stage-cake { z-index: 20; justify-content: space-between; padding: 18px 16px 26px; }
+    .scripture-banner {
+      width: 100%; max-width: 440px;
+      background: rgba(25, 10, 42, 0.82); backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 209, 102, 0.55);
+      border-radius: 18px; padding: 12px 16px; text-align: center;
+      box-shadow: 0 8px 28px rgba(255, 62, 157, 0.25);
+    }
+    .scripture-verse {
+      font-size: 13px; font-style: italic; color: #fff6db; line-height: 1.45;
+    }
+    .scripture-ref {
+      font-size: 11px; font-weight: 800; color: var(--gold); margin-top: 4px;
+    }
+
+    .cake-arena {
+      position: relative; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; margin: auto 0;
+    }
+    .cake-status-msg {
+      background: rgba(255, 62, 157, 0.22); border: 1px solid var(--pink);
+      padding: 8px 18px; border-radius: 99px; font-size: 14px; font-weight: 700;
+      margin-bottom: 22px; text-align: center; min-height: 38px;
+      box-shadow: 0 0 20px rgba(255, 62, 157, 0.35);
+    }
+
+    /* 3D STYLIZED CAKE */
+    .cake-wrapper {
+      position: relative; width: 230px; height: 210px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+    .cake-wrapper.dodge-left { transform: translateX(-48px) rotate(-9deg); }
+    .cake-wrapper.dodge-right { transform: translateX(48px) rotate(9deg); }
+
+    .candles-row { display: flex; gap: 22px; margin-bottom: -4px; z-index: 5; }
+    .candle {
+      width: 12px; height: 42px; border-radius: 6px;
+      background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--pink) 5px, var(--pink) 10px);
+      position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .flame {
+      position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+      width: 14px; height: 22px;
+      background: radial-gradient(circle at 50% 75%, #fff 10%, #ffd166 45%, #ff5400 90%);
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 18px #ffd166, 0 0 32px #ff3e9d;
+      animation: flicker 0.18s infinite alternate;
+      transform-origin: bottom center;
+    }
+    .flame.out { display: none; }
+    .smoke {
+      position: absolute; top: -28px; left: 50%; width: 8px; height: 24px;
+      background: rgba(255,255,255,0.65); border-radius: 50%; filter: blur(4px);
+      opacity: 0; pointer-events: none;
+    }
+    .smoke.rise { animation: smokeRise 1.6s ease-out forwards; }
+    @keyframes smokeRise {
+      0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.8); }
+      100% { opacity: 0; transform: translate(-30%, -45px) scale(2.2); }
+    }
+    @keyframes flicker {
+      from { transform: translateX(-50%) scale(0.95) rotate(-3deg); }
+      to { transform: translateX(-50%) scale(1.06) rotate(3deg); }
+    }
+
+    .cake-tier-top {
+      width: 146px; height: 54px; border-radius: 18px 18px 8px 8px;
+      background: linear-gradient(180deg, #ff85c0, #ff3e9d);
+      border-top: 8px solid #fff5f9;
+      box-shadow: inset 0 -8px 15px rgba(130, 12, 72, 0.45);
+      position: relative; z-index: 4;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 16px; color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
     .cake-tier-bottom {
-      position: relative;
-      width: 216px;
-      height: 76px;
-      margin: 0 auto;
-      border-radius: 108px / 24px;
-      background: linear-gradient(90deg, #881337 0%, #e11d48 20%, #fb7185 45%, #ffe4e6 52%, #f43f5e 78%, #881337 100%);
-      box-shadow: inset 0 -12px 22px rgba(76, 5, 25, 0.7), 0 12px 24px rgba(0,0,0,0.6);
+      width: 204px; height: 68px; border-radius: 20px 20px 14px 14px;
+      background: linear-gradient(180deg, #c77dff, #7b2cbf);
+      border-top: 9px solid #ffe5f1;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.6), inset 0 -10px 18px rgba(45, 8, 82, 0.55);
+      z-index: 3; margin-top: -4px;
     }
-    .cake-tier-bottom::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 28px;
-      border-radius: 108px / 24px;
-      background: radial-gradient(ellipse at 50% 45%, #fff1f2 0%, #fecdd3 70%, #fda4af 100%);
+    .cake-plate {
+      width: 236px; height: 14px; border-radius: 99px;
+      background: linear-gradient(90deg, #ffd166, #fff, #ffd166);
+      box-shadow: 0 0 25px rgba(255, 209, 102, 0.65);
+      margin-top: -2px;
     }
-    .pearl-border {
-      position: absolute;
-      bottom: 4px; left: 10px; right: 10px;
-      display: flex;
-      justify-content: space-between;
+
+    .cake-controls {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      width: 100%; max-width: 400px; z-index: 25;
+    }
+
+    /* COMMON NEON BUTTONS */
+    .btn-neon {
+      background: linear-gradient(135deg, var(--pink), #b5179e);
+      color: #fff; border: 1.5px solid rgba(255,255,255,0.45);
+      padding: 12px 20px; border-radius: 99px;
+      font-family: 'Be Vietnam Pro', sans-serif; font-size: 14px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 6px 22px rgba(255, 62, 157, 0.5);
+      transition: all 0.22s ease; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-neon:active { transform: scale(0.95); }
+    .btn-gold {
+      background: linear-gradient(135deg, #ffd166, #f77f00);
+      color: #1f0a00; border: 1.5px solid #fff;
+      box-shadow: 0 6px 22px rgba(255, 209, 102, 0.55);
+    }
+
+    /* STAGE 6: FINGERPRINT & BLACK CARD */
+    #stage-card { z-index: 20; }
+    .scanner-box {
+      background: var(--glass); backdrop-filter: blur(14px);
+      border: 2px solid var(--border-neon); border-radius: 26px;
+      padding: 28px 22px; width: 100%; max-width: 380px; text-align: center;
+      box-shadow: 0 0 40px rgba(255, 62, 157, 0.28);
+      transition: all 0.3s;
+    }
+    .scanner-box.alarm {
+      border-color: #ff2a2a; background: rgba(70, 5, 12, 0.88);
+      box-shadow: 0 0 55px rgba(255, 20, 20, 0.85);
+      animation: screenShake 0.4s infinite;
+    }
+    .fingerprint-btn {
+      width: 96px; height: 96px; border-radius: 50%; margin: 18px auto;
+      background: radial-gradient(circle, rgba(56, 242, 255, 0.25), rgba(255, 62, 157, 0.15));
+      border: 2.5px solid var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: relative; overflow: hidden;
+      box-shadow: 0 0 25px rgba(56, 242, 255, 0.45);
+    }
+    .scan-line {
+      position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+      background: var(--cyan); box-shadow: 0 0 12px var(--cyan);
+      animation: scanMove 1.6s linear infinite;
+    }
+    @keyframes scanMove { 0% { top: 0; } 50% { top: 92%; } 100% { top: 0; } }
+
+    .black-card {
+      display: none; width: 100%; max-width: 360px; height: 215px;
+      border-radius: 20px; padding: 22px;
+      background: linear-gradient(135deg, #16161d 0%, #09090d 55%, #23192d 100%);
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.85), 0 0 30px rgba(255, 209, 102, 0.4);
+      flex-direction: column; justify-content: space-between; text-align: left;
+      position: relative; overflow: hidden;
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .black-card::after {
+      content: ""; position: absolute; inset: -50%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255, 209, 102, 0.22) 50%, transparent 60%);
+      animation: cardShine 3s infinite;
+    }
+    @keyframes cardShine { 0% { transform: translateX(-60%); } 100% { transform: translateX(60%); } }
+
+    /* STAGE 7: PUMP HEART -> 3D GALAXY MEMORY SKY */
+    #stage-galaxy { z-index: 20; padding: 0; }
+    #pump-heart-layer {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 25;
+    }
+    #pump-heart-canvas { width: 320px; height: 320px; cursor: pointer; }
+    .pump-guide {
+      background: rgba(20, 8, 36, 0.88); border: 1.5px solid var(--pink);
+      padding: 12px 22px; border-radius: 20px; font-size: 15px; font-weight: 700;
+      text-align: center; max-width: 340px; margin-top: 10px;
+      box-shadow: 0 0 25px rgba(255, 62, 157, 0.45);
+    }
+
+    #galaxy-viewport {
+      position: absolute; inset: 0; display: none;
+      perspective: 1000px; overflow: hidden; touch-action: none;
+    }
+    #galaxy-world {
+      position: absolute; top: 50%; left: 50%;
+      transform-style: preserve-3d;
+      width: 0; height: 0;
+    }
+    .galaxy-core-heart {
+      position: absolute; transform: translate(-50%, -50%);
+      font-size: 56px; filter: drop-shadow(0 0 25px var(--pink));
+      animation: heartbeat 1.1s infinite;
       pointer-events: none;
     }
-    .pearl-dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffffff, #fde047 65%, #b45309 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    @keyframes heartbeat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      35% { transform: translate(-50%, -50%) scale(1.22); }
     }
-    .cake-tier-top {
-      position: relative;
-      width: 158px;
-      height: 62px;
-      margin: 0 auto -18px;
-      z-index: 5;
-      border-radius: 79px / 20px;
-      background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 25%, #fffbeb 50%, #f8fafc 78%, #94a3b8 100%);
-      box-shadow: inset 0 -10px 16px rgba(15, 23, 42, 0.28), 0 10px 20px rgba(0, 0, 0, 0.5);
+    .polaroid-node {
+      position: absolute; width: 92px; padding: 6px 6px 18px;
+      background: #fff; border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.65), 0 0 15px rgba(255, 62, 157, 0.5);
+      transform-style: preserve-3d; cursor: pointer;
+      transition: box-shadow 0.3s;
     }
-    .cake-tier-top::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 24px;
-      border-radius: 79px / 20px;
-      background: radial-gradient(ellipse at 50% 45%, #ffffff 0%, #ffe4e6 80%, #fecdd3 100%);
-      box-shadow: inset 0 2px 8px rgba(244, 63, 94, 0.3);
+    .polaroid-node img {
+      width: 100%; height: 84px; object-fit: cover; border-radius: 3px; display: block;
     }
-    .frosting-drips {
-      position: absolute;
-      top: 13px; left: 5px; right: 5px;
-      display: flex;
-      justify-content: space-between;
-      z-index: 6;
-      pointer-events: none;
-    }
-    .drip {
-      width: 15px;
-      background: linear-gradient(180deg, #fff1f2 0%, #fb7185 55%, #e11d48 100%);
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 4px 6px rgba(136, 19, 55, 0.4);
-    }
-    .strawberry-3d {
-      position: absolute;
-      top: -5px;
-      width: 18px;
-      height: 20px;
-      background: radial-gradient(circle at 35% 30%, #fda4af 0%, #e11d48 45%, #881337 100%);
-      border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
-      box-shadow: 0 4px 7px rgba(0,0,0,0.45);
-      z-index: 8;
-    }
-    .strawberry-3d::after {
-      content: "";
-      position: absolute;
-      top: -3px; left: 4px;
-      width: 10px; height: 5px;
-      background: #15803d;
-      border-radius: 50%;
-    }
-    .candle-3d {
-      position: relative;
-      width: 13px;
-      height: 48px;
-      margin: 0 auto -10px;
-      z-index: 10;
-      border-radius: 6px / 3px;
-      background: repeating-linear-gradient(-35deg, #ffffff, #ffffff 5px, #f43f5e 5px, #f43f5e 10px);
-      box-shadow: inset -3px 0 6px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.45);
-    }
-    @keyframes flameSwayLanguid {
-      0% { transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg); border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%; }
-      25% { transform: translateX(-48%) scale(1.04, 0.96) skewX(3deg) rotate(4deg); border-radius: 45% 55% 50% 50% / 60% 70% 30% 40%; }
-      50% { transform: translateX(-52%) scale(0.96, 1.06) skewX(-5deg) rotate(-6deg); border-radius: 52% 48% 48% 52% / 68% 62% 38% 32%; }
-      75% { transform: translateX(-49%) scale(1.05, 0.95) skewX(4deg) rotate(5deg); border-radius: 46% 54% 52% 48% / 62% 68% 32% 38%; }
-      100% { transform: translateX(-50%) scale(1, 1) skewX(-4deg) rotate(-5deg); border-radius: 55% 45% 50% 50% / 70% 60% 40% 30%; }
-    }
-    .flame-3d {
-      position: absolute;
-      top: -38px; left: 50%;
-      transform-origin: bottom center;
-      width: 20px; height: 34px;
-      background: radial-gradient(ellipse at 50% 78%, #ffffff 0%, #fef08a 35%, #fb923c 72%, rgba(234,88,12,0) 100%);
-      box-shadow: 0 0 28px #fde047, 0 0 60px #f97316, 0 0 95px rgba(251, 146, 60, 0.8);
-      animation: flameSwayLanguid 1.6s infinite ease-in-out;
-      transition: width 0.35s, height 0.35s, box-shadow 0.35s, opacity 0.3s;
-      z-index: 15;
-    }
-    .flame-3d.super-flame {
-      top: -62px;
-      width: 34px; height: 58px;
-      box-shadow: 0 0 45px #ffffff, 0 0 85px #fde047, 0 0 130px #ea580c;
-    }
-    @keyframes smokeRise {
-      0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.6); }
-      100% { opacity: 0; transform: translate(-30%, -65px) scale(2.4); }
-    }
-    .smoke-puff {
-      position: absolute;
-      top: -22px; left: 50%;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 70%);
-      animation: smokeRise 1.7s ease-out forwards;
-      pointer-events: none;
+    .polaroid-node span {
+      display: block; color: #222; font-size: 9px; font-weight: 800;
+      text-align: center; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
-    @keyframes waveBar {
-      0%, 100% { height: 6px; }
-      50% { height: 22px; }
+    /* POLAROID LIGHTBOX MODAL */
+    #memory-modal {
+      position: fixed; inset: 0; z-index: 80;
+      background: rgba(5, 2, 12, 0.86); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
     }
-    .wave-bar { animation: waveBar 0.6s infinite ease-in-out; }
-
-    /* ===================================================================== */
-    /* BÁO ĐỘNG ĐỎ & QUÉT VÂN TAY                                            */
-    /* ===================================================================== */
-    @keyframes laserSweep {
-      0%, 100% { top: 12%; opacity: 0.45; }
-      50% { top: 84%; opacity: 1; }
+    .modal-polaroid {
+      background: #fff; color: #1e1b2e; padding: 14px 14px 22px;
+      border-radius: 14px; max-width: 340px; width: 100%;
+      box-shadow: 0 20px 60px rgba(255, 62, 157, 0.55);
+      animation: popIn 0.35s ease;
     }
-    .fingerprint-laser {
-      position: absolute;
-      left: 14%; right: 14%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #38bdf8, #ffffff, #38bdf8, transparent);
-      box-shadow: 0 0 15px #38bdf8, 0 0 25px #0284c7;
-      animation: laserSweep 1.3s infinite ease-in-out;
+    .modal-polaroid img {
+      width: 100%; max-height: 320px; object-fit: cover; border-radius: 8px;
     }
-    .fingerprint-laser.gold-laser {
-      background: linear-gradient(90deg, transparent, #fbbf24, #ffffff, #fbbf24, transparent);
-      box-shadow: 0 0 15px #fbbf24, 0 0 25px #d97706;
+    .modal-caption {
+      margin-top: 12px; font-family: 'Dancing Script', cursive;
+      font-size: 24px; font-weight: 700; text-align: center; color: #b5179e;
     }
 
-    @keyframes redScreenStrobe {
-      0%, 100% { box-shadow: inset 0 0 55px rgba(239, 68, 68, 0.85); }
-      50% { box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.1); }
-    }
-    .screen-red-alert { animation: redScreenStrobe 0.45s infinite ease-in-out; }
-
-    @keyframes exclamationPulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 18px #ef4444); opacity: 1; }
-      50% { transform: scale(1.22); filter: drop-shadow(0 0 35px #fca5a5); opacity: 0.45; }
-    }
-    .alert-bang-flash { animation: exclamationPulse 0.42s infinite ease-in-out; }
-
-    /* ===================================================================== */
-    /* BẦU TRỜI KÝ ỨC BAY LƠ LỬNG 3D ZOOM TO NHỎ TRÔI BỒNG BỀNH               */
-    /* ===================================================================== */
-    .sky-orbit-stage {
-      position: relative;
-      width: 100%;
-      height: 58vh;
-      min-height: 410px;
-      max-height: 540px;
-      overflow: hidden;
-      border-radius: 28px;
-      background: radial-gradient(ellipse at center, rgba(244, 114, 182, 0.08) 0%, rgba(15, 23, 42, 0.25) 100%);
-      border: 1px solid rgba(251, 207, 232, 0.2);
-      box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.65);
+    #galaxy-next-btn {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      z-index: 35; display: none; white-space: nowrap;
     }
 
-    .floating-orb-card {
-      position: absolute;
-      width: 132px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
-      padding: 5px 5px 9px 5px;
-      border-radius: 14px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), 0 0 22px rgba(244, 114, 182, 0.45);
-      will-change: transform, opacity;
-      cursor: pointer;
-      transition: box-shadow 0.25s ease;
+    /* STAGE 8: VIDEO WISH -> 3D FOLDABLE CARD -> FIREWORKS & ETERNAL HEART */
+    #stage-finale {
+      z-index: 25; overflow-y: auto; justify-content: flex-start;
+      padding: 24px 16px 80px;
+    }
+    .finale-container {
+      width: 100%; max-width: 440px; display: flex; flex-direction: column;
+      align-items: center; gap: 22px; margin: auto 0;
+    }
+    .video-wish-box {
+      width: 100%; background: var(--glass);
+      border: 2px solid var(--pink); border-radius: 22px; padding: 14px;
+      box-shadow: 0 0 35px rgba(255, 62, 157, 0.35); text-align: center;
+    }
+    .video-wish-box video {
+      width: 100%; border-radius: 14px; max-height: 260px; background: #000;
     }
 
-    .floating-orb-card:active {
-      box-shadow: 0 0 35px rgba(253, 224, 71, 0.9);
+    /* 3D OPENING GREETING CARD */
+    .greeting-card-scene {
+      width: 100%; max-width: 360px; height: 430px;
+      perspective: 1400px; position: relative; margin: 6px auto;
+    }
+    .greeting-card-book {
+      width: 100%; height: 100%; position: relative;
+      transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .card-inside-right {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, #fff9fc 0%, #ffeef6 100%);
+      color: #2b142c; border-radius: 16px;
+      border: 2px solid #ffb3d9;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      padding: 18px 16px; display: flex; flex-direction: column;
+    }
+    .card-inside-header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1.5px dashed #ff85c0; padding-bottom: 8px; margin-bottom: 10px;
+    }
+    .card-mini-photos {
+      display: flex; gap: 8px; justify-content: center; margin-bottom: 10px;
+    }
+    .card-mini-photos img {
+      width: 68px; height: 68px; object-fit: cover;
+      border: 3px solid #fff; border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    }
+    .card-mini-photos img:first-child { transform: rotate(-6deg); }
+    .card-mini-photos img:last-child { transform: rotate(6deg); }
+
+    .letter-scroll-area {
+      flex: 1; overflow-y: auto; padding-right: 6px;
+      font-size: 13.8px; line-height: 1.65; color: #3a1c3d;
+      white-space: pre-line; text-align: left;
+    }
+    .letter-scroll-area::-webkit-scrollbar { width: 5px; }
+    .letter-scroll-area::-webkit-scrollbar-thumb { background: var(--pink-soft); border-radius: 99px; }
+
+    .card-front-cover {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #2b0938 0%, #590d56 50%, #ff3e9d 100%);
+      border: 2px solid var(--gold); border-radius: 16px;
+      transform-origin: left center;
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease 0.5s;
+      backface-visibility: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px; text-align: center; cursor: pointer;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.75); z-index: 5;
+    }
+    .greeting-card-book.opened .card-front-cover {
+      transform: rotateY(-165deg); opacity: 0; pointer-events: none;
     }
 
-    .sky-memory-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
-      padding: 7px 7px 12px 7px;
-      border-radius: 16px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(244, 114, 182, 0.5);
+    /* ETERNAL FIREWORKS & HEART CANVAS */
+    #eternal-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: 90; display: none; pointer-events: none;
+    }
+    #eternal-caption {
+      position: fixed; bottom: 14%; left: 50%; transform: translateX(-50%);
+      z-index: 95; display: none; text-align: center;
+      font-family: 'Dancing Script', cursive; font-size: 32px; font-weight: 700;
+      color: #fff; text-shadow: 0 0 20px var(--pink), 0 0 35px var(--gold);
+      width: 90%;
     }
 
-    @keyframes arrowBounceDown {
-      0%, 100% { transform: translateY(0); opacity: 0.75; }
-      50% { transform: translateY(8px); opacity: 1; }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.75); }
+      to { opacity: 1; transform: scale(1); }
     }
-    .arrow-down-anim { animation: arrowBounceDown 1.1s infinite ease-in-out; }
+    @keyframes pulseOpacity { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+    @keyframes pulseScale { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } }
   </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen relative">
+<body>
 
-  <!-- VIỀN BÁO ĐỘNG ĐỎ TOÀN MÀN HÌNH -->
-  <div id="global-red-alarm-frame" class="hidden fixed inset-0 pointer-events-none z-40 screen-red-alert"></div>
+  <!-- GLOBAL CYBER MATRIX & PARTICLE BACKGROUND -->
+  <canvas id="cyber-bg-canvas"></canvas>
 
-  <!-- AUDIO PLAYER DỰ PHÒNG -->
-  <audio id="custom-mp3-player" loop preload="none"></audio>
+  <!-- TULIP GARDEN OVERLAY (FROM CAKE STAGE TO END) -->
+  <div id="tulip-garden-layer">
+    <svg class="tulip-cluster left" viewBox="0 0 160 220" fill="none">
+      <path d="M45 220 Q40 140 55 85" stroke="#38b000" stroke-width="5" stroke-linecap="round"/>
+      <path d="M45 170 Q15 140 25 110 Q45 135 45 170" fill="#70e000" opacity="0.85"/>
+      <path d="M55 85 C30 85 28 45 45 30 C50 45 55 45 55 30 C55 45 60 45 65 30 C82 45 80 85 55 85 Z" fill="url(#tulipGrad1)"/>
+      <path d="M105 220 Q110 155 95 115" stroke="#38b000" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M103 185 Q135 160 128 130 Q108 150 103 185" fill="#70e000" opacity="0.8"/>
+      <path d="M95 115 C74 115 72 80 86 68 C90 80 95 80 95 68 C95 80 100 80 104 68 C118 80 116 115 95 115 Z" fill="url(#tulipGrad2)"/>
+      <defs>
+        <linearGradient id="tulipGrad1" x1="30" y1="30" x2="80" y2="85" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#ff85c0"/><stop offset="1" stop-color="#ff1e8a"/>
+        </linearGradient>
+        <linearGradient id="tulipGrad2" x1="74" y1="68" x2="116" y2="115" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#ffd166"/><stop offset="1" stop-color="#ff758f"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg class="tulip-cluster right" viewBox="0 0 160 220" fill="none">
+      <path d="M45 220 Q40 140 55 85" stroke="#38b000" stroke-width="5" stroke-linecap="round"/>
+      <path d="M45 170 Q15 140 25 110 Q45 135 45 170" fill="#70e000" opacity="0.85"/>
+      <path d="M55 85 C30 85 28 45 45 30 C50 45 55 45 55 30 C55 45 60 45 65 30 C82 45 80 85 55 85 Z" fill="url(#tulipGrad1)"/>
+      <path d="M105 220 Q110 155 95 115" stroke="#38b000" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M95 115 C74 115 72 80 86 68 C90 80 95 80 95 68 C95 80 100 80 104 68 C118 80 116 115 95 115 Z" fill="url(#tulipGrad2)"/>
+    </svg>
+  </div>
 
-  <!-- CANVAS BỤI TIÊN CHẠM TAY + CHỮ 3D + SAO BĂNG + PHÁO HOA -->
-  <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <!-- INTERACTIVE PUPPY MASCOT -->
+  <div id="puppy-mascot" onclick="petPuppy()">
+    <div class="puppy-bubble" id="puppy-speech">Gâu gâu! Chúc mừng sinh nhật chị Quý Thy xinh đẹp! 🌷🐶</div>
+    <svg class="puppy-avatar" id="puppy-svg" viewBox="0 0 120 120">
+      <ellipse cx="32" cy="52" rx="14" ry="26" transform="rotate(18 32 52)" fill="#d48c46"/>
+      <ellipse cx="88" cy="52" rx="14" ry="26" transform="rotate(-18 88 52)" fill="#d48c46"/>
+      <circle cx="60" cy="62" r="36" fill="#f4b976"/>
+      <ellipse cx="60" cy="72" rx="22" ry="17" fill="#fff5e6"/>
+      <circle cx="46" cy="56" r="5" fill="#1e120a"/>
+      <circle cx="48" cy="54" r="1.8" fill="#fff"/>
+      <circle cx="74" cy="56" r="5" fill="#1e120a"/>
+      <circle cx="76" cy="54" r="1.8" fill="#fff"/>
+      <ellipse cx="60" cy="67" rx="7" ry="5" fill="#2b1608"/>
+      <path d="M52 75 Q60 84 68 75" stroke="#2b1608" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M56 77 Q60 88 64 77" fill="#ff5d8f"/>
+      <!-- Party Hat -->
+      <polygon points="60,8 44,34 76,34" fill="#ff3e9d" stroke="#ffd166" stroke-width="2"/>
+      <circle cx="60" cy="8" r="5" fill="#ffd166"/>
+    </svg>
+  </div>
 
-  <!-- LỚP CHỨA 56 MẢNH KÍNH VỠ TOÀN MÀN HÌNH -->
-  <div id="fullscreen-shatter-layer" class="hidden fixed inset-0 z-50 pointer-events-none" style="perspective: 1100px;"></div>
+  <!-- STAGE 1: FAKE SURVEY -->
+  <div class="stage active" id="stage-survey">
+    <div class="survey-card">
+      <div class="survey-tag">KHẢO SÁT NHANH • 20/11</div>
+      <div class="survey-title">Hôm nay là ngày 20/11, bạn dự định sẽ dành thời gian cho hoạt động nào nhất?</div>
+      <div class="survey-sub">Chọn một đáp án bên dưới để nhận phiếu quà tặng ngẫu nhiên nhé!</div>
+      <button class="survey-opt" onclick="triggerGlassShatter()">💐 Đi thăm và tri ân thầy cô giáo cũ</button>
+      <button class="survey-opt" onclick="triggerGlassShatter()">☕ Tụ tập trà sữa, dạo phố cùng hội bạn</button>
+      <button class="survey-opt" onclick="triggerGlassShatter()">🛌 Ở nhà đắp chăn ngủ nướng cả ngày</button>
+    </div>
+  </div>
+  <div id="glass-shatter-container"></div>
 
-  <!-- CONTAINER CHÍNH -->
-  <main id="stage-container" class="relative z-10 w-full max-w-md px-4 py-5 flex flex-col items-center justify-center min-h-screen">
-
-    <!-- ===================================================================== -->
-    <!-- MÀN 1: PHIẾU KHẢO SÁT GIẢ                                             -->
-    <!-- ===================================================================== -->
-    <section id="stage-1" class="relative w-full">
-      <div id="survey-card-original" class="w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
-        <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
-          <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold rounded uppercase tracking-wider">
-            Biểu mẫu đánh giá #2026
-          </span>
-          <span class="text-xs text-gray-400 font-mono-tech">ID: THY-01</span>
+  <!-- STAGE 2: 3-CHARACTER MEME DIALOGUE -->
+  <div class="stage" id="stage-dialogue" onclick="advanceDialogue()">
+    <div class="dialogue-arena">
+      <div class="char-row" id="char-row">
+        <div class="char-box" id="char-nv2">
+          <div class="confused-marks" id="q-nv2">? ? ?</div>
+          <img class="sticker-img" id="img-nv2" src="nv2_thoai1.jpg" alt="NV2">
+          <span class="char-name">Ông Bạn 2</span>
         </div>
-
-        <h1 class="text-lg font-bold text-gray-800 leading-snug mb-2">
-          Khảo sát mức độ hài lòng về sự xuất hiện của Long trong thời gian qua
-        </h1>
-        <p class="text-xs text-gray-500 leading-relaxed mb-5">
-          Vui lòng chọn một đánh giá khách quan bên dưới để hệ thống ghi nhận dữ liệu định kỳ.
-        </p>
-
-        <div class="space-y-2.5 mb-5">
-          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-            <span>1. Rất nhiệt tình, nhưng thỉnh thoảng hơi nhạt</span>
-            <span class="text-gray-300">○</span>
-          </button>
-          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-            <span>2. Tạm chấp nhận được, cần cố gắng thêm</span>
-            <span class="text-gray-300">○</span>
-          </button>
-          <button type="button" onclick="triggerTwist1(event)" class="w-full text-left p-3.5 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all text-sm font-medium text-gray-700 flex items-center justify-between">
-            <span>3. Đỉnh cao chất lượng, 10 điểm không có nhưng</span>
-            <span class="text-gray-300">○</span>
-          </button>
+        <div class="char-box center-solo visible speaking" id="char-nv1">
+          <img class="sticker-img" id="img-nv1" src="nv1_thoai1.jpg" alt="NV1">
+          <span class="char-name">Long</span>
         </div>
-
-        <div class="text-[11px] text-gray-400 text-center">
-          Hệ thống khảo sát tự động • Bảo mật thông tin người dùng
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- MÀN 2: CÂU NGUYỆN ĐẦU TRANG -> HUY HIỆU -> CHỮ 3D -> CÂU DẪN -> NÚT  -->
-    <!-- ===================================================================== -->
-    <section id="stage-reveal" class="hidden w-full space-y-3.5 animate-fade-up">
-      <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-pink-500/15 to-purple-500/15 backdrop-blur-md border border-amber-200/35 text-center space-y-0.5 shadow-[0_0_25px_rgba(251,191,36,0.2)]">
-        <div class="text-amber-300 text-xs">🕊️ ✨</div>
-        <p class="font-serif-luxury italic text-sm sm:text-base text-amber-100 leading-snug">
-          “Nguyện xin Chúa luôn ban muôn hồng ân, bình an và niềm vui trọn vẹn xuống trên người con gái trước mặt Ngài đây bước trong tuổi 16 rực rỡ này.”
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center justify-center gap-1.5">
-        <span class="px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/45 text-amber-200 text-[10px] font-mono-tech font-bold">
-          🎂 20.11.2010 • SWEET 16
-        </span>
-        <span class="px-2.5 py-1 rounded-full bg-pink-500/20 border border-pink-300/45 text-pink-200 text-[10px] font-mono-tech font-bold">
-          ♏ SCORPIO • TÙNG BÁCH MỘC
-        </span>
-      </div>
-
-      <div id="text3d-anchor-zone" class="h-24 w-full"></div>
-
-      <div class="p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.35)] space-y-2 text-xs sm:text-sm">
-        <div class="text-left pl-1 text-amber-300 font-extrabold">
-          😜 Bị lừa rồi nha!
-        </div>
-        <div class="text-right pr-1 text-pink-100">
-          Hôm nay là ngày vô cùng đặc biệt của <span class="font-bold text-amber-200">Thy</span> mò ✨
-        </div>
-        <div class="text-left pl-2 text-pink-100/90">
-          📋 Sao mà có vụ kiểm tra khảo sát nào ở đấy!
-        </div>
-        <div class="text-center pt-1 text-white font-semibold">
-          🎉 Không biết ai kia đã sẵn sàng đón nhận vô vàn điều bất ngờ của bữa tiệc linh đình phía sau đây chưa à? 🥂
+        <div class="char-box" id="char-nv3">
+          <div class="confused-marks" id="q-nv3">? ? ?</div>
+          <img class="sticker-img" id="img-nv3" src="nv3_thoai1.jpg" alt="NV3">
+          <span class="char-name">Ông Bạn 3</span>
         </div>
       </div>
 
-      <div class="text-center pt-1">
-        <button type="button" onclick="goToStage2()" class="btn-3d-pop px-9 py-4 rounded-full text-white font-extrabold text-base tracking-wide uppercase">
-          🎉 Nhập tiệc thôi nào!
-        </button>
+      <div class="dialogue-bubble-box">
+        <div class="speaker-badge" id="speaker-name">Long</div>
+        <div class="typewriter-text" id="dialogue-text"></div>
+        <div class="tap-hint">Chạm vào màn hình để tiếp tục ▸</div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ===================================================================== -->
-    <!-- MÀN 3: BÁNH KEM 3D + GHI ÂM ĐIỀU ƯỚC -> CHẠM KÍCH HOẠT -> THỔI MIC    -->
-    <!-- ===================================================================== -->
-    <section id="stage-2" class="hidden w-full text-center space-y-4 animate-fade-up">
-      <div>
-        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-amber-300/30 text-[10px] font-mono-tech text-amber-200 mb-1">
-          <span>🕊️ SWEET 16 BLESSING</span>
-          <span>•</span>
-          <span>20.11.2010</span>
+  <!-- STAGE 3: DATE SLOT PICKER -->
+  <div class="stage" id="stage-slot">
+    <div class="slot-header" id="slot-hb-title">Happy Birthday</div>
+    <div class="slot-machine-wrap">
+      <div class="slot-arrow">➔</div>
+      <div class="slot-window">
+        <div class="slot-reel" id="slot-reel"></div>
+      </div>
+      <div class="slot-month-year" id="slot-my">11 • 2010</div>
+    </div>
+  </div>
+
+  <!-- STAGE 4: PARTICLE MORPH & CUPID BOW -->
+  <div class="stage" id="stage-particles">
+    <canvas id="particle-morph-canvas"></canvas>
+    <div id="bow-instruction">🏹 Chạm hoặc kéo cung tên ánh sáng bắn vỡ trái tim nhé!</div>
+  </div>
+
+  <!-- STAGE 5: BIRTHDAY CAKE -->
+  <div class="stage" id="stage-cake">
+    <div class="scripture-banner">
+      <div class="scripture-verse">“Nguyện xin Chúa chúc lành và gìn giữ con; nguyện xin Chúa tươi nét mặt nhìn đến con và dủ lòng thương xót con.”</div>
+      <div class="scripture-ref">✝ Dân Số 6:24-25 • Chúc Quý Thy Tuổi 16 Bình An</div>
+    </div>
+
+    <div class="cake-arena">
+      <div class="cake-status-msg" id="cake-msg">✨ Hãy ước một điều thật đẹp rồi thổi tắt nến nhé!</div>
+      <div class="cake-wrapper" id="cake-wrapper" onclick="handleCakeBlowAttempt()">
+        <div class="candles-row">
+          <div class="candle"><div class="flame" id="f1"></div><div class="smoke" id="s1"></div></div>
+          <div class="candle"><div class="flame" id="f2"></div><div class="smoke" id="s2"></div></div>
+          <div class="candle"><div class="flame" id="f3"></div><div class="smoke" id="s3"></div></div>
         </div>
-        <h2 class="font-serif-luxury text-4xl font-bold bling-text">Thì thầm điều ước của Thy</h2>
+        <div class="cake-tier-top">SWEET 16</div>
+        <div class="cake-tier-bottom"></div>
+        <div class="cake-plate"></div>
+      </div>
+    </div>
+
+    <div class="cake-controls">
+      <button class="btn-neon" id="btn-mic" onclick="enableMicBlow()">🎙️ Bật Mic Thổi Nến</button>
+      <button class="btn-neon btn-gold" onclick="handleCakeBlowAttempt()">💨 Thổi Nến (Chạm)</button>
+      <button class="btn-neon" id="btn-to-card" style="display:none;" onclick="goToStageCard()">💳 Nhận Đặc Quyền Tuổi 16 ➔</button>
+    </div>
+  </div>
+
+  <!-- STAGE 6: FINGERPRINT & BLACK CARD -->
+  <div class="stage" id="stage-card">
+    <div class="scanner-box" id="scanner-box">
+      <div style="font-size:12px; font-weight:800; color:var(--cyan); letter-spacing:1px;">HỆ THỐNG BẢO MẬT VIP</div>
+      <h3 id="scan-title" style="margin-top:6px; font-size:18px;">Xác Thực Vân Tay Chủ Nhân</h3>
+      <p id="scan-desc" style="font-size:13px; color:#cbd5e1; margin-top:6px;">Chạm giữ vào cảm biến vân tay bên dưới để mở khóa đặc quyền tuổi 16</p>
+      <div class="fingerprint-btn" id="fp-btn" onclick="handleFingerprintScan()">
+        <div class="scan-line"></div>
+        <span style="font-size:42px;">☝️</span>
+      </div>
+      <div id="scan-status" style="font-size:13px; font-weight:700; color:var(--gold);">Sẵn sàng quét...</div>
+    </div>
+
+    <div class="black-card" id="black-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-family:'Orbitron',sans-serif; font-weight:900; color:var(--gold); font-size:15px;">ROYAL BLACK CARD</span>
+        <span style="font-size:12px; color:#fff; background:rgba(255,62,157,0.4); padding:2px 8px; border-radius:99px;">VIP • SWEET 16</span>
+      </div>
+      <div style="margin:auto 0;">
+        <div style="font-size:11px; color:#a1a1aa;">CHỦ THẺ ĐẶC QUYỀN</div>
+        <div style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:800; letter-spacing:1.5px; color:#fff; margin-top:2px;">NGUYỄN QUÝ THY</div>
+        <div style="font-size:12px; color:var(--gold); margin-top:4px;">HẠN MỨC: VÔ HẠN NIỀM VUI & BÌNH AN ✨</div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; color:#cbd5e1;">ISSUED: 20/11/2026</span>
+        <button class="btn-neon btn-gold" style="padding:7px 14px; font-size:12px;" onclick="goToStageGalaxy()">Mở Bầu Trời Kỷ Niệm ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 7: PUMP HEART -> 3D GALAXY MEMORY SKY -->
+  <div class="stage" id="stage-galaxy">
+    <div id="pump-heart-layer">
+      <canvas id="pump-heart-canvas" width="320" height="320" onclick="pumpMemoryHeart()"></canvas>
+      <div class="pump-guide" id="pump-guide-text">💖 Chạm nhẹ vào trái tim để những kỷ niệm hiện lên nhé...</div>
+    </div>
+
+    <div id="galaxy-viewport">
+      <div id="galaxy-world">
+        <div class="galaxy-core-heart">💖</div>
+      </div>
+    </div>
+
+    <button class="btn-neon btn-gold" id="galaxy-next-btn" onclick="goToStageFinale()">✨ Cùng đi tiếp đến cuối hành trình nào ➔</button>
+  </div>
+
+  <!-- MEMORY PHOTO MODAL -->
+  <div id="memory-modal" onclick="closeMemoryModal()">
+    <div class="modal-polaroid" onclick="event.stopPropagation()">
+      <img id="modal-img" src="" alt="Kỷ niệm">
+      <div class="modal-caption" id="modal-caption">Kỷ niệm đáng nhớ ✨</div>
+      <div style="text-align:center; margin-top:12px;">
+        <button class="btn-neon" style="padding:8px 18px; font-size:12.5px;" onclick="closeMemoryModal()">Đóng lại</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 8: VIDEO WISH + 3D OPENING CARD + GOODBYE -->
+  <div class="stage" id="stage-finale">
+    <div class="finale-container">
+      <div class="video-wish-box">
+        <div style="font-size:13px; font-weight:800; color:var(--gold); margin-bottom:8px;">🎥 ĐÔI LỜI CHÚC GỬI QUÝ THY</div>
+        <video id="wish-video" controls playsinline src="clip_loi_chuc.mp4"></video>
+        <div style="font-size:12px; color:#f9a8d4; margin-top:6px;">Xem xong video, Thy chạm mở tấm thiệp bên dưới nhé 👇</div>
       </div>
 
-      <p class="font-serif-luxury italic text-sm text-amber-100/95 px-3 leading-snug">
-        “Xin Chúa luôn gìn giữ, nâng đỡ từng bước chân và soi sáng mọi ước mơ đẹp nhất của Quý Thy trong tuổi mới bình an.” 🕊️
-      </p>
-
-      <div class="realistic-cake-stage pt-12 pb-1">
-        <div id="cake-wrapper" class="cake-3d-body">
-          <div id="candle-stick" class="candle-3d">
-            <div id="candle-flame" class="flame-3d"></div>
-          </div>
-
-          <div class="cake-tier-top">
-            <div class="strawberry-3d" style="left: 24px;"></div>
-            <div class="strawberry-3d" style="left: 70px; top: -7px;"></div>
-            <div class="strawberry-3d" style="right: 24px;"></div>
-            <div class="frosting-drips">
-              <span class="drip" style="height: 17px;"></span>
-              <span class="drip" style="height: 25px;"></span>
-              <span class="drip" style="height: 15px;"></span>
-              <span class="drip" style="height: 23px;"></span>
-              <span class="drip" style="height: 18px;"></span>
-              <span class="drip" style="height: 26px;"></span>
-              <span class="drip" style="height: 16px;"></span>
+      <!-- 3D FOLDABLE GREETING CARD -->
+      <div class="greeting-card-scene">
+        <div class="greeting-card-book" id="greeting-card-book">
+          <div class="card-inside-right">
+            <div class="card-inside-header">
+              <span style="font-family:'Dancing Script',cursive; font-size:22px; font-weight:700; color:#d90429;">Gửi Quý Thy Tuổi 16 🌷</span>
+              <span style="font-size:16px;">🐶✨</span>
             </div>
-          </div>
-
-          <div class="cake-tier-bottom flex items-center justify-center">
-            <span class="font-script-love text-white/95 text-base pt-3 drop-shadow-[0_2px_5px_rgba(136,19,55,0.9)]">
-              Happy Birthday Thy
-            </span>
-            <div class="pearl-border">
-              <span class="pearl-dot"></span><span class="pearl-dot"></span><span class="pearl-dot"></span>
-              <span class="pearl-dot"></span><span class="pearl-dot"></span><span class="pearl-dot"></span>
-              <span class="pearl-dot"></span><span class="pearl-dot"></span><span class="pearl-dot"></span>
-              <span class="pearl-dot"></span><span class="pearl-dot"></span><span class="pearl-dot"></span>
+            <div class="card-mini-photos">
+              <img src="anh1.jpg" alt="Kỷ niệm 1" onerror="this.style.display='none'">
+              <img src="anh2.jpg" alt="Kỷ niệm 2" onerror="this.style.display='none'">
             </div>
+            <div class="letter-scroll-area" id="letter-content"></div>
           </div>
 
-          <div class="cake-plate"></div>
-        </div>
-      </div>
-
-      <div id="voice-wish-box" class="max-w-sm mx-auto space-y-2.5">
-        <div class="flex items-center justify-center gap-3 px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-pink-300/30 shadow-[0_0_25px_rgba(244,114,182,0.25)]">
-          <button type="button" id="record-btn" onclick="toggleVoiceRecord()" class="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.8)] active:scale-95 transition-all shrink-0">
-            <span id="record-icon" class="text-lg">🎙️</span>
-          </button>
-          <div class="text-left flex-1 min-w-0">
-            <div id="record-status" class="text-xs font-bold text-white truncate">Nhấn mic để ghi âm điều ước tuổi 16</div>
-            <div id="record-sub" class="text-[10px] text-pink-200/80 truncate">Thì thầm xong bấm nút dừng nhé ✨</div>
-          </div>
-          <div id="audio-wave" class="hidden items-center gap-1 pr-1">
-            <span class="wave-bar w-1 bg-pink-400 rounded-full" style="animation-delay: 0s"></span>
-            <span class="wave-bar w-1 bg-amber-300 rounded-full" style="animation-delay: 0.15s"></span>
-            <span class="wave-bar w-1 bg-pink-300 rounded-full" style="animation-delay: 0.3s"></span>
-          </div>
-        </div>
-        <audio id="wish-audio-preview" controls class="hidden w-full h-8 rounded-full"></audio>
-      </div>
-
-      <div id="blow-instruction-area" class="hidden max-w-sm mx-auto pt-1 animate-fade-up">
-        <div id="candle-toast" class="px-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500/25 via-rose-500/25 to-amber-500/25 backdrop-blur-md border border-amber-300/45 text-xs sm:text-sm text-amber-100 font-semibold leading-relaxed shadow-[0_0_25px_rgba(251,191,36,0.3)]">
-          ✨ Điều ước đã được cất giữ! Giờ thì Thy hãy chạm nhẹ vào một điểm bất kỳ trên màn hình để chuẩn bị thổi nến nào...
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- MÀN 4: QUÉT VÂN TAY 2 LƯỢT + BÁO ĐỘNG ĐỎ INH ỎI + THẺ ĐEN VÔ HẠN      -->
-    <!-- ===================================================================== -->
-    <section id="stage-3" class="hidden w-full text-center space-y-6 animate-fade-up">
-      <div class="space-y-1">
-        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-cyan-300/30 text-[10px] font-mono-tech text-cyan-200">
-          <span>♏ SCORPIO VAULT</span>
-          <span>•</span>
-          <span>20.11.2010</span>
-        </div>
-        <h2 id="vault-title" class="font-serif-luxury text-4xl font-bold bling-text">Mở hộp quà đặc biệt</h2>
-        <p id="vault-subtitle" class="text-xs text-pink-100/85">Đặt ngón tay và giữ 2 giây để quét vân tay xác thực</p>
-      </div>
-
-      <div id="scanner-box-1" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-slate-900/75 backdrop-blur-md border-2 border-cyan-400/55 shadow-[0_0_45px_rgba(56,189,248,0.45),inset_0_0_25px_rgba(56,189,248,0.25)] overflow-hidden"
-           onmousedown="startScan1()" onmouseup="stopScan1()" onmouseleave="stopScan1()"
-           ontouchstart="startScan1(event)" ontouchend="stopScan1()">
-        <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(56,189,248,0.15)" stroke-width="3.5" />
-          <circle id="scan-ring-1" cx="50" cy="50" r="46" fill="none" stroke="#38bdf8" stroke-width="3.5"
-                  stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" />
-        </svg>
-        <div class="fingerprint-laser"></div>
-        <div class="flex flex-col items-center justify-center pointer-events-none z-10">
-          <svg class="w-16 h-16 text-cyan-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
-            <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"/>
-            <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/>
-            <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/>
-            <path d="M8.65 22c.21-.66.45-1.32.57-2"/>
-            <path d="M14 13.12c0 2.38 0 6.38-1 8.88"/>
-            <path d="M2 16h.01"/>
-            <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
-            <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"/>
-          </svg>
-          <span id="scan-percent-1" class="text-[11px] font-mono-tech text-cyan-200 font-extrabold mt-1 tracking-widest">GIỮ VÂN TAY</span>
-        </div>
-      </div>
-
-      <div id="fake-error-box" class="hidden max-w-sm mx-auto rounded-3xl bg-red-950/90 border-2 border-red-500 p-5 text-center space-y-3 shadow-[0_0_45px_rgba(239,68,68,0.85)] animate-fade-up">
-        <div class="w-16 h-16 mx-auto rounded-full bg-red-600/30 border-2 border-red-400 flex items-center justify-center alert-bang-flash">
-          <span class="text-4xl font-extrabold text-red-400">!</span>
-        </div>
-        <div class="text-red-300 font-mono-tech text-xs font-extrabold tracking-widest uppercase">
-          🚨 CRITICAL ALERT • ERROR 404
-        </div>
-        <p class="text-xs sm:text-sm text-red-50 leading-relaxed font-semibold">
-          CẢNH BÁO HỆ THỐNG: Số dư ví hiện tại của <span class="text-amber-300 underline font-extrabold">Long</span> không đủ để tải gói quà sinh nhật VIP này!
-        </p>
-      </div>
-
-      <div id="black-card-override-box" class="hidden max-w-sm mx-auto space-y-5 animate-fade-up">
-        <div class="p-4 rounded-2xl bg-gradient-to-r from-neutral-900 via-amber-950/60 to-neutral-900 border border-amber-400/60 shadow-[0_0_30px_rgba(251,191,36,0.35)]">
-          <p class="text-xs sm:text-sm text-amber-200 font-bold leading-relaxed">
-            💳✨ Xác nhận cấp quyền quẹt Thẻ Đen Vô Hạn 🖤 — Thy hãy quét lại vân tay để xác nhận nha! 👆🔐
-          </p>
-        </div>
-
-        <div id="scanner-box-2" class="relative w-40 h-40 mx-auto flex items-center justify-center cursor-pointer touch-none rounded-full bg-neutral-950/90 backdrop-blur-md border-2 border-amber-400/75 shadow-[0_0_45px_rgba(251,191,36,0.5),inset_0_0_25px_rgba(251,191,36,0.25)] overflow-hidden"
-             onmousedown="startScan2()" onmouseup="stopScan2()" onmouseleave="stopScan2()"
-             ontouchstart="startScan2(event)" ontouchend="stopScan2()">
-          <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(251,191,36,0.2)" stroke-width="3.5" />
-            <circle id="scan-ring-2" cx="50" cy="50" r="46" fill="none" stroke="#fbbf24" stroke-width="3.5"
-                    stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" />
-          </svg>
-          <div class="fingerprint-laser gold-laser"></div>
-          <div class="flex flex-col items-center justify-center pointer-events-none z-10">
-            <svg class="w-16 h-16 text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
-              <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"/>
-              <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/>
-              <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/>
-              <path d="M8.65 22c.21-.66.45-1.32.57-2"/>
-              <path d="M14 13.12c0 2.38 0 6.38-1 8.88"/>
-              <path d="M2 16h.01"/>
-              <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
-              <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"/>
-            </svg>
-            <span id="scan-percent-2" class="text-[11px] font-mono-tech text-amber-200 font-extrabold mt-1 tracking-widest">XÁC NHẬN VIP</span>
-          </div>
-        </div>
-
-        <div id="recharge-progress-box" class="hidden space-y-1.5 pt-1">
-          <div class="flex justify-between text-[11px] font-mono-tech font-bold text-amber-300">
-            <span>ĐANG KÍCH HOẠT THẺ ĐEN VÔ HẠN...</span>
-            <span id="recharge-pct-text">0%</span>
-          </div>
-          <div class="w-full h-3.5 bg-black/70 rounded-full overflow-hidden border border-amber-400/60 p-0.5">
-            <div id="recharge-bar-fill" class="h-full w-0 rounded-full bg-gradient-to-r from-amber-400 via-pink-500 to-rose-400 shadow-[0_0_15px_#fde047] transition-all duration-75"></div>
+          <div class="card-front-cover" onclick="openGreetingCard()">
+            <div style="font-size:44px; margin-bottom:10px;">🌷💌🐶</div>
+            <div style="font-family:'Dancing Script',cursive; font-size:34px; font-weight:700; color:#fff;">Happy Sweet 16</div>
+            <div style="font-size:14px; color:var(--gold); font-weight:700; margin-top:6px;">Dành riêng cho Nguyễn Quý Thy</div>
+            <div style="margin-top:24px; background:rgba(255,255,255,0.2); padding:8px 18px; border-radius:99px; font-size:12.5px; font-weight:700; border:1px solid #fff;">✨ Chạm để mở thiệp ✨</div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ===================================================================== -->
-    <!-- MÀN 5: BẦU TRỜI KÝ ỨC BAY LƠ LỬNG ZOOM TO NHỎ KHÔNG GIAN 3D           -->
-    <!-- ===================================================================== -->
-    <section id="stage-4-sky" class="hidden w-full space-y-4 pb-6 animate-fade-up">
-      <div class="text-center space-y-1">
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[10px] font-mono-tech font-bold">
-          <span>♏ SCORPIO CONSTELLATION</span>
-          <span>•</span>
-          <span>20.11.2010</span>
-        </div>
-        <h2 class="font-script-love text-3xl sm:text-4xl bling-text drop-shadow-[0_0_20px_rgba(244,114,182,0.85)] pt-0.5">
-          Bầu trời kỷ niệm của Thy
-        </h2>
-        <p class="text-[11px] text-pink-200/85">Chạm vào từng mảnh ký ức đang bay lơ lửng để phóng to xem rõ ✨</p>
-      </div>
-
-      <!-- SÂN KHẤU BẦU TRỜI 3D BAY LƠ LỬNG ZOOM TO NHỎ -->
-      <div id="sky-orbit-stage" class="sky-orbit-stage"></div>
-
-      <div class="pt-1 text-center">
-        <button type="button" onclick="openVideoIntroPrompt()" class="btn-3d-pop px-8 py-3.5 rounded-full text-white font-extrabold text-sm inline-flex items-center gap-2">
-          <span>Mở lời chúc đặc biệt từ Long</span>
-          <span>🎬</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- MÀN 6: TRANG CUỐI — CÂU KẾT, KHUNG NHẮN NHỦ KÍNH MỜ & MŨI TÊN         -->
-    <!-- ===================================================================== -->
-    <section id="stage-4-final" class="hidden w-full space-y-6 pb-12 animate-fade-up">
-      <div class="text-center space-y-1 pt-2">
-        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-pink-300/30 text-[10px] font-mono-tech text-amber-200">
-          <span>SWEET 16</span>
-          <span>•</span>
-          <span>♏ SCORPIO</span>
-          <span>•</span>
-          <span>TÙNG BÁCH MỘC</span>
-        </div>
-        <h2 class="font-script-love text-3xl bling-text pt-1">Gửi Quý Thy tuổi 16</h2>
-      </div>
-
-      <div class="p-5 rounded-3xl bg-white/10 backdrop-blur-md border border-pink-300/35 shadow-[0_0_35px_rgba(244,114,182,0.3)] text-center">
-        <p class="text-sm sm:text-base text-pink-50 leading-relaxed font-medium italic">
-          “Một lần nữa, chúc em một ngày đặc biệt, một ngày sinh nhật tràn ngập niềm yêu thương và niềm vui. Hẹn gặp lại nhé người con gái xinh đẹp, giỏi giang, tỏa sáng nhất hôm nay.”
-        </p>
-      </div>
-
-      <div class="pt-1">
-        <textarea id="reply-note-input" rows="2" placeholder="Thy có muốn nhắn nhủ gì với anh Long khum nè 😊" class="w-full px-4 py-3.5 rounded-2xl bg-purple-950/55 backdrop-blur-md border border-pink-300/40 text-xs sm:text-sm text-white text-center placeholder-pink-200/80 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] focus:outline-none focus:border-amber-300"></textarea>
-      </div>
-
-      <div class="flex flex-col items-center space-y-3 pt-1">
-        <div class="flex flex-col items-center text-amber-300 arrow-down-anim">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
-          </svg>
-        </div>
-
-        <button type="button" id="final-goodbye-btn" onclick="triggerFinalGoodbye()" class="w-full py-4 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 text-white font-extrabold text-base shadow-[0_0_38px_rgba(244,63,94,0.75)] active:scale-95 transition-all">
-          💖 Goodbye for now, my love.
-        </button>
-        <p id="send-status-text" class="text-[11px] text-amber-200 min-h-[16px]"></p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- POPUP 1: XÁC NHẬN KÍCH HOẠT THẺ ĐEN VÔ HẠN GIỮA MÀN HÌNH -->
-  <div id="black-card-modal" onclick="closeBlackCardModal()" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/80 backdrop-blur-xl">
-    <div class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-neutral-900 via-zinc-900 to-black border-2 border-amber-400/80 p-6 text-center space-y-4 shadow-[0_0_60px_rgba(251,191,36,0.55)] animate-fade-up">
-      <div class="flex items-center justify-between text-[10px] font-mono-tech text-amber-300/80 tracking-widest">
-        <span>BLACK CARD VIP</span>
-        <span>UNLIMITED • 20.11.2010</span>
-      </div>
-      <div class="text-5xl">💳🖤</div>
-      <h3 class="font-serif-luxury text-2xl font-bold text-amber-300">
-        Xác nhận cấp quyền quẹt thẻ vô hạn được kích hoạt!
-      </h3>
-      <p class="text-xs sm:text-sm text-amber-100/90 leading-relaxed">
-        Đặc quyền VIP trọn đời dành riêng cho <span class="font-bold text-white">Quý Thy</span> đã sẵn sàng. Chạm nhẹ để bước vào bầu trời kỷ niệm nhé ✨
-      </p>
+      <button class="btn-neon btn-gold" onclick="triggerFinalFireworks()">💖 Goodbye for now, my love.</button>
     </div>
   </div>
 
-  <!-- POPUP 2: PHÓNG TO ẢNH / VIDEO KỶ NIỆM GIỮA MÀN HÌNH -->
-  <div id="memory-modal" onclick="handleModalBackdropClick()" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all">
-    <div onclick="event.stopPropagation()" class="max-w-sm w-full sky-memory-card text-center space-y-2.5 animate-fade-up">
-      <div id="modal-media-box" class="w-full rounded-xl overflow-hidden bg-black"></div>
-      <p id="modal-caption" class="text-xs text-gray-800 font-bold"></p>
-      <p id="modal-hint" onclick="handleModalBackdropClick()" class="text-[11px] text-pink-600 font-bold cursor-pointer py-1"></p>
-    </div>
-  </div>
+  <!-- FINAL FIREWORKS & ETERNAL HEART -->
+  <canvas id="eternal-canvas"></canvas>
+  <div id="eternal-caption">Happy Sweet 16, Quý Thy ✨</div>
 
-  <!-- POPUP 3: CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC & PHÁT VIDEO GIỮA MÀN HÌNH -->
-  <div id="video-greeting-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-5 bg-black/85 backdrop-blur-xl">
-    <div id="video-prompt-card" onclick="playGreetingVideoNow()" class="max-w-sm w-full rounded-3xl bg-gradient-to-br from-purple-950/90 via-rose-950/90 to-slate-950/90 border border-amber-300/50 p-6 text-center space-y-4 shadow-[0_0_50px_rgba(244,114,182,0.5)] cursor-pointer animate-fade-up">
-      <div class="text-5xl animate-bounce">🎬✨</div>
-      <h3 class="font-serif-luxury text-3xl font-bold bling-text">
-        Một lời nhắn dành riêng cho Quý Thy
-      </h3>
-      <p class="text-xs sm:text-sm text-pink-100 leading-relaxed">
-        Anh Long đã chuẩn bị một đoạn lời chúc đặc biệt cho ngày sinh nhật tuổi 16 của Thy. Chạm nhẹ vào đây để mở nhé!
-      </p>
-      <div class="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-amber-400 text-white text-xs font-extrabold shadow-lg">
-        ▶ Chạm để phát lời chúc
-      </div>
-    </div>
-
-    <div id="video-player-card" class="hidden max-w-sm w-full rounded-3xl bg-black/90 border border-pink-400/50 p-3 text-center space-y-3 shadow-[0_0_50px_rgba(244,114,182,0.6)] animate-fade-up">
-      <div id="greeting-video-slot" class="w-full rounded-2xl overflow-hidden bg-black"></div>
-    </div>
-  </div>
-
-  <!-- MÀN HÌNH KẾT THÚC ĐIỆN ẢNH -->
-  <div id="ending-overlay" class="fixed inset-0 z-40 hidden flex-col items-center justify-center p-6 text-center bg-black/55 backdrop-blur-sm pointer-events-none">
-    <div class="max-w-sm space-y-4 animate-fade-up pointer-events-auto">
-      <div class="text-6xl animate-bounce drop-shadow-[0_0_25px_rgba(244,114,182,0.9)]">💖</div>
-      <h2 class="font-script-love text-4xl bling-text drop-shadow-[0_0_20px_rgba(255,105,180,0.95)]">
-        Goodbye for now, my love.
-      </h2>
-      <p class="text-sm text-white/95 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-        Điều ước và lời nhắn của Quý Thy đã được gửi tới anh Long rồi. Hẹn sớm gặp lại Thy nhé! ✨
-      </p>
-    </div>
-  </div>
+  <!-- EXTERNAL AUDIO (OBITO) -->
+  <audio id="audio-obito" src="happy_birthday_obito.mp3" loop preload="auto"></audio>
 
   <script>
-    // =========================================================================
-    // 1. BỘ TỔNG HỢP NHẠC PIANO & GIAO HƯỞNG 3 CHẶNG + TIẾNG KÍNH VỠ + CÒI BÁO
-    // =========================================================================
-    class SymphonyEngine {
-      constructor() {
-        this.ctx = null;
-        this.timer = null;
-        this.isPausedForMedia = false;
-        this.currentScene = 0;
-        this.step = 0;
-        this.mp3Player = document.getElementById("custom-mp3-player");
+    /* =========================================================================
+       1. CONFIGURATION & PERSONAL DATA
+    ========================================================================= */
+    const CONFIG = {
+      stickers: {
+        nv1_1: 'nv1_thoai1.jpg',
+        nv1_2: 'nv1_thoai2.jpg',
+        nv1_3: 'nv1_thoai3.jpg',
+        nv1_4: 'nv1_thoai4.jpg',
+        nv2_1: 'nv2_thoai1.jpg',
+        nv2_2: 'nv2_thoai2.jpg',
+        nv3_1: 'nv3_thoai1.jpg',
+        nv3_2: 'nv3_thoai2.jpg',
+        ngongac: 'nv2_nv3_ngo_ngac.jpg'
+      },
+      memories: [
+        { src: 'anh1.jpg', text: 'Khoảnh khắc rạng rỡ ✨' },
+        { src: 'anh2.jpg', text: 'Nụ cười tỏa nắng 🌷' },
+        { src: 'anh3.jpg', text: 'Thanh xuân tươi đẹp 🌸' },
+        { src: 'anh4.jpg', text: 'Ngày vui đáng nhớ 💛' },
+        { src: 'anh5.jpg', text: 'Kỷ niệm cùng nhau 📸' },
+        { src: 'anh6.jpg', text: 'Tuổi 16 rực rỡ 🎂' },
+        { src: 'anh7.jpg', text: 'Bình an & hạnh phúc 🌿' },
+        { src: 'anh8.jpg', text: 'Mãi giữ nụ cười nhé 😊' },
+        { src: 'anh9.jpg', text: 'Một ngày thật chill ☀️' },
+        { src: 'anh10.jpg', text: 'Dấu ấn tuổi học trò 🎒' },
+        { src: 'anh11.jpg', text: 'Khoảnh khắc diệu kỳ ✨' },
+        { src: 'anh12.jpg', text: 'Photobooth siêu cưng 🎞️' },
+        { src: 'anh13.jpg', text: 'Hành trình rực rỡ 🚀' },
+        { src: 'anh14.jpg', text: 'Mãi trân trọng 💖' }
+      ],
+      letterText: `Chúc mừng sinh nhật Thy nha! 🎂
+
+Tuổi mới rồi, anh chúc em thật nhiều sức khỏe, bình an và luôn giữ được nụ cười rạng rỡ trên môi. Hôm nay tự nhiên anh nhớ lại mấy câu chuyện vu vơ tụi mình từng kể, nên ngồi viết vài dòng dài một chút, lắm chữ một tẹo để gửi cho em trong ngày đặc biệt này.
+
+Em biết đó, đôi khi cuộc sống này ngộ lắm, tốt đâu có nghĩa là được ưu ái đâu he, cũng phải cố gắng, cũng phải kiếm tìm. Nhưng có những lúc mải miết chạy theo guồng quay đó, người ta lại dễ mong chờ ngày mai tốt đẹp hơn, mà quên mất ngày hôm nay cũng từng là ngày mà chúng ta mong chờ. Anh biết có những giai đoạn em cũng đắn đo, phân vân giữa việc nhiều khi nên chọn bằng lòng chấp nhận với hiện tại, hay là tiến thêm và có thể mất hết tất cả. Những lúc thấy lòng chông chênh hay áp lực quá, cứ thử cho phép mình chậm lại một nhịp, hít thở thật sâu hoặc đi đâu đó thật xa. Giống như cảm giác khi đứng trước thiên nhiên vậy, nhìn biển với cảnh vật rộng lớn, bao la thế mới thấy muộn phiền của mình nhỏ bé đến nhường nào.
+
+Sang tuổi mới, anh không mong em phải gồng mình lên để trở nên hoàn hảo, chỉ mong em mỗi ngày đều sống như một bông hoa đang nở, không phải để làm đẹp lòng người khác, mà là để tỏa hương cho chính mình. 🌸
+
+Hãy yêu thương bản thân như cách đất trời chăm chút cho từng tia nắng, như cách cơn mưa tưới mát những cánh đồng khô cằn. Bởi lẽ, chỉ khi biết yêu chính mình, em mới có thể thật sự yêu thương và được yêu thương. ✨ Nếu có ngày nào đó mọi thứ hơi quá tải, em cũng đừng ngại yếu lòng. Khóc không phải là yếu đuối, mà là cách tâm hồn tự làm lành sau những vết xước. Hãy nhớ rằng, mạnh mẽ không đồng nghĩa với việc gồng mình, mà là học cách buông bỏ những điều chưa xứng đáng. 🍃
+
+Anh hy vọng trái tim em sẽ luôn giữ được khả năng rung động trước những điều đẹp đẽ trong cuộc sống. Có thể là một người khiến em thấy ấm áp, một ước mơ khiến em muốn cố gắng, hay một khoảnh khắc giản dị nhưng đủ làm lòng mình xao động. 💛 Và anh cũng mong rằng dù đã trải qua bao nhiêu chuyện, trái tim đó vẫn còn đủ dịu dàng để bất ngờ, đủ tin tưởng để yêu thương và đủ háo hức để đón nhận những điều tuyệt vời đang chờ phía trước... 🌻🐥
+
+Người ta hay nói trăm lối đi chỉ muốn một lối về, vạn người nhớ chỉ muốn một người thương. Anh tin là rồi sẽ có nơi vừa đủ để bạn ngồi thật lâu, sẽ có người vừa đủ để bạn đậm sâu. Còn trên hành trình hiện tại, với tư cách là một người anh, anh biết là em giỏi mà, nhưng đôi khi cứ để anh che chở một chút, không phải để bảo vệ, mà để em biết em không cô đơn. Anh không phải lúc nào cũng giải quyết được hết mọi vấn đề cho em, nhưng mà ngồi xuống để nghe em chia sẻ, giãi bày thì lúc nào cũng sẵn lòng. Một lúc nào đó anh có thể tạo được sự tin tưởng cho em, thì em nhìn về hướng nào cũng sẽ thấy được anh ở đó nè he.
+
+Tuổi mới thật rực rỡ và hạnh phúc nhé cô bé! 🥂✨`
+    };
+
+    document.getElementById('letter-content').textContent = CONFIG.letterText;
+
+    /* =========================================================================
+       2. MULTI-LAYER AUDIO ENGINE (ADVENTURE / PIANO HB / OBITO / SYMPHONY)
+    ========================================================================= */
+    let audioCtx = null;
+    let currentSynthMode = 'none'; // 'none' | 'adventure' | 'piano_hb' | 'symphony'
+    let synthTimer = null;
+    const obitoAudio = document.getElementById('audio-obito');
+
+    function initAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
 
-      init() {
-        if (!this.ctx) {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioCtx();
-        }
-        if (this.ctx.state === "suspended") {
-          this.ctx.resume();
-        }
-      }
+    function playTone(freq, duration, type = 'sine', vol = 0.08, delay = 0) {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime + delay;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(vol, now + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.05);
+    }
 
-      playGlassCrackSound() {
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const bufferSize = this.ctx.sampleRate * 0.42;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.07));
-        }
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
+    function playClickTick() {
+      initAudioCtx();
+      playTone(680, 0.04, 'triangle', 0.04);
+    }
 
-        const filter = this.ctx.createBiquadFilter();
-        filter.type = "highpass";
-        filter.frequency.setValueAtTime(1700, now);
-
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.4, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-        noise.start(now);
-      }
-
-      playPianoNote(freq, duration = 0.85, volume = 0.16, type = "triangle") {
-        if (this.isPausedForMedia || !this.ctx || !freq) return;
-        const now = this.ctx.currentTime;
-
-        const osc = this.ctx.createOscillator();
-        const overtone = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, now);
-
-        overtone.type = "sine";
-        overtone.frequency.setValueAtTime(freq * 2, now);
-
-        const overtoneGain = this.ctx.createGain();
-        overtoneGain.gain.setValueAtTime(volume * 0.28, now);
-        overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.65);
-
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(volume, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-        osc.connect(gain);
-        overtone.connect(overtoneGain);
-        overtoneGain.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        osc.start(now);
-        overtone.start(now);
-        osc.stop(now + duration + 0.05);
-        overtone.stop(now + duration + 0.05);
-      }
-
-      playSirenPulse() {
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(920, now);
-        osc.frequency.linearRampToValueAtTime(580, now + 0.22);
-        gain.gain.setValueAtTime(0.16, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.27);
-      }
-
-      stopLoop() {
-        if (this.timer) {
-          clearTimeout(this.timer);
-          this.timer = null;
-        }
-        this.mp3Player.pause();
-      }
-
-      setScene(sceneNum) {
-        this.init();
-        this.stopLoop();
-        this.currentScene = sceneNum;
-        this.step = 0;
-
-        let customUrl = "";
-        if (sceneNum === 1) customUrl = CONFIG.musicTracks.track1_hpbd;
-        if (sceneNum === 2) customUrl = CONFIG.musicTracks.track2_mystery;
-        if (sceneNum === 3) customUrl = CONFIG.musicTracks.track3_romantic;
-
-        if (customUrl && customUrl.trim() !== "") {
-          this.mp3Player.src = customUrl;
-          this.mp3Player.volume = 0.65;
-          if (!this.isPausedForMedia) this.mp3Player.play().catch(() => {});
-          return;
-        }
-
-        if (sceneNum === 1) this.runHpbdPiano();
-        else if (sceneNum === 2) this.runMysterySymphony();
-        else if (sceneNum === 3) this.runRomanticSymphony();
-      }
-
-      runHpbdPiano() {
-        const N = {
-          C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00,
-          A4: 440.00, Bb4: 466.16, C5: 523.25, F3: 174.61, C3: 130.81, Bb3: 233.08
-        };
-        const melody = [
-          { f: N.C4, b: N.F3, d: 380 }, { f: N.C4, d: 220 }, { f: N.D4, d: 600 }, { f: N.C4, d: 600 }, { f: N.F4, b: N.C3, d: 600 }, { f: N.E4, d: 1100 },
-          { f: N.C4, b: N.C3, d: 380 }, { f: N.C4, d: 220 }, { f: N.D4, d: 600 }, { f: N.C4, d: 600 }, { f: N.G4, b: N.F3, d: 600 }, { f: N.F4, d: 1100 },
-          { f: N.C4, b: N.F3, d: 380 }, { f: N.C4, d: 220 }, { f: N.C5, d: 600 }, { f: N.A4, d: 600 }, { f: N.F4, b: N.Bb3, d: 600 }, { f: N.E4, d: 600 }, { f: N.D4, d: 1100 },
-          { f: N.Bb4, b: N.Bb3, d: 380 }, { f: N.Bb4, d: 220 }, { f: N.A4, b: N.F3, d: 600 }, { f: N.F4, d: 600 }, { f: N.G4, b: N.C3, d: 600 }, { f: N.F4, b: N.F3, d: 1500 }
-        ];
-        const playNext = () => {
-          if (this.currentScene !== 1) return;
-          const note = melody[this.step % melody.length];
-          this.playPianoNote(note.f, (note.d / 1000) * 1.45, 0.17, "triangle");
-          if (note.b) this.playPianoNote(note.b, 1.8, 0.1, "sine");
-          this.step++;
-          this.timer = setTimeout(playNext, note.d);
-        };
-        playNext();
-      }
-
-      runMysterySymphony() {
-        const arp = [329.63, 392.00, 493.88, 659.25, 739.99, 659.25, 493.88, 392.00,
-                     293.66, 369.99, 440.00, 587.33, 659.25, 587.33, 440.00, 369.99];
-        const playNext = () => {
-          if (this.currentScene !== 2) return;
-          const freq = arp[this.step % arp.length];
-          this.playPianoNote(freq, 1.3, 0.12, "sine");
-          if (this.step % 8 === 0) this.playPianoNote(freq / 2, 2.6, 0.09, "triangle");
-          this.step++;
-          this.timer = setTimeout(playNext, 340);
-        };
-        playNext();
-      }
-
-      runRomanticSymphony() {
-        const chords = [
-          [261.63, 329.63, 392.00, 493.88, 523.25],
-          [220.00, 261.63, 329.63, 392.00, 440.00],
-          [174.61, 220.00, 261.63, 329.63, 349.23],
-          [196.00, 246.94, 293.66, 329.63, 392.00]
-        ];
-        const playNext = () => {
-          if (this.currentScene !== 3) return;
-          const chordIdx = Math.floor(this.step / 6) % chords.length;
-          const noteIdx = this.step % 5;
-          const chord = chords[chordIdx];
-          if (this.step % 6 === 0) this.playPianoNote(chord[0] / 2, 2.8, 0.12, "sine");
-          this.playPianoNote(chord[noteIdx], 1.6, 0.13, "triangle");
-          this.step++;
-          this.timer = setTimeout(playNext, 420);
-        };
-        playNext();
-      }
-
-      pauseForMedia(shouldPause) {
-        this.isPausedForMedia = shouldPause;
-        if (shouldPause) {
-          this.mp3Player.pause();
-        } else if (this.mp3Player.src) {
-          this.mp3Player.play().catch(() => {});
-        }
+    function playGlassSound() {
+      initAudioCtx();
+      for (let i = 0; i < 8; i++) {
+        playTone(1200 + Math.random() * 2400, 0.18, 'sawtooth', 0.06, i * 0.025);
       }
     }
 
-    const symphony = new SymphonyEngine();
+    function setMusicMode(mode) {
+      if (currentSynthMode === mode) return;
+      currentSynthMode = mode;
+      if (synthTimer) { clearInterval(synthTimer); synthTimer = null; }
 
-    // =========================================================================
-    // 2. CANVAS VŨ TRỤ: CHỮ 3D + BỤI TIÊN CHẠM TAY + SAO BĂNG + PHÁO HOA
-    // =========================================================================
-    const canvas = document.getElementById("fx-canvas");
-    const ctx = canvas.getContext("2d");
-    let W = canvas.width = window.innerWidth;
-    let H = canvas.height = window.innerHeight;
+      if (mode !== 'obito') {
+        obitoAudio.pause();
+      }
 
-    window.addEventListener("resize", () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      if (fxMode === "text3d") create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
+      if (mode === 'none') return;
+      initAudioCtx();
+
+      if (mode === 'adventure') {
+        // Nhạc phiêu lưu kỳ thú (Stage 3 & 4)
+        const arp = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 293.66, 349.23, 440.00, 587.33, 440.00, 349.23];
+        let step = 0;
+        synthTimer = setInterval(() => {
+          playTone(arp[step % arp.length], 0.35, 'triangle', 0.065);
+          if (step % 4 === 0) playTone(arp[step % arp.length] / 2, 0.7, 'sine', 0.07);
+          step++;
+        }, 230);
+      } else if (mode === 'piano_hb') {
+        // Nhạc Happy Birthday Piano nhẹ nhàng (Stage 5)
+        const notes = [
+          [261.6,0.3],[261.6,0.3],[293.6,0.6],[261.6,0.6],[349.2,0.6],[329.6,1.0],
+          [261.6,0.3],[261.6,0.3],[293.6,0.6],[261.6,0.6],[392.0,0.6],[349.2,1.0],
+          [261.6,0.3],[261.6,0.3],[523.2,0.6],[440.0,0.6],[349.2,0.6],[329.6,0.6],[293.6,1.0],
+          [466.1,0.3],[466.1,0.3],[440.0,0.6],[349.2,0.6],[392.0,0.6],[349.2,1.2]
+        ];
+        let idx = 0;
+        const playNextHB = () => {
+          if (currentSynthMode !== 'piano_hb') return;
+          const [f, d] = notes[idx % notes.length];
+          playTone(f, d * 1.15, 'sine', 0.09);
+          playTone(f * 0.5, d * 1.15, 'triangle', 0.04);
+          idx++;
+          synthTimer = setTimeout(playNextHB, d * 560);
+        };
+        playNextHB();
+      } else if (mode === 'obito') {
+        // Nhạc Obito (Stage 6 & 7)
+        obitoAudio.volume = 0.85;
+        obitoAudio.play().catch(() => {});
+      } else if (mode === 'symphony') {
+        // Giao hưởng du dương sâu lắng (Stage 8)
+        const chords = [
+          [261.63, 329.63, 392.00, 493.88],
+          [220.00, 261.63, 329.63, 392.00],
+          [174.61, 220.00, 261.63, 349.23],
+          [196.00, 246.94, 293.66, 392.00]
+        ];
+        let cIdx = 0;
+        const playChord = () => {
+          if (currentSynthMode !== 'symphony') return;
+          const ch = chords[cIdx % chords.length];
+          ch.forEach((freq, i) => playTone(freq, 2.4, 'sine', 0.045, i * 0.18));
+          cIdx++;
+        };
+        playChord();
+        synthTimer = setInterval(playChord, 2500);
+      }
+    }
+
+    // Tự nhỏ tiếng giao hưởng khi Thy xem video lời chúc của Long
+    const wishVideo = document.getElementById('wish-video');
+    wishVideo.addEventListener('play', () => {
+      if (currentSynthMode === 'symphony') {
+        clearInterval(synthTimer);
+        synthTimer = null;
+      }
+    });
+    wishVideo.addEventListener('pause', () => {
+      if (document.getElementById('stage-finale').classList.contains('active')) {
+        currentSynthMode = 'none';
+        setMusicMode('symphony');
+      }
+    });
+    wishVideo.addEventListener('ended', () => {
+      if (document.getElementById('stage-finale').classList.contains('active')) {
+        currentSynthMode = 'none';
+        setMusicMode('symphony');
+      }
     });
 
-    let fxMode = "none";
-    let textParticles = [];
-    let fireworks = [];
-    let sparks = [];
-    let touchGlitters = [];
-    let shootingStars = [];
+    /* =========================================================================
+       3. GLOBAL CYBER MATRIX BACKGROUND (PINK NEON RAIN + FLOATING PETALS)
+    ========================================================================= */
+    const bgCanvas = document.getElementById('cyber-bg-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    let bgW, bgH, matrixDrops = [];
+    const matrixChars = '0120112010QUYTHYSWEET16♥✿';
 
-    let stars = Array.from({ length: 120 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: Math.random() * 1.9 + 0.3,
-      alpha: Math.random(),
-      speed: Math.random() * 0.025 + 0.006,
-      hue: Math.random() > 0.65 ? 45 : 330
-    }));
-
-    function spawnTouchBurst(x, y, count = 12) {
-      if (fxMode === "none") return;
-      for (let i = 0; i < count; i++) {
-        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
-        const speed = Math.random() * 3.2 + 0.8;
-        touchGlitters.push({
-          x, y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.5,
-          size: Math.random() * 3.5 + 1.5,
-          alpha: 1,
-          isHeart: i % 3 === 0,
-          color: ["#fde047", "#f472b6", "#ffffff", "#38bdf8"][Math.floor(Math.random() * 4)]
-        });
-      }
+    function resizeBg() {
+      bgW = bgCanvas.width = window.innerWidth;
+      bgH = bgCanvas.height = window.innerHeight;
+      const cols = Math.floor(bgW / 18);
+      matrixDrops = Array(cols).fill(0).map(() => Math.random() * -50);
     }
-    window.addEventListener("pointerdown", e => spawnTouchBurst(e.clientX, e.clientY, 16));
-    window.addEventListener("pointermove", e => spawnTouchBurst(e.clientX, e.clientY, 4));
+    window.addEventListener('resize', resizeBg);
+    resizeBg();
 
-    function create3DTextParticles(text) {
-      textParticles = [];
-      const anchor = document.getElementById("text3d-anchor-zone");
-      let targetCenterY = H * 0.36;
-      if (anchor) {
-        const rect = anchor.getBoundingClientRect();
-        if (rect.height > 0) {
-          targetCenterY = rect.top + rect.height / 2;
+    let cyberRainActive = false;
+    function renderCyberBg() {
+      if (!cyberRainActive) {
+        bgCtx.clearRect(0, 0, bgW, bgH);
+      } else {
+        bgCtx.fillStyle = 'rgba(7, 3, 14, 0.16)';
+        bgCtx.fillRect(0, 0, bgW, bgH);
+        bgCtx.font = '14px Orbitron, monospace';
+        for (let i = 0; i < matrixDrops.length; i++) {
+          const ch = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          const x = i * 18;
+          const y = matrixDrops[i] * 18;
+          bgCtx.fillStyle = Math.random() > 0.85 ? '#ffd166' : 'rgba(255, 62, 157, 0.55)';
+          bgCtx.fillText(ch, x, y);
+          if (y > bgH && Math.random() > 0.975) matrixDrops[i] = 0;
+          matrixDrops[i] += 0.65;
         }
       }
+      requestAnimationFrame(renderCyberBg);
+    }
+    renderCyberBg();
 
-      const off = document.createElement("canvas");
-      const octx = off.getContext("2d");
-      off.width = W;
-      off.height = 140;
-
-      let fontSize = Math.min(W * 0.09, 38);
-      octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
-      while (octx.measureText(text).width > W * 0.85 && fontSize > 18) {
-        fontSize -= 2;
-        octx.font = `bold ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
-      }
-
-      octx.fillStyle = "#ffffff";
-      octx.textAlign = "center";
-      octx.textBaseline = "middle";
-      octx.fillText(text, W / 2, 70);
-
-      const data = octx.getImageData(0, 0, W, 140).data;
-      const step = W < 420 ? 3 : 4;
-      for (let y = 0; y < 140; y += step) {
-        for (let x = 0; x < W; x += step) {
-          const idx = (y * W + x) * 4;
-          if (data[idx + 3] > 145) {
-            const palette = ["#f472b6", "#fde047", "#ffffff", "#fb7185"];
-            textParticles.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              tx: x,
-              ty: targetCenterY + (y - 70),
-              color: palette[Math.floor(Math.random() * palette.length)],
-              size: Math.random() * 2 + 1
-            });
-          }
-        }
-      }
+    function switchStage(id) {
+      document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
-    function launchFirework(isHeart = false) {
-      const startX = Math.random() * W * 0.8 + W * 0.1;
-      const targetY = Math.random() * H * 0.35 + H * 0.1;
-      const hue = isHeart ? 335 : Math.floor(Math.random() * 360);
-      fireworks.push({
-        x: startX, y: H, ty: targetY,
-        vy: -(Math.random() * 4 + 7.8),
-        hue, isHeart
-      });
-    }
+    /* =========================================================================
+       4. STAGE 1 -> STAGE 2: GLASS SHATTER & 3-CHARACTER DIALOGUE
+    ========================================================================= */
+    function triggerGlassShatter() {
+      playGlassSound();
+      document.body.classList.add('shake-screen');
+      const container = document.getElementById('glass-shatter-container');
+      container.style.display = 'block';
+      container.innerHTML = '';
 
-    function explodeFirework(fw) {
-      const count = fw.isHeart ? 85 : 65;
-      for (let i = 0; i < count; i++) {
-        let vx, vy;
-        if (fw.isHeart) {
-          const t = (Math.PI * 2 * i) / count;
-          const hx = 16 * Math.pow(Math.sin(t), 3);
-          const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-          vx = hx * 0.23;
-          vy = hy * 0.23;
-        } else {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 5 + 1.2;
-          vx = Math.cos(angle) * speed;
-          vy = Math.sin(angle) * speed;
-        }
-        sparks.push({
-          x: fw.x, y: fw.y, vx, vy,
-          alpha: 1,
-          decay: Math.random() * 0.015 + 0.011,
-          color: fw.isHeart ? (i % 3 === 0 ? "#fde047" : "#ff4d94") : `hsl(${fw.hue}, 95%, 70%)`
-        });
-      }
-    }
-
-    function drawMiniHeart(c, x, y, size, color) {
-      c.fillStyle = color;
-      c.beginPath();
-      c.moveTo(x, y);
-      c.bezierCurveTo(x - size, y - size, x - size * 1.6, y + size * 0.5, x, y + size * 1.5);
-      c.bezierCurveTo(x + size * 1.6, y + size * 0.5, x + size, y - size, x, y);
-      c.fill();
-    }
-
-    function animateCanvas() {
-      requestAnimationFrame(animateCanvas);
-      if (fxMode === "none") {
-        ctx.clearRect(0, 0, W, H);
-        return;
-      }
-
-      ctx.fillStyle = "rgba(6, 2, 14, 0.22)";
-      ctx.fillRect(0, 0, W, H);
-
-      stars.forEach(s => {
-        s.alpha += s.speed;
-        if (s.alpha > 1 || s.alpha < 0.1) s.speed *= -1;
-        ctx.fillStyle = `hsla(${s.hue}, 100%, 88%, ${Math.abs(s.alpha)})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      if (Math.random() < 0.022) {
-        shootingStars.push({
-          x: Math.random() * W,
-          y: Math.random() * H * 0.4,
-          vx: -(Math.random() * 7 + 6),
-          vy: Math.random() * 4 + 3,
-          life: 1
-        });
-      }
-      for (let i = shootingStars.length - 1; i >= 0; i--) {
-        const ss = shootingStars[i];
-        ss.x += ss.vx;
-        ss.y += ss.vy;
-        ss.life -= 0.03;
-        if (ss.life <= 0) {
-          shootingStars.splice(i, 1);
-        } else {
-          const grad = ctx.createLinearGradient(ss.x, ss.y, ss.x - ss.vx * 5, ss.y - ss.vy * 5);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${ss.life})`);
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(ss.x, ss.y);
-          ctx.lineTo(ss.x - ss.vx * 5, ss.y - ss.vy * 5);
-          ctx.stroke();
-        }
-      }
-
-      if (fxMode === "text3d") {
-        textParticles.forEach(p => {
-          p.x += (p.tx - p.x) * 0.09;
-          p.y += (p.ty - p.y) * 0.09;
-          ctx.fillStyle = p.color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-      }
-
-      if ((fxMode === "text3d" || fxMode === "fireworks" || fxMode === "heart_finale") &&
-          Math.random() < (fxMode === "heart_finale" ? 0.095 : 0.055)) {
-        launchFirework(fxMode === "heart_finale" ? Math.random() > 0.25 : false);
-      }
-
-      for (let i = fireworks.length - 1; i >= 0; i--) {
-        const fw = fireworks[i];
-        fw.y += fw.vy;
-        fw.vy += 0.12;
-        ctx.fillStyle = "#fef08a";
-        ctx.beginPath();
-        ctx.arc(fw.x, fw.y, 2.4, 0, Math.PI * 2);
-        ctx.fill();
-        if (fw.vy >= 0 || fw.y <= fw.ty) {
-          explodeFirework(fw);
-          fireworks.splice(i, 1);
-        }
-      }
-
-      for (let i = sparks.length - 1; i >= 0; i--) {
-        const sp = sparks[i];
-        sp.x += sp.vx;
-        sp.y += sp.vy;
-        sp.vy += 0.042;
-        sp.alpha -= sp.decay;
-        if (sp.alpha <= 0) {
-          sparks.splice(i, 1);
-        } else {
-          ctx.globalAlpha = sp.alpha;
-          ctx.fillStyle = sp.color;
-          ctx.beginPath();
-          ctx.arc(sp.x, sp.y, 2.2, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-      }
-
-      for (let i = touchGlitters.length - 1; i >= 0; i--) {
-        const g = touchGlitters[i];
-        g.x += g.vx;
-        g.y += g.vy;
-        g.alpha -= 0.03;
-        if (g.alpha <= 0) {
-          touchGlitters.splice(i, 1);
-        } else {
-          ctx.globalAlpha = g.alpha;
-          if (g.isHeart) {
-            drawMiniHeart(ctx, g.x, g.y, g.size * 1.4, g.color);
-          } else {
-            ctx.fillStyle = g.color;
-            ctx.beginPath();
-            ctx.arc(g.x, g.y, g.size, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          ctx.globalAlpha = 1;
-        }
-      }
-    }
-    animateCanvas();
-
-    // =========================================================================
-    // 3. HIỆU ỨNG VỠ KÍNH CƯỜNG LỰC TOÀN MÀN HÌNH
-    // =========================================================================
-    function switchStage(hideId, showId) {
-      document.getElementById(hideId).classList.add("hidden");
-      document.getElementById(showId).classList.remove("hidden");
-    }
-
-    let twist1Started = false;
-    function triggerTwist1(e) {
-      if (twist1Started) return;
-      twist1Started = true;
-
-      symphony.playGlassCrackSound();
-      symphony.setScene(1);
-      if (navigator.vibrate) navigator.vibrate([120, 70, 220, 90, 320]);
-
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const stageContainer = document.getElementById("stage-container");
-      const fullLayer = document.getElementById("fullscreen-shatter-layer");
-
-      document.body.classList.add("bling-universe");
-      fxMode = "fireworks";
-
-      const impactX = e ? e.clientX : vw * 0.5;
-      const impactY = e ? e.clientY : vh * 0.55;
-
-      const cols = 4;
-      const rows = 7;
-      const pts = [];
-      for (let r = 0; r <= rows; r++) {
-        const rowPts = [];
-        for (let c = 0; c <= cols; c++) {
-          let px = (c / cols) * vw;
-          let py = (r / rows) * vh;
-          if (r > 0 && r < rows) py += (Math.random() - 0.5) * (vh / rows) * 0.72;
-          if (c > 0 && c < cols) px += (Math.random() - 0.5) * (vw / cols) * 0.72;
-          rowPts.push([px, py]);
-        }
-        pts.push(rowPts);
-      }
-
-      fullLayer.innerHTML = "";
-      const shardElements = [];
-
-      const cleanTemplate = stageContainer.cloneNode(true);
-      cleanTemplate.removeAttribute("id");
-      cleanTemplate.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
-      const sectionsInClone = cleanTemplate.querySelectorAll("section");
-      sectionsInClone.forEach((sec, idx) => {
-        if (idx > 0) sec.remove();
-      });
+      const rows = 7, cols = 6;
+      const w = window.innerWidth / cols;
+      const h = window.innerHeight / rows;
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const p1 = pts[r][c];
-          const p2 = pts[r][c + 1];
-          const p3 = pts[r + 1][c + 1];
-          const p4 = pts[r + 1][c];
+          const shard = document.createElement('div');
+          shard.className = 'glass-shard';
+          shard.style.left = `${c * w}px`;
+          shard.style.top = `${r * h}px`;
+          shard.style.width = `${w + 2}px`;
+          shard.style.height = `${h + 2}px`;
+          shard.style.clipPath = `polygon(${Math.random()*20}% 0%, 100% ${Math.random()*20}%, ${80+Math.random()*20}% 100%, 0% ${80+Math.random()*20}%)`;
+          container.appendChild(shard);
 
-          [[p1, p2, p3], [p1, p3, p4]].forEach(tri => {
-            const shard = document.createElement("div");
-            shard.className = "fullscreen-glass-shard flex flex-col items-center justify-center";
-
-            const cloneMain = cleanTemplate.cloneNode(true);
-            shard.appendChild(cloneMain);
-
-            const clipStr = `polygon(${tri[0][0]}px ${tri[0][1]}px, ${tri[1][0]}px ${tri[1][1]}px, ${tri[2][0]}px ${tri[2][1]}px)`;
-            shard.style.clipPath = clipStr;
-            shard.style.webkitClipPath = clipStr;
-
-            const cx = (tri[0][0] + tri[1][0] + tri[2][0]) / 3;
-            const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3;
-            shard.style.transformOrigin = `${cx}px ${cy}px`;
-
-            const dx = cx - impactX;
-            const dy = cy - impactY;
-            const dist = Math.hypot(dx, dy) + 1;
-            const push = Math.max(5, 26 - dist * 0.045);
-
-            const initTx = (dx / dist) * push;
-            const initTy = (dy / dist) * push;
-            const initRotX = (Math.random() - 0.5) * 24;
-            const initRotY = (Math.random() - 0.5) * 24;
-            const initRotZ = (Math.random() - 0.5) * 12;
-
-            fullLayer.appendChild(shard);
-            shardElements.push({ el: shard, dx, dy, initTx, initTy, initRotX, initRotY, initRotZ });
+          requestAnimationFrame(() => {
+            const tx = (Math.random() - 0.5) * 320;
+            const ty = window.innerHeight + 250;
+            const rot = (Math.random() - 0.5) * 540;
+            shard.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`;
+            shard.style.opacity = '0';
           });
         }
       }
 
-      const stage1El = document.getElementById("stage-1");
-      if (stage1El) stage1El.remove();
+      setTimeout(() => {
+        document.body.classList.remove('shake-screen');
+        container.style.display = 'none';
+        switchStage('stage-dialogue');
+        startDialogueScript();
+      }, 950);
+    }
 
-      fullLayer.classList.remove("hidden");
+    const DIALOGUE_STEPS = [
+      { who: 'nv1', name: 'Long', img: CONFIG.stickers.nv1_1, solo: true, text: 'À mà khoan, nay là ngày gì nhỉ?' },
+      { who: 'nv2', name: 'Ông Bạn 2', img: CONFIG.stickers.nv2_1, text: 'Ờ thì nay là ngày 20 tháng 11, ngày Nhà giáo Việt Nam.' },
+      { who: 'nv3', name: 'Ông Bạn 3', img: CONFIG.stickers.nv3_1, text: 'Chứ còn gì nữa cha này hỏi câu kì.' },
+      { who: 'nv1', name: 'Long', img: CONFIG.stickers.nv1_2, text: 'Ừ thì đúng là vậy. Nhưng 2 ông thử nghĩ kĩ lại xem ngày hôm nay còn gì đặc biệt nữa.' },
+      { who: 'confused', name: 'Ông Bạn 2 & 3', img: CONFIG.stickers.ngongac, text: '... ??? (Hai ông bạn đang đứng hình suy nghĩ cực mạnh...)' },
+      { who: 'nv2', name: 'Ông Bạn 2', img: CONFIG.stickers.nv2_2, text: 'Hay là anh em mình có hẹn đi bơi hia.' },
+      { who: 'nv3', name: 'Ông Bạn 3', img: CONFIG.stickers.nv3_2, text: 'Ý kiến hay, giơ 2 tay tán thành liền.' },
+      { who: 'nv1', name: 'Long', img: CONFIG.stickers.nv1_3, text: '2 ông cứ luyên thuyên.' },
+      { who: 'nv1', name: 'Long', img: CONFIG.stickers.nv1_4, text: 'Vẫn chưa nghĩ ra chứ gì. Chắc mọi người cũng vậy để mình bật mí ngay sau đây nhé.' }
+    ];
 
-      requestAnimationFrame(() => {
-        shardElements.forEach(s => {
-          s.el.style.transform = `translate3d(${s.initTx}px, ${s.initTy}px, 18px) rotateX(${s.initRotX}deg) rotateY(${s.initRotY}deg) rotateZ(${s.initRotZ}deg)`;
-          s.el.style.filter = "brightness(1.05) contrast(1.08)";
-        });
+    let dlgIdx = 0;
+    let isTyping = false;
+    let typeInterval = null;
+
+    function startDialogueScript() {
+      dlgIdx = 0;
+      renderDialogueStep(0);
+    }
+
+    function renderDialogueStep(index) {
+      const step = DIALOGUE_STEPS[index];
+      const nv1Box = document.getElementById('char-nv1');
+      const nv2Box = document.getElementById('char-nv2');
+      const nv3Box = document.getElementById('char-nv3');
+      const q2 = document.getElementById('q-nv2');
+      const q3 = document.getElementById('q-nv3');
+
+      [nv1Box, nv2Box, nv3Box].forEach(b => b.classList.remove('speaking'));
+      q2.style.display = 'none';
+      q3.style.display = 'none';
+
+      if (step.solo) {
+        nv1Box.classList.add('center-solo', 'visible', 'speaking');
+        document.getElementById('img-nv1').src = step.img;
+      } else {
+        nv1Box.classList.remove('center-solo');
+        nv1Box.classList.add('visible');
+        nv2Box.classList.add('visible');
+        nv3Box.classList.add('visible');
+
+        if (step.who === 'nv1') {
+          nv1Box.classList.add('speaking');
+          document.getElementById('img-nv1').src = step.img;
+        } else if (step.who === 'nv2') {
+          nv2Box.classList.add('speaking');
+          document.getElementById('img-nv2').src = step.img;
+        } else if (step.who === 'nv3') {
+          nv3Box.classList.add('speaking');
+          document.getElementById('img-nv3').src = step.img;
+        } else if (step.who === 'confused') {
+          nv2Box.classList.add('speaking');
+          nv3Box.classList.add('speaking');
+          document.getElementById('img-nv2').src = step.img;
+          document.getElementById('img-nv3').src = step.img;
+          q2.style.display = 'block';
+          q3.style.display = 'block';
+        }
+      }
+
+      document.getElementById('speaker-name').textContent = step.name;
+      const textEl = document.getElementById('dialogue-text');
+      textEl.textContent = '';
+      isTyping = true;
+      let charI = 0;
+      clearInterval(typeInterval);
+      typeInterval = setInterval(() => {
+        textEl.textContent += step.text[charI];
+        if (charI % 2 === 0) playClickTick();
+        charI++;
+        if (charI >= step.text.length) {
+          clearInterval(typeInterval);
+          isTyping = false;
+        }
+      }, 34);
+    }
+
+    function advanceDialogue() {
+      if (isTyping) {
+        clearInterval(typeInterval);
+        document.getElementById('dialogue-text').textContent = DIALOGUE_STEPS[dlgIdx].text;
+        isTyping = false;
+        return;
+      }
+      dlgIdx++;
+      if (dlgIdx < DIALOGUE_STEPS.length) {
+        renderDialogueStep(dlgIdx);
+      } else {
+        startSlotStage();
+      }
+    }
+
+    /* =========================================================================
+       5. STAGE 3: DATE SLOT ROLLER (20 -> 11 • 2010)
+    ========================================================================= */
+    function startSlotStage() {
+      switchStage('stage-slot');
+      setMusicMode('adventure');
+
+      const reel = document.getElementById('slot-reel');
+      reel.innerHTML = '';
+      const nums = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 15, 16, 17, 18, 19, 20, 21];
+      nums.forEach((n, idx) => {
+        const div = document.createElement('div');
+        div.className = 'slot-num';
+        div.textContent = n < 10 ? '0' + n : n;
+        if (idx === 18) div.id = 'target-20';
+        reel.appendChild(div);
       });
 
-      fullLayer.classList.add("screen-glitch-loop");
+      setTimeout(() => {
+        // Center index 18 in 210px window (each item 70px -> offset = (18 - 1) * 70 = 1190px)
+        reel.style.transform = 'translateY(-1190px)';
+      }, 150);
 
       setTimeout(() => {
-        fullLayer.classList.remove("screen-glitch-loop");
-        shardElements.forEach(s => {
-          s.el.style.transition = "transform 0.85s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.8s ease";
-          const fallX = s.dx * 0.55 + (Math.random() - 0.5) * 90;
-          const fallY = vh * 0.75 + Math.random() * 220;
-          const spinZ = (Math.random() - 0.5) * 140;
-          s.el.style.transform = `translate3d(${fallX}px, ${fallY}px, -90px) rotateX(${s.initRotX * 2}deg) rotateY(${s.initRotY * 2}deg) rotateZ(${spinZ}deg)`;
-          s.el.style.opacity = "0";
-        });
-      }, 3300);
+        document.getElementById('target-20').classList.add('locked');
+        document.getElementById('slot-my').classList.add('show');
+        document.getElementById('slot-hb-title').classList.add('show');
+      }, 2900);
 
       setTimeout(() => {
-        if (fullLayer) fullLayer.remove();
-        document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
-        document.getElementById("stage-reveal").classList.remove("hidden");
-        fxMode = "text3d";
-        requestAnimationFrame(() => {
-          create3DTextParticles(`Happy Birthday ${CONFIG.recipientName}`);
-        });
-      }, 4150);
+        startParticleMorphStage();
+      }, 4800);
     }
 
-    function goToStage2() {
-      fxMode = "fireworks";
-      switchStage("stage-reveal", "stage-2");
-    }
+    /* =========================================================================
+       6. STAGE 4: MATRIX PARTICLE MORPHING + CUPID BOW & ARROW
+       Sequence: 3 -> 2 -> 1 -> CHÚC MỪNG -> SINH NHẬT -> QUÝ THY -> SCORPIO -> TÙNG BÁCH MỘC -> JESUS CROSS -> HEART + BOW
+    ========================================================================= */
+    const pCanvas = document.getElementById('particle-morph-canvas');
+    const pCtx = pCanvas.getContext('2d');
+    let pW, pH, particles = [];
+    let morphAnimId = null;
+    let bowActive = false;
+    let arrowFlying = false;
+    let arrowProgress = 0;
+    let heartExploded = false;
 
-    // =========================================================================
-    // 4. TRANG 3: GHI ÂM ĐIỀU ƯỚC -> CHẠM MÀN HÌNH KÍCH HOẠT -> THỔI MIC
-    // =========================================================================
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let isRecording = false;
-    let recordedAudioBlob = null;
-    let wishCompleted = false;
-    let blowSensorActivated = false;
-
-    async function toggleVoiceRecord() {
-      const btn = document.getElementById("record-btn");
-      const icon = document.getElementById("record-icon");
-      const status = document.getElementById("record-status");
-      const sub = document.getElementById("record-sub");
-      const wave = document.getElementById("audio-wave");
-      const preview = document.getElementById("wish-audio-preview");
-
-      if (!isRecording) {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          symphony.pauseForMedia(true);
-          mediaRecorder = new MediaRecorder(stream);
-          audioChunks = [];
-          mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
-          mediaRecorder.onstop = () => {
-            recordedAudioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            preview.src = URL.createObjectURL(recordedAudioBlob);
-            preview.classList.remove("hidden");
-            stream.getTracks().forEach(t => t.stop());
-            symphony.pauseForMedia(false);
-            revealBlowPreparationPrompt();
-          };
-          mediaRecorder.start();
-          isRecording = true;
-          icon.textContent = "⏹️";
-          btn.classList.add("animate-pulse");
-          status.textContent = "Đang ghi âm điều ước tuổi 16...";
-          sub.textContent = "Thì thầm xong Thy bấm nút vuông để dừng nha";
-          wave.classList.remove("hidden");
-          wave.classList.add("flex");
-        } catch (err) {
-          status.textContent = "✨ Đã ghi nhận điều ước trong tim Thy!";
-          sub.textContent = "Xem hướng dẫn bên dưới nhé 👇";
-          revealBlowPreparationPrompt();
-        }
-      } else {
-        mediaRecorder.stop();
-        isRecording = false;
-        icon.textContent = "🎙️";
-        btn.classList.remove("animate-pulse");
-        status.textContent = "✅ Đã lưu trọn vẹn điều ước của Thy!";
-        sub.textContent = "Xem hướng dẫn thổi nến bên dưới nhé 👇";
-        wave.classList.add("hidden");
-        wave.classList.remove("flex");
-      }
-    }
-
-    function revealBlowPreparationPrompt() {
-      if (wishCompleted) return;
-      wishCompleted = true;
-      const area = document.getElementById("blow-instruction-area");
-      area.classList.remove("hidden");
-
-      const onScreenTapToArm = () => {
-        if (blowSensorActivated) return;
-        blowSensorActivated = true;
-        document.removeEventListener("pointerdown", onScreenTapToArm);
-        startMicrophoneBlowDetector();
-      };
-      setTimeout(() => {
-        document.addEventListener("pointerdown", onScreenTapToArm);
-      }, 250);
-    }
-
-    let blowStepCount = 0;
-    let blowCooldown = false;
-    let micStream = null;
-    let micCheckLoop = null;
-
-    async function startMicrophoneBlowDetector() {
-      const toast = document.getElementById("candle-toast");
-      toast.innerHTML = "🌬️ Giờ thì Thy lấy một hơi thật sâu, ghé sát khuôn miệng xinh lại gần ngọn nến để thổi tắt nến nào!";
-
-      try {
-        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const source = audioCtx.createMediaStreamSource(micStream);
-        const analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 256;
-        source.connect(analyser);
-
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        const detectWind = () => {
-          if (blowStepCount >= 3) return;
-          analyser.getByteFrequencyData(dataArray);
-          let lowSum = 0;
-          for (let i = 0; i < 16; i++) lowSum += dataArray[i];
-          const avgWind = lowSum / 16;
-          if (avgWind > 125) {
-            triggerCandleBlowResponse();
+    function samplePointsFromDrawer(drawFn, step = 5) {
+      const off = document.createElement('canvas');
+      off.width = pW; off.height = pH;
+      const octx = off.getContext('2d');
+      octx.fillStyle = '#fff';
+      octx.strokeStyle = '#fff';
+      drawFn(octx, pW, pH);
+      const data = octx.getImageData(0, 0, pW, pH).data;
+      const pts = [];
+      for (let y = 0; y < pH; y += step) {
+        for (let x = 0; x < pW; x += step) {
+          if (data[(y * pW + x) * 4 + 3] > 140) {
+            pts.push({ x, y });
           }
-          micCheckLoop = requestAnimationFrame(detectWind);
-        };
-        detectWind();
-      } catch (err) {
-        toast.innerHTML = "⚠️ Hãy cấp quyền Micro cho trình duyệt để thổi nến bằng hơi thở của Thy nhé!";
+        }
       }
+      return pts;
     }
 
-    function triggerCandleBlowResponse() {
-      if (blowCooldown || blowStepCount >= 3) return;
-      blowCooldown = true;
-      setTimeout(() => { blowCooldown = false; }, 1100);
-
-      blowStepCount++;
-      const flame = document.getElementById("candle-flame");
-      const cake = document.getElementById("cake-wrapper");
-      const candleStick = document.getElementById("candle-stick");
-      const toast = document.getElementById("candle-toast");
-
-      if (blowStepCount === 1) {
-        flame.classList.add("super-flame");
-        toast.innerHTML = "😜 Tình yêu chưa ăn cơm hay sao mà thổi yếu xìu, hời hợt quá vậy nè! Ngọn lửa còn cháy bùng to hơn nữa kìa, lấy hơi thổi mạnh hơn đi nào!";
-      } else if (blowStepCount === 2) {
-        flame.classList.remove("super-flame");
-        cake.classList.add("cake-dodging");
-        toast.innerHTML = "🤭 Suýt trúng rồi! Chiếc bánh đang lắc lư né sang hai bên kìa, thổi thêm một hơi thật mạnh nữa để giữ bánh đứng yên và thổi tắt nến nào!";
-      } else if (blowStepCount === 3) {
-        if (micCheckLoop) cancelAnimationFrame(micCheckLoop);
-        if (micStream) micStream.getTracks().forEach(t => t.stop());
-
-        cake.classList.remove("cake-dodging");
-        cake.style.transform = "translateX(0) rotateY(0deg)";
-        flame.style.opacity = "0";
-        flame.style.transform = "translateX(-50%) scale(0)";
-
-        for (let s = 0; s < 4; s++) {
-          setTimeout(() => {
-            const smoke = document.createElement("div");
-            smoke.className = "smoke-puff";
-            candleStick.appendChild(smoke);
-          }, s * 200);
-        }
-
-        toast.innerHTML = "✨ Tuyệt vời! Điều ước tuổi 16 đã bay lên bầu trời sao... Đang mở hộp quà bí mật!";
-        for (let i = 0; i < 8; i++) setTimeout(() => launchFirework(true), i * 150);
-
-        setTimeout(() => {
-          symphony.setScene(2);
-          switchStage("stage-2", "stage-3");
-        }, 1700);
-      }
-    }
-
-    // =========================================================================
-    // 5. TRANG 4: QUÉT VÂN TAY LƯỢT 1 -> BÁO ĐỘNG ĐỎ -> QUÉT THẺ ĐEN LƯỢT 2
-    // =========================================================================
-    let scan1Timer = null;
-    let scan1Pct = 0;
-    let scan1Done = false;
-    let alarmInterval = null;
-
-    function startScan1(e) {
-      if (e) e.preventDefault();
-      if (scan1Done) return;
-      const ring = document.getElementById("scan-ring-1");
-      const pct = document.getElementById("scan-percent-1");
-
-      scan1Timer = setInterval(() => {
-        scan1Pct += 4;
-        if (scan1Pct > 100) scan1Pct = 100;
-        ring.style.strokeDashoffset = 289 - (scan1Pct / 100) * 289;
-        pct.textContent = `${scan1Pct}%`;
-
-        if (scan1Pct >= 100) {
-          clearInterval(scan1Timer);
-          scan1Done = true;
-          triggerRedAlertSequence();
-        }
-      }, 65);
-    }
-
-    function stopScan1() {
-      if (scan1Done) return;
-      clearInterval(scan1Timer);
-      scan1Pct = 0;
-      document.getElementById("scan-ring-1").style.strokeDashoffset = 289;
-      document.getElementById("scan-percent-1").textContent = "GIỮ VÂN TAY";
-    }
-
-    function triggerRedAlertSequence() {
-      document.getElementById("scanner-box-1").classList.add("hidden");
-      document.getElementById("vault-subtitle").classList.add("hidden");
-
-      const globalFrame = document.getElementById("global-red-alarm-frame");
-      const errBox = document.getElementById("fake-error-box");
-      globalFrame.classList.remove("hidden");
-      errBox.classList.remove("hidden");
-
-      symphony.playSirenPulse();
-      if (navigator.vibrate) navigator.vibrate([300, 120, 300, 120, 400]);
-
-      alarmInterval = setInterval(() => {
-        symphony.playSirenPulse();
-        if (navigator.vibrate) navigator.vibrate([250, 150, 250]);
-      }, 750);
-
-      setTimeout(() => {
-        clearInterval(alarmInterval);
-        globalFrame.classList.add("hidden");
-        document.getElementById("black-card-override-box").classList.remove("hidden");
-      }, 3200);
-    }
-
-    let scan2Timer = null;
-    let scan2Pct = 0;
-    let scan2Done = false;
-
-    function startScan2(e) {
-      if (e) e.preventDefault();
-      if (scan2Done) return;
-      const ring = document.getElementById("scan-ring-2");
-      const pct = document.getElementById("scan-percent-2");
-
-      scan2Timer = setInterval(() => {
-        scan2Pct += 5;
-        if (scan2Pct > 100) scan2Pct = 100;
-        ring.style.strokeDashoffset = 289 - (scan2Pct / 100) * 289;
-        pct.textContent = `${scan2Pct}%`;
-
-        if (scan2Pct >= 100) {
-          clearInterval(scan2Timer);
-          scan2Done = true;
-          runBlackCardRechargeBar();
-        }
-      }, 60);
-    }
-
-    function stopScan2() {
-      if (scan2Done) return;
-      clearInterval(scan2Timer);
-      scan2Pct = 0;
-      document.getElementById("scan-ring-2").style.strokeDashoffset = 289;
-      document.getElementById("scan-percent-2").textContent = "XÁC NHẬN VIP";
-    }
-
-    function runBlackCardRechargeBar() {
-      document.getElementById("scanner-box-2").classList.add("hidden");
-      document.getElementById("fake-error-box").classList.add("hidden");
-      document.getElementById("recharge-progress-box").classList.remove("hidden");
-
-      const fill = document.getElementById("recharge-bar-fill");
-      const txt = document.getElementById("recharge-pct-text");
-      let p = 0;
-
-      const chargeInt = setInterval(() => {
-        p += 2;
-        if (p > 100) p = 100;
-        fill.style.width = `${p}%`;
-        txt.textContent = `${p}%`;
-
-        if (p >= 100) {
-          clearInterval(chargeInt);
-          txt.textContent = "100% — KÍCH HOẠT THÀNH CÔNG!";
-          setTimeout(() => {
-            symphony.setScene(3);
-            for (let i = 0; i < 12; i++) setTimeout(() => launchFirework(true), i * 130);
-            switchStage("stage-3", "stage-4-sky");
-            startFloatingMemorySky();
-            showBlackCardActivatedModal();
-          }, 500);
-        }
-      }, 35);
-    }
-
-    function showBlackCardActivatedModal() {
-      const modal = document.getElementById("black-card-modal");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      setTimeout(() => {
-        closeBlackCardModal();
-      }, 3400);
-    }
-
-    function closeBlackCardModal() {
-      const modal = document.getElementById("black-card-modal");
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-    }
-
-    // =========================================================================
-    // 6. BẦU TRỜI KÝ ỨC BAY LƠ LỬNG 3D ZOOM TO NHỎ & TỐI ƯU TẢI SIÊU MƯỢT
-    // =========================================================================
-    let currentModalMediaType = null;
-    let floatingOrbs = [];
-    let skyAnimFrame = null;
-    let isSkyPaused = false;
-
-    function startFloatingMemorySky() {
-      const stage = document.getElementById("sky-orbit-stage");
-      stage.innerHTML = "";
-      floatingOrbs = [];
-
-      const items = CONFIG.floatingMemories || [];
-      const stageW = stage.clientWidth || 350;
-      const stageH = stage.clientHeight || 440;
-
-      items.forEach((item, idx) => {
-        const card = document.createElement("div");
-        card.className = "floating-orb-card";
-
-        if (item.type === "video") {
-          const thumbSrc = item.poster || "anh1.jpg";
-          card.innerHTML = `
-            <div class="relative w-full h-28 rounded-lg overflow-hidden bg-slate-900">
-              <img src="${thumbSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90" />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/25">
-                <div class="w-9 h-9 rounded-full bg-pink-500/90 text-white flex items-center justify-center text-xs shadow-lg pl-0.5">▶</div>
-              </div>
-              <span class="absolute top-1 right-1 px-1.5 py-0.5 bg-black/70 text-amber-300 text-[8px] rounded font-bold">CLIP</span>
-            </div>
-            <p class="text-[10px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Kỷ niệm 🎬"}</p>
-          `;
+    function assignTargets(pts, colorMode = 'pink', offsetX = 0, offsetY = 0, scale = 1) {
+      if (pts.length === 0) return;
+      for (let i = 0; i < particles.length; i++) {
+        const target = pts[i % pts.length];
+        particles[i].tx = pW / 2 + (target.x - pW / 2) * scale + offsetX;
+        particles[i].ty = pH / 2 + (target.y - pH / 2) * scale + offsetY;
+        if (colorMode === 'gold') {
+          particles[i].color = Math.random() > 0.3 ? '#ffd166' : '#ffffff';
+        } else if (colorMode === 'emerald') {
+          particles[i].color = Math.random() > 0.35 ? '#52b788' : '#ffd166';
         } else {
-          card.innerHTML = `
-            <img src="${item.src}" loading="lazy" decoding="async" alt="Kỷ niệm" class="w-full h-28 object-cover rounded-lg bg-slate-200" />
-            <p class="text-[10px] text-gray-800 mt-1 truncate font-bold text-center">${item.caption || "Khoảnh khắc ✨"}</p>
-          `;
+          particles[i].color = Math.random() > 0.25 ? '#ff3e9d' : '#ff9ebb';
         }
+      }
+    }
 
-        card.onclick = () => openMemoryModal(item);
-        stage.appendChild(card);
+    function drawTextShape(ctx, w, h, text, sizeRatio = 0.16) {
+      const fontSize = Math.min(w * sizeRatio, 115);
+      ctx.font = `900 ${fontSize}px "Be Vietnam Pro", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, w / 2, h / 2);
+    }
 
-        // Phân bổ đều không gian để các khung bay lơ lửng tự nhiên, phóng to thu nhỏ theo chu kỳ 3D
-        const laneX = (idx % 2 === 0) ? (0.06 + Math.random() * 0.24) : (0.50 + Math.random() * 0.16);
-        const startY = (idx / items.length) * (stageH + 140) - 70;
+    function drawScorpioShape(ctx, w, h) {
+      const cx = w / 2, cy = h / 2, s = Math.min(w, h) * 0.22;
+      ctx.lineWidth = 14; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      // M legs of Scorpio ♏
+      ctx.moveTo(cx - s * 0.85, cy - s * 0.45);
+      ctx.lineTo(cx - s * 0.55, cy - s * 0.7);
+      ctx.lineTo(cx - s * 0.55, cy + s * 0.45);
+      ctx.moveTo(cx - s * 0.55, cy - s * 0.35);
+      ctx.quadraticCurveTo(cx - s * 0.2, cy - s * 0.85, cx - s * 0.1, cy - s * 0.35);
+      ctx.lineTo(cx - s * 0.1, cy + s * 0.45);
+      ctx.moveTo(cx - s * 0.1, cy - s * 0.35);
+      ctx.quadraticCurveTo(cx + s * 0.25, cy - s * 0.85, cx + s * 0.35, cy - s * 0.35);
+      ctx.lineTo(cx + s * 0.35, cy + s * 0.45);
+      // Tail curve + arrow
+      ctx.quadraticCurveTo(cx + s * 0.45, cy + s * 0.85, cx + s * 0.85, cy + s * 0.55);
+      ctx.lineTo(cx + s * 1.05, cy + s * 0.3);
+      ctx.moveTo(cx + s * 0.8, cy + s * 0.32);
+      ctx.lineTo(cx + s * 1.05, cy + s * 0.3);
+      ctx.lineTo(cx + s * 1.02, cy + s * 0.56);
+      ctx.stroke();
+    }
 
-        floatingOrbs.push({
-          el: card,
-          baseX: laneX * stageW,
-          y: startY,
-          speedY: 0.42 + (idx % 3) * 0.14,
-          swayPhase: idx * 1.15,
-          swayAmp: 14 + (idx % 3) * 6,
-          zoomPhase: idx * 0.9,
-          rotBase: (idx % 2 === 0 ? -1 : 1) * (3 + (idx % 4))
-        });
-      });
+    function drawPineTreeShape(ctx, w, h) {
+      // Tùng Bách Mộc
+      const cx = w / 2, cy = h / 2, s = Math.min(w, h) * 0.28;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - s * 1.05);
+      ctx.lineTo(cx - s * 0.55, cy - s * 0.35);
+      ctx.lineTo(cx - s * 0.25, cy - s * 0.35);
+      ctx.lineTo(cx - s * 0.75, cy + s * 0.15);
+      ctx.lineTo(cx - s * 0.32, cy + s * 0.15);
+      ctx.lineTo(cx - s * 0.9, cy + s * 0.65);
+      ctx.lineTo(cx + s * 0.9, cy + s * 0.65);
+      ctx.lineTo(cx + s * 0.32, cy + s * 0.15);
+      ctx.lineTo(cx + s * 0.75, cy + s * 0.15);
+      ctx.lineTo(cx + s * 0.25, cy - s * 0.35);
+      ctx.lineTo(cx + s * 0.55, cy - s * 0.35);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillRect(cx - s * 0.14, cy + s * 0.65, s * 0.28, s * 0.42);
+    }
 
-      let t = 0;
-      const animateSky = () => {
-        skyAnimFrame = requestAnimationFrame(animateSky);
-        if (isSkyPaused) return;
+    function drawJesusCrossHaloShape(ctx, w, h) {
+      // Thánh Giá Chúa Giêsu + Vòng Hào Quang
+      const cx = w / 2, cy = h / 2, s = Math.min(w, h) * 0.28;
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(cx, cy - s * 0.25, s * 0.52, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillRect(cx - s * 0.11, cy - s * 1.05, s * 0.22, s * 2.1);
+      ctx.fillRect(cx - s * 0.68, cy - s * 0.38, s * 1.36, s * 0.22);
+    }
 
-        t += 0.018;
-        const curW = stage.clientWidth || 350;
-        const curH = stage.clientHeight || 440;
+    function drawHeartShape(ctx, w, h) {
+      const cx = w / 2, cy = h / 2, r = Math.min(w, h) * 0.015;
+      ctx.beginPath();
+      for (let t = 0; t <= Math.PI * 2; t += 0.03) {
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        if (t === 0) ctx.moveTo(cx + x * r, cy + y * r);
+        else ctx.lineTo(cx + x * r, cy + y * r);
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
 
-        floatingOrbs.forEach((orb, idx) => {
-          orb.y -= orb.speedY;
-          if (orb.y < -165) {
-            orb.y = curH + 35;
-            orb.baseX = (idx % 2 === 0)
-              ? (0.04 + Math.random() * 0.25) * curW
-              : (0.48 + Math.random() * 0.16) * curW;
+    function startParticleMorphStage() {
+      switchStage('stage-particles');
+      cyberRainActive = true;
+      pW = pCanvas.width = window.innerWidth;
+      pH = pCanvas.height = window.innerHeight;
+
+      particles = Array.from({ length: 950 }, () => ({
+        x: Math.random() * pW,
+        y: Math.random() * pH,
+        tx: pW / 2,
+        ty: pH / 2,
+        vx: 0, vy: 0,
+        size: 1.8 + Math.random() * 2.1,
+        color: '#ff3e9d'
+      }));
+
+      const sequence = [
+        { delay: 100, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'3',0.32)), 'pink') },
+        { delay: 1100, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'2',0.32)), 'pink') },
+        { delay: 2100, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'1',0.32)), 'gold') },
+        { delay: 3100, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'CHÚC MỪNG',0.13)), 'pink') },
+        { delay: 4600, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'SINH NHẬT',0.13)), 'pink') },
+        { delay: 6100, fn: () => assignTargets(samplePointsFromDrawer((c,w,h)=>drawTextShape(c,w,h,'QUÝ THY',0.15)), 'gold') },
+        { delay: 7700, fn: () => assignTargets(samplePointsFromDrawer(drawScorpioShape), 'pink') },
+        { delay: 9400, fn: () => assignTargets(samplePointsFromDrawer(drawPineTreeShape), 'emerald') },
+        { delay: 11100, fn: () => assignTargets(samplePointsFromDrawer(drawJesusCrossHaloShape), 'gold') },
+        {
+          delay: 12900,
+          fn: () => {
+            // Heart moves top-right, Cupid Bow appears bottom-left
+            assignTargets(samplePointsFromDrawer(drawHeartShape), 'pink', pW * 0.16, -pH * 0.14, 0.78);
+            bowActive = true;
+            document.getElementById('bow-instruction').style.display = 'block';
           }
-
-          const x = orb.baseX + Math.sin(t + orb.swayPhase) * orb.swayAmp;
-          // Hiệu ứng zoom to - nhỏ nhịp nhàng như ký ức tiến lại gần rồi lùi ra xa
-          const depthWave = Math.sin(t * 0.85 + orb.zoomPhase); // -1 đến +1
-          const scale = 0.78 + ((depthWave + 1) / 2) * 0.36; // Zoom từ 0.78x lên 1.14x
-          const rot = orb.rotBase + Math.cos(t * 0.7 + orb.swayPhase) * 4;
-          const zIndex = Math.round(scale * 20);
-          const opacity = 0.72 + ((depthWave + 1) / 2) * 0.28;
-
-          orb.el.style.zIndex = zIndex;
-          orb.el.style.opacity = opacity.toFixed(2);
-          orb.el.style.transform = `translate3d(${x.toFixed(1)}px, ${orb.y.toFixed(1)}px, 0) scale(${scale.toFixed(3)}) rotate(${rot.toFixed(1)}deg)`;
-        });
-      };
-
-      if (skyAnimFrame) cancelAnimationFrame(skyAnimFrame);
-      animateSky();
-    }
-
-    function openMemoryModal(item) {
-      isSkyPaused = true;
-      const modal = document.getElementById("memory-modal");
-      const box = document.getElementById("modal-media-box");
-      const cap = document.getElementById("modal-caption");
-      const hint = document.getElementById("modal-hint");
-      currentModalMediaType = item.type;
-
-      if (item.type === "video") {
-        symphony.pauseForMedia(true);
-        box.innerHTML = `<video id="popup-sky-video" src="${item.src}" controls autoplay playsinline preload="metadata" class="w-full max-h-[65vh] mx-auto bg-black"></video>`;
-        cap.textContent = item.caption || "";
-        hint.textContent = "✕ Đóng video & tiếp tục ngắm bầu trời";
-
-        const vid = document.getElementById("popup-sky-video");
-        vid.addEventListener("ended", () => {
-          closeMemoryModal();
-          symphony.pauseForMedia(false);
-        });
-      } else {
-        box.innerHTML = `<img src="${item.src}" class="w-full max-h-[65vh] object-contain mx-auto" />`;
-        cap.textContent = item.caption || "";
-        hint.textContent = "✕ Chạm để thả kỷ niệm bay tiếp lên bầu trời";
-      }
-
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
-    function handleModalBackdropClick() {
-      if (currentModalMediaType === "video") {
-        symphony.pauseForMedia(false);
-      }
-      closeMemoryModal();
-    }
-
-    function closeMemoryModal() {
-      isSkyPaused = false;
-      const modal = document.getElementById("memory-modal");
-      document.getElementById("modal-media-box").innerHTML = "";
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-    }
-
-    // =========================================================================
-    // 7. CÂU DẪN MỜI MỞ VIDEO LỜI CHÚC -> HẾT VIDEO HIỆN TRANG CUỐI
-    // =========================================================================
-    function openVideoIntroPrompt() {
-      isSkyPaused = true;
-      const modal = document.getElementById("video-greeting-modal");
-      document.getElementById("video-prompt-card").classList.remove("hidden");
-      document.getElementById("video-player-card").classList.add("hidden");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
-    function playGreetingVideoNow() {
-      document.getElementById("video-prompt-card").classList.add("hidden");
-      const playerCard = document.getElementById("video-player-card");
-      const slot = document.getElementById("greeting-video-slot");
-      playerCard.classList.remove("hidden");
-
-      if (CONFIG.mainBirthdayVideo && CONFIG.mainBirthdayVideo.trim() !== "") {
-        symphony.pauseForMedia(true);
-        slot.innerHTML = `<video id="main-greeting-video" src="${CONFIG.mainBirthdayVideo}" controls autoplay playsinline preload="metadata" class="w-full max-h-[68vh] mx-auto bg-black"></video>`;
-        const vid = document.getElementById("main-greeting-video");
-        vid.addEventListener("ended", () => {
-          symphony.pauseForMedia(false);
-          finishVideoAndShowFinalPage();
-        });
-      } else {
-        slot.innerHTML = `
-          <div class="p-6 bg-gradient-to-br from-rose-950 via-purple-950 to-slate-950 text-left space-y-4">
-            <div class="text-xs font-mono-tech text-amber-300 uppercase tracking-widest">💌 Lời nhắn gửi Quý Thy</div>
-            <p class="text-xs sm:text-sm text-pink-50 leading-relaxed">${CONFIG.fallbackGreetingCardText}</p>
-            <button type="button" onclick="finishVideoAndShowFinalPage()" class="w-full py-3 rounded-full bg-gradient-to-r from-pink-500 to-amber-400 text-white text-xs font-extrabold">
-              Tiếp tục tới trang cuối ✨
-            </button>
-          </div>
-        `;
-      }
-    }
-
-    function finishVideoAndShowFinalPage() {
-      if (skyAnimFrame) cancelAnimationFrame(skyAnimFrame);
-      const modal = document.getElementById("video-greeting-modal");
-      document.getElementById("greeting-video-slot").innerHTML = "";
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-      switchStage("stage-4-sky", "stage-4-final");
-    }
-
-    // =========================================================================
-    // 8. NÚT KẾT THÚC "GOODBYE FOR NOW, MY LOVE."
-    // =========================================================================
-    async function triggerFinalGoodbye() {
-      const btn = document.getElementById("final-goodbye-btn");
-      const statusEl = document.getElementById("send-status-text");
-      const replyNote = document.getElementById("reply-note-input").value.trim();
-
-      btn.disabled = true;
-      btn.textContent = "⏳ Đang gửi điều ước tới anh Long...";
-      fxMode = "heart_finale";
-      for (let i = 0; i < 14; i++) setTimeout(() => launchFirework(true), i * 140);
-
-      const summaryLines = [
-        `🎂 THÔNG BÁO SINH NHẬT TUỔI 16 TỪ WEB CỦA QUÝ THY (20.11.2010)`,
-        `----------------------------------------`,
-        `• Trạng thái: Thy đã bấm xác nhận "Goodbye for now, my love." 💖`,
-        `• Ghi âm điều ước: ${recordedAudioBlob ? "Thy đã thu âm điều ước tuổi 16 trên trình duyệt." : "Không có file ghi âm"}`,
-        `• Lời nhắn nhủ gửi anh Long: ${replyNote || "(Thy bấm nút xác nhận hẹn gặp lại!)"}`
+        }
       ];
 
-      try {
-        await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            access_key: CONFIG.web3formsKey,
-            subject: "💖 [Sweet 16 Quý Thy] Goodbye for now, my love — Điều ước đã được gửi!",
-            from_name: "Web Sinh Nhật Của Quý Thy",
-            message: summaryLines.join("\n")
-          })
-        });
-      } catch (e) {
-        console.error(e);
+      sequence.forEach(item => setTimeout(item.fn, item.delay));
+      renderParticleMorph();
+    }
+
+    function drawParticleBowAndArrow() {
+      if (!bowActive) return;
+      const bx = pW * 0.24;
+      const by = pH * 0.74;
+      const tx = pW * 0.66;
+      const ty = pH * 0.36;
+      const angle = Math.atan2(ty - by, tx - bx);
+
+      pCtx.save();
+      pCtx.translate(bx, by);
+      pCtx.rotate(angle);
+
+      // Particle Arc Bow
+      pCtx.strokeStyle = '#ffd166';
+      pCtx.shadowColor = '#ffd166';
+      pCtx.shadowBlur = 16;
+      pCtx.lineWidth = 4;
+      pCtx.beginPath();
+      pCtx.arc(-10, 0, 58, -Math.PI * 0.42, Math.PI * 0.42);
+      pCtx.stroke();
+
+      // Bowstring
+      const pull = arrowFlying ? 0 : Math.sin(Date.now() * 0.006) * 8 - 10;
+      pCtx.strokeStyle = 'rgba(255,255,255,0.8)';
+      pCtx.lineWidth = 2;
+      pCtx.beginPath();
+      pCtx.moveTo(5, -54);
+      pCtx.lineTo(pull - 15, 0);
+      pCtx.lineTo(5, 54);
+      pCtx.stroke();
+
+      // Particle Arrow
+      const dist = Math.hypot(tx - bx, ty - by);
+      const ax = arrowFlying ? arrowProgress * dist : pull - 15;
+      pCtx.strokeStyle = '#ff3e9d';
+      pCtx.shadowColor = '#ff3e9d';
+      pCtx.lineWidth = 4;
+      pCtx.beginPath();
+      pCtx.moveTo(ax, 0);
+      pCtx.lineTo(ax + 72, 0);
+      pCtx.stroke();
+
+      // Arrowhead
+      pCtx.fillStyle = '#fff';
+      pCtx.beginPath();
+      pCtx.moveTo(ax + 82, 0);
+      pCtx.lineTo(ax + 66, -8);
+      pCtx.lineTo(ax + 66, 8);
+      pCtx.closePath();
+      pCtx.fill();
+
+      pCtx.restore();
+    }
+
+    function renderParticleMorph() {
+      pCtx.clearRect(0, 0, pW, pH);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        if (!heartExploded) {
+          p.x += (p.tx - p.x) * 0.085;
+          p.y += (p.ty - p.y) * 0.085;
+        } else {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.18;
+        }
+        pCtx.fillStyle = p.color;
+        pCtx.shadowColor = p.color;
+        pCtx.shadowBlur = 8;
+        pCtx.beginPath();
+        pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        pCtx.fill();
+      }
+      pCtx.shadowBlur = 0;
+
+      if (bowActive && !heartExploded) {
+        drawParticleBowAndArrow();
+        if (arrowFlying) {
+          arrowProgress += 0.065;
+          if (arrowProgress >= 1) {
+            heartExploded = true;
+            document.getElementById('bow-instruction').style.display = 'none';
+            playGlassSound();
+            particles.forEach(p => {
+              const a = Math.random() * Math.PI * 2;
+              const spd = 4 + Math.random() * 14;
+              p.vx = Math.cos(a) * spd;
+              p.vy = Math.sin(a) * spd - 4;
+            });
+            setTimeout(() => {
+              cancelAnimationFrame(morphAnimId);
+              startCakeStage();
+            }, 1300);
+          }
+        }
       }
 
-      statusEl.textContent = "✅ Đã gửi trọn vẹn tới anh Long!";
+      morphAnimId = requestAnimationFrame(renderParticleMorph);
+    }
+
+    pCanvas.addEventListener('click', () => {
+      if (bowActive && !arrowFlying) {
+        arrowFlying = true;
+        playTone(880, 0.25, 'triangle', 0.09);
+      }
+    });
+
+    /* =========================================================================
+       7. STAGE 5: BIRTHDAY CAKE + TULIPS + PUPPY INTERACTION
+    ========================================================================= */
+    let blowAttempts = 0;
+    let candlesExtinguished = false;
+    let micStream = null;
+
+    function updatePuppy(text, excited = false) {
+      document.getElementById('puppy-speech').textContent = text;
+      const svg = document.getElementById('puppy-svg');
+      if (excited) {
+        svg.classList.add('excited');
+        setTimeout(() => svg.classList.remove('excited'), 1600);
+      }
+    }
+
+    function petPuppy() {
+      const lines = [
+        'Gâu gâu! Hoa Tulip đẹp giống chị Thy vậy đó! 🌷🐶',
+        'Ước thật nhiều điều may mắn nha chị Thy ơi! ✨',
+        'Em cún luôn cổ vũ chị hết mình nè! 💛'
+      ];
+      updatePuppy(lines[Math.floor(Math.random() * lines.length)], true);
+    }
+
+    function startCakeStage() {
+      switchStage('stage-cake');
+      document.getElementById('tulip-garden-layer').classList.add('active');
+      document.getElementById('puppy-mascot').classList.add('active');
+      setMusicMode('piano_hb');
+    }
+
+    function enableMicBlow() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        document.getElementById('cake-msg').textContent = 'Trình duyệt chưa hỗ trợ mic, Thy bấm nút "Thổi Nến (Chạm)" nhé!';
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        micStream = stream;
+        initAudioCtx();
+        const src = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        src.connect(analyser);
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        document.getElementById('btn-mic').textContent = '🎙️ Mic Đang Bật (Thổi đi!)';
+
+        let cooldown = false;
+        const detectBlow = () => {
+          if (candlesExtinguished) return;
+          analyser.getByteFrequencyData(data);
+          let sum = 0;
+          for (let i = 0; i < data.length; i++) sum += data[i];
+          const avg = sum / data.length;
+          if (avg > 48 && !cooldown) {
+            cooldown = true;
+            handleCakeBlowAttempt();
+            setTimeout(() => cooldown = false, 1100);
+          }
+          requestAnimationFrame(detectBlow);
+        };
+        detectBlow();
+      }).catch(() => {
+        document.getElementById('cake-msg').textContent = 'Không mở được mic, Thy chạm vào bánh hoặc bấm nút Thổi Nến nhé! 🎂';
+      });
+    }
+
+    function handleCakeBlowAttempt() {
+      if (candlesExtinguished) return;
+      blowAttempts++;
+      const cake = document.getElementById('cake-wrapper');
+      const msg = document.getElementById('cake-msg');
+
+      if (blowAttempts === 1) {
+        cake.classList.add('dodge-left');
+        setTimeout(() => cake.classList.remove('dodge-left'), 650);
+        msg.textContent = '😜 Á à trượt rồi! Bánh né sang trái mất tiêu, thổi mạnh hơn nữa nào!';
+        updatePuppy('Gâu gâu! Chiếc bánh tinh nghịch quá, chị Thy thổi lại lần 2 nào! 🐶💨', true);
+      } else if (blowAttempts === 2) {
+        cake.classList.add('dodge-right');
+        setTimeout(() => cake.classList.remove('dodge-right'), 650);
+        msg.textContent = '🤣 Suýt tắt rồi kìa! Lần 3 quyết định nhé, lấy hơi thật sâu nào!';
+        updatePuppy('Gâu gâu! Cố lên chị Thy ơi, lần này chắc chắn tắt nè! 🔥', true);
+      } else {
+        candlesExtinguished = true;
+        if (micStream) micStream.getTracks().forEach(t => t.stop());
+        ['f1', 'f2', 'f3'].forEach(id => document.getElementById(id).classList.add('out'));
+        ['s1', 's2', 's3'].forEach(id => document.getElementById(id).classList.add('rise'));
+        msg.textContent = '🎉 Chúc mừng tuổi 16 của Quý Thy! Mọi điều ước đều sẽ thành hiện thực!';
+        updatePuppy('Hoan hô!! Chúc mừng sinh nhật tuổi 16 rực rỡ của Quý Thy! 🌷🎂🎉', true);
+        document.getElementById('btn-to-card').style.display = 'inline-flex';
+      }
+    }
+
+    /* =========================================================================
+       8. STAGE 6: FINGERPRINT 2-STEP SCANNER & BLACK CARD
+    ========================================================================= */
+    let scanCount = 0;
+
+    function goToStageCard() {
+      switchStage('stage-card');
+      setMusicMode('obito');
+      updatePuppy('Obito lên nhạc rồi nè! Quét vân tay nhận Thẻ Đen VIP thôi chị Thy! 💳✨', true);
+    }
+
+    function handleFingerprintScan() {
+      scanCount++;
+      const box = document.getElementById('scanner-box');
+      const title = document.getElementById('scan-title');
+      const desc = document.getElementById('scan-desc');
+      const status = document.getElementById('scan-status');
+
+      if (scanCount === 1) {
+        box.classList.add('alarm');
+        title.textContent = '⚠️ CẢNH BÁO TRUY CẬP!';
+        desc.textContent = 'Phát hiện độ xinh đẹp vượt mức cho phép của hệ thống!';
+        status.textContent = 'Vui lòng quét lại lần 2 để xác nhận đúng chủ nhân Quý Thy...';
+        updatePuppy('Ối dồi ôi báo động vì quá xinh đẹp! Quét lại lần 2 đi chị ơi! 🚨🐶', true);
+        setTimeout(() => box.classList.remove('alarm'), 1200);
+      } else {
+        box.classList.remove('alarm');
+        box.style.display = 'none';
+        document.getElementById('black-card').style.display = 'flex';
+        updatePuppy('Xác thực thành công! Chủ nhân Thẻ Đen Vô Hạn Nguyễn Quý Thy! 👑', true);
+      }
+    }
+
+    /* =========================================================================
+       9. STAGE 7: PUMP PARTICLE HEART -> 3D GALAXY MEMORY SKY
+    ========================================================================= */
+    const pumpCanvas = document.getElementById('pump-heart-canvas');
+    const pumpCtx = pumpCanvas.getContext('2d');
+    let pumpScale = 1;
+    let pumpClicks = 0;
+    let pumpAnimId = null;
+
+    function goToStageGalaxy() {
+      switchStage('stage-galaxy');
+      pumpClicks = 0;
+      pumpScale = 1;
+      updatePuppy('Chạm liên tục vào trái tim để kích nổ bầu trời kỷ niệm nha! 💖', true);
+      renderPumpHeart();
+    }
+
+    function renderPumpHeart() {
+      pumpCtx.clearRect(0, 0, 320, 320);
+      const pulse = 1 + Math.sin(Date.now() * 0.008) * 0.05;
+      const s = pumpScale * pulse;
+
+      pumpCtx.save();
+      pumpCtx.translate(160, 165);
+      pumpCtx.scale(s, s);
+
+      for (let i = 0; i < 240; i++) {
+        const t = (i / 240) * Math.PI * 2;
+        const r = 4.2 + (i % 5) * 0.45;
+        const x = 16 * Math.pow(Math.sin(t), 3) * r;
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * r;
+        pumpCtx.fillStyle = i % 3 === 0 ? '#ffd166' : '#ff3e9d';
+        pumpCtx.shadowColor = '#ff3e9d';
+        pumpCtx.shadowBlur = 10;
+        pumpCtx.beginPath();
+        pumpCtx.arc(x, y, 2.4, 0, Math.PI * 2);
+        pumpCtx.fill();
+      }
+      pumpCtx.restore();
+      pumpAnimId = requestAnimationFrame(renderPumpHeart);
+    }
+
+    function pumpMemoryHeart() {
+      pumpClicks++;
+      pumpScale += 0.16;
+      playTone(420 + pumpClicks * 75, 0.15, 'sine', 0.08);
+      const guide = document.getElementById('pump-guide-text');
+
+      if (pumpClicks === 1) {
+        guide.textContent = '✨ Click càng nhiều, trái tim càng lớn, kỷ niệm càng WOW! ✨';
+      } else if (pumpClicks >= 6) {
+        cancelAnimationFrame(pumpAnimId);
+        playGlassSound();
+        document.getElementById('pump-heart-layer').style.display = 'none';
+        init3DGalaxy();
+      }
+    }
+
+    // 3D GALAXY ENGINE (DRAG ROTATE + PINCH/WHEEL ZOOM + CLICK POLAROID)
+    let rotX = -14, rotY = 0, zoomDist = 1;
+    let isDragging = false, lastX = 0, lastY = 0, initialPinchDist = 0;
+
+    function init3DGalaxy() {
+      const viewport = document.getElementById('galaxy-viewport');
+      const world = document.getElementById('galaxy-world');
+      viewport.style.display = 'block';
+      document.getElementById('galaxy-next-btn').style.display = 'inline-flex';
+      updatePuppy('Vuốt xoay thiên hà, phóng to thu nhỏ và chạm vào từng ảnh kỷ niệm nhé! 🌌', true);
+
+      CONFIG.memories.forEach((mem, idx) => {
+        const node = document.createElement('div');
+        node.className = 'polaroid-node';
+        const angle = idx * 0.85;
+        const radius = 125 + idx * 14;
+        const yOffset = (idx - CONFIG.memories.length / 2) * 18;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+
+        node.dataset.x = x;
+        node.dataset.y = yOffset;
+        node.dataset.z = z;
+        node.innerHTML = `<img src="${mem.src}" alt="Memory" onerror="this.src='https://placehold.co/200x200/ff3e9d/white?text=Sweet+16'"><span>${mem.text}</span>`;
+        node.onclick = (e) => {
+          e.stopPropagation();
+          openMemoryModal(mem.src, mem.text);
+        };
+        world.appendChild(node);
+      });
+
+      const updateGalaxyTransform = () => {
+        if (viewport.style.display === 'none') return;
+        if (!isDragging) rotY += 0.22;
+        world.style.transform = `scale(${zoomDist}) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+
+        document.querySelectorAll('.polaroid-node').forEach(node => {
+          const x = parseFloat(node.dataset.x);
+          const y = parseFloat(node.dataset.y);
+          const z = parseFloat(node.dataset.z);
+          // Billboard counter-rotation so photos always face viewer cleanly
+          node.style.transform = `translate3d(${x}px, ${y}px, ${z}px) translate(-50%, -50%) rotateY(${-rotY}deg) rotateX(${-rotX}deg)`;
+        });
+        requestAnimationFrame(updateGalaxyTransform);
+      };
+      updateGalaxyTransform();
+
+      // Pointer & Touch Controls
+      viewport.addEventListener('pointerdown', e => {
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+      window.addEventListener('pointermove', e => {
+        if (!isDragging) return;
+        rotY += (e.clientX - lastX) * 0.35;
+        rotX = Math.max(-45, Math.min(45, rotX - (e.clientY - lastY) * 0.25));
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+      window.addEventListener('pointerup', () => isDragging = false);
+
+      viewport.addEventListener('wheel', e => {
+        e.preventDefault();
+        zoomDist = Math.max(0.55, Math.min(2.1, zoomDist - e.deltaY * 0.001));
+      }, { passive: false });
+
+      viewport.addEventListener('touchmove', e => {
+        if (e.touches.length === 2) {
+          const d = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          if (initialPinchDist > 0) {
+            zoomDist = Math.max(0.55, Math.min(2.1, zoomDist * (d / initialPinchDist)));
+          }
+          initialPinchDist = d;
+        }
+      }, { passive: true });
+      viewport.addEventListener('touchend', () => { initialPinchDist = 0; });
+    }
+
+    function openMemoryModal(src, caption) {
+      document.getElementById('modal-img').src = src;
+      document.getElementById('modal-caption').textContent = caption;
+      document.getElementById('memory-modal').style.display = 'flex';
+    }
+    function closeMemoryModal() {
+      document.getElementById('memory-modal').style.display = 'none';
+    }
+
+    /* =========================================================================
+       10. STAGE 8: VIDEO WISH -> 3D OPENING CARD -> FIREWORKS & ETERNAL HEART
+    ========================================================================= */
+    function goToStageFinale() {
+      switchStage('stage-finale');
+      // Tắt hẳn nhạc Obito, chuyển sang giao hưởng du dương
+      setMusicMode('symphony');
+      updatePuppy('Chạm vào tấm thiệp để đọc những lời tâm sự dành riêng cho Thy nhé! 💌', true);
+    }
+
+    function openGreetingCard() {
+      document.getElementById('greeting-card-book').classList.add('opened');
+      playTone(523.25, 0.35, 'sine', 0.08);
+      playTone(659.25, 0.45, 'sine', 0.08, 0.12);
+    }
+
+    function triggerFinalFireworks() {
+      wishVideo.pause();
+      document.getElementById('stage-finale').style.display = 'none';
+      const canvas = document.getElementById('eternal-canvas');
+      canvas.style.display = 'block';
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width = window.innerWidth;
+      const H = canvas.height = window.innerHeight;
+
+      let fwParticles = [];
+      let heartMode = false;
+
+      // Spawn fireworks bursts for 4 seconds
+      const spawnBurst = () => {
+        const bx = W * (0.2 + Math.random() * 0.6);
+        const by = H * (0.18 + Math.random() * 0.45);
+        const colors = ['#ff3e9d', '#ffd166', '#38f2ff', '#ff85c0', '#ffffff'];
+        const col = colors[Math.floor(Math.random() * colors.length)];
+        playTone(300 + Math.random() * 400, 0.25, 'triangle', 0.05);
+        for (let i = 0; i < 65; i++) {
+          const ang = (i / 65) * Math.PI * 2;
+          const spd = 2 + Math.random() * 6.5;
+          fwParticles.push({
+            x: bx, y: by,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            tx: 0, ty: 0,
+            color: col,
+            size: 2.3
+          });
+        }
+      };
+
+      spawnBurst();
+      const burstTimer = setInterval(spawnBurst, 650);
+
       setTimeout(() => {
-        const ending = document.getElementById("ending-overlay");
-        ending.classList.remove("hidden");
-        ending.classList.add("flex");
-      }, 900);
+        clearInterval(burstTimer);
+        heartMode = true;
+        // Ensure enough particles for a lush eternal 3D heart
+        while (fwParticles.length < 480) {
+          fwParticles.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: 0, vy: 0, tx: 0, ty: 0,
+            color: Math.random() > 0.3 ? '#ff3e9d' : '#ffd166',
+            size: 2.5
+          });
+        }
+        const scale = Math.min(W, H) * 0.015;
+        fwParticles.forEach((p, idx) => {
+          const t = (idx / fwParticles.length) * Math.PI * 2;
+          const layer = 0.72 + (idx % 7) * 0.05;
+          const hx = 16 * Math.pow(Math.sin(t), 3) * scale * layer;
+          const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale * layer;
+          p.tx = W / 2 + hx;
+          p.ty = H / 2 - 20 + hy;
+        });
+        document.getElementById('eternal-caption').style.display = 'block';
+        updatePuppy('Mãi rực rỡ và hạnh phúc nhé chị Quý Thy! Love you! 💖🌷🐶', true);
+      }, 4000);
+
+      function renderEternal() {
+        ctx.fillStyle = 'rgba(7, 3, 14, 0.22)';
+        ctx.fillRect(0, 0, W, H);
+        const beat = heartMode ? 1 + Math.sin(Date.now() * 0.005) * 0.04 : 1;
+
+        fwParticles.forEach(p => {
+          if (!heartMode) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.07;
+          } else {
+            const targetX = W / 2 + (p.tx - W / 2) * beat;
+            const targetY = (H / 2 - 20) + (p.ty - (H / 2 - 20)) * beat;
+            p.x += (targetX - p.x) * 0.065;
+            p.y += (targetY - p.y) * 0.065;
+          }
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 10;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(renderEternal);
+      }
+      renderEternal();
     }
   </script>
 </body>
-</html>
+  </html>
