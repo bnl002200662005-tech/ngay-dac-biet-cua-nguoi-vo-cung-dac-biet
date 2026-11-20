@@ -11,7 +11,7 @@
 
   <script>
     // =========================================================================
-    // BẢNG CẤU HÌNH CỦA LONG (ĐIỀN TÊN FILE ẢNH / VIDEO KHI CẬP NHẬT)
+    // BẢNG CẤU HÌNH CỦA LONG (ĐÃ TÍCH HỢP TOÀN BỘ ẢNH & VIDEO KỶ NIỆM)
     // =========================================================================
     const CONFIG = {
       recipientName: "Thy",
@@ -19,24 +19,31 @@
       senderName: "Long",
       web3formsKey: "3274fe4c-26f8-432f-915c-3111dd59410b",
 
-      // 1. NHẠC NỀN 3 CHẶNG (Để trống "" sẽ tự chơi 3 bản Piano/Giao hưởng tích hợp cực mượt)
+      // 1. NHẠC NỀN 3 CHẶNG (Tự động chơi 3 bản Piano/Giao hưởng tích hợp)
       musicTracks: {
         track1_hpbd: "",
         track2_mystery: "",
         track3_romantic: ""
       },
 
-      // 2. VIDEO LỜI CHÚC CỦA LONG Ở TRANG CUỐI (VD: "video_loi_chuc.mp4")
-      mainBirthdayVideo: "",
+      // 2. VIDEO LỜI CHÚC CỦA LONG Ở TRANG CUỐI
+      mainBirthdayVideo: "clip_loi_chuc.mp4",
 
       // 3. DANH SÁCH ẢNH & VIDEO BAY LƠ LỬNG TRÊN BẦU TRỜI KỶ NIỆM
-      // Mẫu: { type: "image", src: "anh_1.jpg", caption: "Khoảnh khắc đáng nhớ ✨" },
-      //      { type: "video", src: "clip_1.mp4", caption: "Video kỷ niệm 🎬" },
       floatingMemories: [
-        // { type: "image", src: "anh_1.jpg", caption: "Nụ cười tỏa nắng tuổi 16 🌷" },
+        { type: "image", src: "anh1.jpg", caption: "Nụ cười tỏa nắng tuổi 16 🌷" },
+        { type: "video", src: "clip1.mp4", caption: "Khoảnh khắc đáng nhớ ✨" },
+        { type: "image", src: "anh2.png", caption: "Xinh xắn mọi góc nhìn 💖" },
+        { type: "image", src: "anh3.png", caption: "Dễ thương hết phần thiên hạ 🌸" },
+        { type: "video", src: "clip2.mp4", caption: "Kỷ niệm vui của tụi mình 🎬" },
+        { type: "image", src: "anh4.jpg", caption: "Đáng yêu từ bé tới lớn 🥰" },
+        { type: "image", src: "anh5.jpg", caption: "Tinh nghịch mà vẫn cưng xỉu ✨" },
+        { type: "image", src: "anh6.png", caption: "Ánh mắt biết cười 💫" },
+        { type: "image", src: "anh7.png", caption: "Nàng thơ tháng 11 🎂" },
+        { type: "image", src: "anh8.png", caption: "Tuổi 16 thật rực rỡ nhé Thy 🥂" }
       ],
 
-      // Thiệp thay thế nếu Long chưa chèn file video quay lời chúc
+      // Thiệp thay thế dự phòng
       fallbackGreetingCardText: "Gửi Quý Thy, hôm nay là cột mốc tuổi 16 thật rực rỡ. Cảm ơn Thy vì đã luôn mang đến những nguồn năng lượng trong trẻo và tuyệt vời nhất. Chúc Thy tuổi mới luôn bình an, tự tin, rạng ngời và chạm tới mọi ước mơ đẹp nhất của mình!"
     };
   </script>
@@ -1246,11 +1253,9 @@
       fullLayer.innerHTML = "";
       const shardElements = [];
 
-      // Tạo bản mẫu sạch sẽ chỉ giữ đúng Trang 1 và XÓA SẠCH mọi thuộc tính id để không bao giờ đụng hàng
       const cleanTemplate = stageContainer.cloneNode(true);
       cleanTemplate.removeAttribute("id");
       cleanTemplate.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
-      // Chỉ giữ lại section đầu tiên (phiếu khảo sát) trong bản clone
       const sectionsInClone = cleanTemplate.querySelectorAll("section");
       sectionsInClone.forEach((sec, idx) => {
         if (idx > 0) sec.remove();
@@ -1300,7 +1305,6 @@
         }
       }
 
-      // Ẩn vĩnh viễn Trang 1 gốc
       const stage1El = document.getElementById("stage-1");
       if (stage1El) stage1El.remove();
 
@@ -1327,7 +1331,6 @@
         });
       }, 3300);
 
-      // Xóa hẳn lớp mảnh kính khỏi DOM rồi mới mở Trang 2
       setTimeout(() => {
         if (fullLayer) fullLayer.remove();
         document.title = `Happy Birthday ${CONFIG.recipientName} ✨`;
