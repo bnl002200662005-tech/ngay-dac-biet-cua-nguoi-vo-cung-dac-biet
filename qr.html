@@ -21,55 +21,50 @@
   <div class="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-pink-200 p-6 text-center space-y-5">
     <div>
       <span class="px-3 py-1 rounded-full bg-pink-100 text-rose-600 text-xs font-extrabold">
-        💌 HEART QR GENERATOR
+        💌 HEART QR GENERATOR • HD
       </span>
       <h1 class="font-script text-3xl text-rose-600 mt-2">QR Trái Tim Gửi Thy</h1>
-      <p class="text-xs text-gray-500 mt-1">Quét camera là vào thẳng web • Chuẩn nhận diện 100%</p>
+      <p class="text-xs text-gray-500 mt-1">Bản HD siêu nhạy • Gửi qua Messenger/Zalo quét phát ăn ngay</p>
     </div>
 
-    <!-- Ô nhập link web -->
     <div class="text-left space-y-1.5">
       <label class="text-xs font-bold text-gray-700">Link web sinh nhật của Thy:</label>
       <input
         id="url-input"
         type="url"
-        placeholder="https://..."
         value="https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/"
         oninput="generateHeartQR()"
         class="w-full px-4 py-3 rounded-2xl border-2 border-pink-200 focus:border-rose-500 focus:outline-none text-sm font-medium text-gray-800 bg-pink-50/40"
       />
     </div>
 
-    <!-- Khung Canvas hiển thị QR Trái Tim (vừa quét được vừa click mở link) -->
     <div class="flex flex-col items-center justify-center">
-      <a id="qr-clickable-link" href="https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/" target="_blank" title="Bấm vào để mở thử link web" class="group relative inline-block cursor-pointer transition-transform hover:scale-[1.02] active:scale-95">
-        <canvas id="heart-qr-canvas" width="600" height="600" class="w-72 h-72 sm:w-80 sm:h-80 rounded-3xl shadow-xl border-2 border-pink-100 bg-white"></canvas>
+      <a id="qr-clickable-link" href="https://bnl002200662005-tech.github.io/ngay-dac-biet-cua-nguoi-vo-cung-dac-biet/" target="_blank" class="group relative inline-block cursor-pointer transition-transform hover:scale-[1.02] active:scale-95">
+        <canvas id="heart-qr-canvas" width="800" height="800" class="w-72 h-72 sm:w-80 sm:h-80 rounded-3xl shadow-xl border-2 border-pink-100 bg-white"></canvas>
         <span class="block text-[11px] font-bold text-rose-500 mt-2 group-hover:underline">
           👆 Bấm trực tiếp vào QR để test mở web (hoặc giơ camera quét thử)
         </span>
       </a>
     </div>
 
-    <!-- Tùy chọn màu sắc -->
     <div class="flex items-center justify-center gap-3">
-      <button type="button" onclick="setTheme('rose')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-500 text-white shadow">
-        Hồng Dâu Pastel
+      <button type="button" onclick="setTheme('rose')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-600 text-white shadow">
+        Hồng Dâu Đậm
       </button>
-      <button type="button" onclick="setTheme('crimson')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-red-700 text-white shadow">
-        Đỏ Nhung Đậm
+      <button type="button" onclick="setTheme('crimson')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-red-900 text-white shadow">
+        Đỏ Nhung Sang
       </button>
-      <button type="button" onclick="setTheme('gold')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-600 text-white shadow">
-        Hồng Ánh Kim
+      <button type="button" onclick="setTheme('gold')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-700 text-white shadow">
+        Vàng Ánh Kim
       </button>
     </div>
 
-    <!-- Nút tải ảnh PNG sắc nét -->
     <button
       type="button"
       onclick="downloadHeartQR()"
       class="w-full py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-extrabold text-sm shadow-lg active:scale-95 transition-all"
     >
-      ⬇️ Tải ảnh QR Trái Tim (PNG nét căng)
+      ⬇️ Tải ảnh QR Trái Tim (HD Siêu Nhạy)
     </button>
   </div>
 
@@ -81,24 +76,21 @@
         bg: "#fff8fa",
         heartFill: "#ffe4e6",
         heartStroke: "#f43f5e",
-        qrDark: "#be123c",
-        qrAccent: "#f43f5e",
-        text: "#e11d48"
+        qrDark: "#4c0519",
+        text: "#be123c"
       },
       crimson: {
         bg: "#ffffff",
         heartFill: "#fff1f2",
-        heartStroke: "#9f1239",
-        qrDark: "#881337",
-        qrAccent: "#be123c",
+        heartStroke: "#be123c",
+        qrDark: "#2a040e",
         text: "#881337"
       },
       gold: {
         bg: "#fffbeb",
         heartFill: "#fef3c7",
         heartStroke: "#d97706",
-        qrDark: "#9f1239",
-        qrAccent: "#d97706",
+        qrDark: "#3b0712",
         text: "#b45309"
       }
     };
@@ -130,83 +122,77 @@
       const W = canvas.width;
       const H = canvas.height;
 
+      ctx.imageSmoothingEnabled = false;
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = theme.bg;
       ctx.fillRect(0, 0, W, H);
 
-      // 1. Trái tim lớn bao ngoài
+      // 1. Vẽ trái tim lớn bao ngoài
       ctx.save();
-      drawHeartPath(ctx, W / 2, 32, 520);
+      drawHeartPath(ctx, W / 2, 34, 720);
       ctx.fillStyle = theme.heartFill;
       ctx.fill();
-      ctx.lineWidth = 8;
+      ctx.lineWidth = 10;
       ctx.strokeStyle = theme.heartStroke;
       ctx.stroke();
       ctx.restore();
 
-      // 2. Ma trận QR mức sửa lỗi cao (H - 30%)
-      const qr = qrcode(0, "H");
+      // 2. Tạo ma trận QR mức M (ô vuông to, rõ nét kể cả khi ảnh bị nén)
+      const qr = qrcode(0, "M");
       qr.addData(rawUrl);
       qr.make();
       const count = qr.getModuleCount();
 
-      const qrBoxSize = 265;
-      const startX = (W - qrBoxSize) / 2;
-      const startY = 145;
+      const qrBoxSize = 360;
+      const startX = Math.round((W - qrBoxSize) / 2);
+      const startY = 190;
       const cell = qrBoxSize / count;
 
+      // Vùng đệm trắng tinh khiết (Quiet Zone chuẩn quốc tế giúp camera bắt nét tức thì)
       ctx.fillStyle = "#ffffff";
       ctx.beginPath();
-      ctx.roundRect(startX - 14, startY - 14, qrBoxSize + 28, qrBoxSize + 28, 22);
+      ctx.roundRect(startX - 24, startY - 24, qrBoxSize + 48, qrBoxSize + 48, 24);
       ctx.fill();
 
+      // Vẽ các khối QR sắc nét, độ tương phản cao
+      ctx.fillStyle = theme.qrDark;
       for (let r = 0; r < count; r++) {
         for (let c = 0; c < count; c++) {
           if (!qr.isDark(r, c)) continue;
 
-          const isFinder =
-            (r < 7 && c < 7) ||
-            (r < 7 && c >= count - 7) ||
-            (r >= count - 7 && c < 7);
-
-          const centerDist = Math.hypot(r - count / 2, c - count / 2);
-          if (centerDist < count * 0.13) continue;
+          // Chừa vùng tâm nhỏ gọn để không đè lên điểm định vị của QR
+          const centerDist = Math.hypot(r - (count - 1) / 2, c - (count - 1) / 2);
+          if (centerDist < count * 0.085) continue;
 
           const px = startX + c * cell;
           const py = startY + r * cell;
-
-          if (isFinder) {
-            ctx.fillStyle = theme.qrDark;
-            ctx.beginPath();
-            ctx.roundRect(px + 0.4, py + 0.4, cell - 0.8, cell - 0.8, cell * 0.28);
-            ctx.fill();
-          } else {
-            ctx.fillStyle = (r + c) % 3 === 0 ? theme.qrAccent : theme.qrDark;
-            ctx.beginPath();
-            ctx.arc(px + cell / 2, py + cell / 2, cell * 0.42, 0, Math.PI * 2);
-            ctx.fill();
-          }
+          ctx.fillRect(px, py, cell + 0.35, cell + 0.35);
         }
       }
 
-      // 3. Trái tim nhỏ ở tâm QR
+      // 3. Vẽ trái tim nhỏ xinh ở chính giữa tâm QR
       ctx.save();
-      drawHeartPath(ctx, W / 2, startY + qrBoxSize / 2 - 22, 46);
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(W / 2, startY + qrBoxSize / 2, 26, 0, Math.PI * 2);
+      ctx.fill();
+
+      drawHeartPath(ctx, W / 2, startY + qrBoxSize / 2 - 17, 36);
       ctx.fillStyle = theme.heartStroke;
       ctx.fill();
       ctx.restore();
 
-      // 4. Dòng chữ dưới tâm trái tim
+      // 4. Dòng chữ phía dưới trong lòng trái tim
       ctx.fillStyle = theme.text;
-      ctx.font = "800 20px 'Plus Jakarta Sans', sans-serif";
+      ctx.font = "800 26px 'Plus Jakarta Sans', sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("Quét mở quà tuổi 16 ✨", W / 2, startY + qrBoxSize + 46);
+      ctx.fillText("Quét mở quà tuổi 16 ✨", W / 2, startY + qrBoxSize + 64);
     }
 
     function downloadHeartQR() {
       const canvas = document.getElementById("heart-qr-canvas");
       const link = document.createElement("a");
-      link.download = "QR_Trai_Tim_Quy_Thy.png";
+      link.download = "QR_Trai_Tim_Quy_Thy_HD.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
